@@ -2,6 +2,8 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { heroSlides } from '@/data';
 import type { HeroSlide } from '@/types/content';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { useMagnetic } from '@/hooks/useMagnetic';
+import { WordReveal } from '@/components/ui/WordReveal';
 import { HeroVideoBackground } from './HeroVideoBackground';
 import { HeroAtmosphere } from './HeroAtmosphere';
 import { ParticleNameReveal } from './ParticleNameReveal';
@@ -50,6 +52,39 @@ function ChevronRight() {
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <polyline points="9 18 15 12 9 6" />
     </svg>
+  );
+}
+
+function HeroMagneticLink({
+  href,
+  className,
+  tabIndex,
+  onClick,
+  target,
+  rel,
+  children,
+}: {
+  href: string;
+  className: string;
+  tabIndex: number;
+  onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
+  target?: string;
+  rel?: string;
+  children: React.ReactNode;
+}) {
+  const ref = useMagnetic<HTMLAnchorElement>({ strength: 0.35, radius: 15 });
+  return (
+    <a
+      ref={ref}
+      href={href}
+      className={className}
+      tabIndex={tabIndex}
+      onClick={onClick}
+      target={target}
+      rel={rel}
+    >
+      {children}
+    </a>
   );
 }
 
@@ -273,7 +308,9 @@ export function Hero() {
                   />
                 ) : (
                   <div className="hero__title-wrapper">
-                    <h1 className="hero__title">{slide.title}</h1>
+                    <h1 className="hero__title">
+                      <WordReveal text={slide.title} as="span" wordDelay={0.06} />
+                    </h1>
                     <div className="hero__title-accent-line" aria-hidden="true" />
                   </div>
                 )}
@@ -283,7 +320,7 @@ export function Hero() {
                 <p className="hero__description">{slide.description}</p>
 
                 <div className="hero__actions">
-                  <a
+                  <HeroMagneticLink
                     href={`#${slide.primaryCta.target}`}
                     className="btn btn--primary hero__btn"
                     tabIndex={isActive ? 0 : -1}
@@ -291,10 +328,10 @@ export function Hero() {
                   >
                     <PlayIcon />
                     <span>{slide.primaryCta.label}</span>
-                  </a>
+                  </HeroMagneticLink>
 
                   {slide.secondaryCta.external && slide.secondaryCta.href ? (
-                    <a
+                    <HeroMagneticLink
                       href={slide.secondaryCta.href}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -303,9 +340,9 @@ export function Hero() {
                     >
                       <GithubIcon />
                       <span>{slide.secondaryCta.label}</span>
-                    </a>
+                    </HeroMagneticLink>
                   ) : (
-                    <a
+                    <HeroMagneticLink
                       href={`#${slide.secondaryCta.target || ''}`}
                       className="btn btn--secondary hero__btn"
                       tabIndex={isActive ? 0 : -1}
@@ -313,7 +350,7 @@ export function Hero() {
                     >
                       <InfoIcon />
                       <span>{slide.secondaryCta.label}</span>
-                    </a>
+                    </HeroMagneticLink>
                   )}
                 </div>
               </div>

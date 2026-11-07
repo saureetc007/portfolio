@@ -302,4 +302,44 @@
     from { transform: scaleX(0); }
     to   { transform: scaleX(1); }
   }
+
+  /* ---- Decrypted text scramble cyber styling ---------------------------- */
+  .decrypted-text {
+    display: inline-block;
+    will-change: transform, opacity;
+  }
+  .decrypted-char--scrambled {
+    color: var(--color-red);
+    text-shadow: 0 0 8px rgba(229, 9, 20, 0.5);
+  }
+
+  /* ---- Word reveal typography styling ----------------------------------- */
+  .word-reveal-item {
+    transition: letter-spacing 0.3s ease;
+  }
+  .word-reveal-item:hover {
+    letter-spacing: 0.04em;
+  }
+
+  /* ---- Form input focus elevation & glowing border ---------------------- */
+  .contact-form-input,
+  .contact-form-textarea {
+    transition:
+      border-color 0.28s var(--ease-out),
+      box-shadow 0.28s var(--ease-out),
+      background-color 0.28s var(--ease-out),
+      transform 0.28s var(--ease-cinematic);
+  }
+  .contact-form-input:focus,
+  .contact-form-textarea:focus {
+    transform: translateY(-1.5px);
+    box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.18), 0 8px 24px rgba(0, 0, 0, 0.45);
+    border-color: #E50914;
+  }
+
+  /* ---- Cinematic mask wipe & section scene transitions ------------------ */
+  .cinematic-mask-wipe {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    transition: clip-path 0.7s var(--ease-cinematic);
+  }
 }

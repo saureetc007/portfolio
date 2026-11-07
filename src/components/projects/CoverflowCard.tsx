@@ -3,6 +3,7 @@ import type { Project } from '@/types/content';
 import { StatusBadge } from '@/components/ui/StatusBadge';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { ProjectCinematicVisual } from './ProjectCinematicVisual';
+import { BorderBeam } from '@/components/skills/magicui/BorderBeam';
 
 export interface CoverflowCardProps {
   project: Project;
@@ -234,8 +235,11 @@ export function CoverflowCard({
           LAYER 1: BACKGROUND SHELL & AMBIENT EDGE LIGHTING (depth: 0px)
           ==================================================================== */}
       <div className="coverflow-card__surface">
-        {/* Animated Red Border Edge Glow */}
+        {/* Animated Red Border Edge Glow & Border Beam */}
         <div className="coverflow-card__edge-glow" aria-hidden="true" />
+        {isActive && isHovered && !prefersReducedMotion && (
+          <BorderBeam size={240} duration={6} borderWidth={1.5} colorFrom="#E50914" colorTo="#FFFFFF" />
+        )}
 
         {/* Cursor Spotlight Gradient */}
         <div className="coverflow-card__spotlight" aria-hidden="true" />
@@ -267,6 +271,14 @@ export function CoverflowCard({
             loading="lazy"
             decoding="async"
             className="coverflow-card__img"
+            style={
+              isActive && isHovered && !prefersReducedMotion
+                ? {
+                    transform: `translate3d(${tilt.y * -1.6}px, ${tilt.x * -1.6}px, 0) scale(1.06)`,
+                    transition: 'transform 0.12s ease-out',
+                  }
+                : undefined
+            }
           />
 
           {/* Project-Specific Interactive Animation Overlay when Active */}

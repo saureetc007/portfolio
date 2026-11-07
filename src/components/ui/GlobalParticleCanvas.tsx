@@ -135,6 +135,19 @@ export function GlobalParticleCanvas() {
 
       ctx.clearRect(0, 0, width, height);
 
+      // 0. Soft radial cursor ambient keylight glow
+      if (mouseX > 0 && mouseY > 0) {
+        const glowRadius = isMobile ? 120 : 180;
+        const grad = ctx.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, glowRadius);
+        grad.addColorStop(0, 'rgba(229, 9, 20, 0.055)');
+        grad.addColorStop(0.5, 'rgba(229, 9, 20, 0.015)');
+        grad.addColorStop(1, 'transparent');
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(mouseX, mouseY, glowRadius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
       // 1. Draw connections between close ambient particles
       const maxDist = 75;
       for (let i = 0; i < particles.length; i++) {

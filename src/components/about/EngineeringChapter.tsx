@@ -67,9 +67,9 @@ export function EngineeringChapter({ data, isActive }: EngineeringChapterProps) 
           <text x="40" y="112" fill="#6B7280" fontSize="9.5" fontFamily="var(--font-mono)">Discrete Foundations</text>
 
           {/* Connector 1 -> 2 */}
-          <line x1="150" y1="90" x2="185" y2="90" stroke="#E50914" strokeWidth="1.5" />
-          <circle cx="150" cy="90" r="3" fill="#E50914" />
-          <circle cx="185" cy="90" r="3" fill="#E50914" />
+          <line x1="150" y1="90" x2="185" y2="90" stroke="#E50914" strokeWidth="1.5" className="blueprint-connector-line" />
+          <circle cx="150" cy="90" r="3" fill="#E50914" className="blueprint-connector-dot" />
+          <circle cx="185" cy="90" r="3" fill="#E50914" className="blueprint-connector-dot" />
 
           {/* Module 2: Data Structures */}
           <rect x="185" y="45" width="125" height="90" rx="4" fill="#181818" stroke="rgba(255, 255, 255, 0.12)" strokeWidth="1" />
@@ -78,9 +78,9 @@ export function EngineeringChapter({ data, isActive }: EngineeringChapterProps) 
           <text x="200" y="112" fill="#6B7280" fontSize="9.5" fontFamily="var(--font-mono)">Algorithmic Design</text>
 
           {/* Connector 2 -> 3 */}
-          <line x1="310" y1="90" x2="345" y2="90" stroke="#E50914" strokeWidth="1.5" />
-          <circle cx="310" cy="90" r="3" fill="#E50914" />
-          <circle cx="345" cy="90" r="3" fill="#E50914" />
+          <line x1="310" y1="90" x2="345" y2="90" stroke="#E50914" strokeWidth="1.5" className="blueprint-connector-line" />
+          <circle cx="310" cy="90" r="3" fill="#E50914" className="blueprint-connector-dot" />
+          <circle cx="345" cy="90" r="3" fill="#E50914" className="blueprint-connector-dot" />
 
           {/* Module 3: AI & Machine Learning */}
           <rect x="345" y="45" width="125" height="90" rx="4" fill="#181818" stroke="rgba(229, 9, 20, 0.45)" strokeWidth="1.2" />
@@ -89,9 +89,9 @@ export function EngineeringChapter({ data, isActive }: EngineeringChapterProps) 
           <text x="360" y="112" fill="#9CA3AF" fontSize="9.5" fontFamily="var(--font-mono)">Model Architectures</text>
 
           {/* Connector 3 -> 4 */}
-          <line x1="470" y1="90" x2="505" y2="90" stroke="#E50914" strokeWidth="1.5" />
-          <circle cx="470" cy="90" r="3" fill="#E50914" />
-          <circle cx="505" cy="90" r="3" fill="#E50914" />
+          <line x1="470" y1="90" x2="505" y2="90" stroke="#E50914" strokeWidth="1.5" className="blueprint-connector-line" />
+          <circle cx="470" cy="90" r="3" fill="#E50914" className="blueprint-connector-dot" />
+          <circle cx="505" cy="90" r="3" fill="#E50914" className="blueprint-connector-dot" />
 
           {/* Module 4: Systems Delivery */}
           <rect x="505" y="45" width="110" height="90" rx="4" fill="#181818" stroke="rgba(255, 255, 255, 0.12)" strokeWidth="1" />

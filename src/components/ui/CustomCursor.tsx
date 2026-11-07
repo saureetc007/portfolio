@@ -5,6 +5,7 @@ export function CustomCursor() {
   const prefersReducedMotion = useReducedMotion();
   const dotRef = useRef<HTMLDivElement>(null);
   const followerRef = useRef<HTMLDivElement>(null);
+  const trailRef = useRef<HTMLDivElement>(null);
   const labelRef = useRef<HTMLSpanElement>(null);
   const rippleRef = useRef<HTMLDivElement>(null);
 
@@ -16,14 +17,21 @@ export function CustomCursor() {
 
     let mouseX = -100;
     let mouseY = -100;
+    let lastMouseX = -100;
+    let lastMouseY = -100;
     let followerX = -100;
     let followerY = -100;
+    let trailX = -100;
+    let trailY = -100;
+    let currentStretch = 0;
+    let currentAngle = 0;
     let isVisible = false;
     let isClicking = false;
     let animFrameId: number;
 
     const dot = dotRef.current;
     const follower = followerRef.current;
+    const trail = trailRef.current;
     const label = labelRef.current;
     const ripple = rippleRef.current;
 
@@ -38,8 +46,11 @@ export function CustomCursor() {
         isVisible = true;
         dot.style.opacity = '1';
         follower.style.opacity = '1';
+        if (trail) trail.style.opacity = '0.75';
         followerX = mouseX;
         followerY = mouseY;
+        trailX = mouseX;
+        trailY = mouseY;
       }
     };
 
@@ -47,6 +58,7 @@ export function CustomCursor() {
       isVisible = false;
       dot.style.opacity = '0';
       follower.style.opacity = '0';
+      if (trail) trail.style.opacity = '0';
     };
 
     const onPointerDown = (e: PointerEvent) => {
@@ -63,6 +75,20 @@ export function CustomCursor() {
         ripple.style.transform = 'translate(-50%, -50%) scale(2.4)';
         ripple.style.opacity = '0';
       }
+
+      // Small particle explosion on selected interactive clicks
+      if (
+        e.target &&
+        (e.target as HTMLElement).closest(
+          'button, a, [role="button"], .interactive-target, .bento-card, .coverflow-card'
+        )
+      ) {
+        window.dispatchEvent(
+          new CustomEvent('emit-global-burst', {
+            detail: { x: e.clientX, y: e.clientY, count: 14 },
+          })
+        );
+      }
     };
 
     const onPointerUp = () => {
@@ -76,7 +102,7 @@ export function CustomCursor() {
 
     // Context analysis cache to avoid DOM thrashing
     let lastTarget: Element | null = null;
-    let currentMode = 'default'; // 'default' | 'hover' | 'explore' | 'inspect' | 'drag' | 'external' | 'hidden'
+    let currentMode = 'default';
     let magneticCenterX: number | null = null;
     let magneticCenterY: number | null = null;
 
@@ -95,11 +121,39 @@ export function CustomCursor() {
       followerX += (targetFollowerX - followerX) * 0.18;
       followerY += (targetFollowerY - followerY) * 0.18;
 
+      // Secondary trailing ring with relaxed inertia
+      trailX += (followerX - trailX) * 0.085;
+      trailY += (followerY - trailY) * 0.085;
+
+      // Velocity-based liquid deformation
+      const vx = mouseX - lastMouseX;
+      const vy = mouseY - lastMouseY;
+      lastMouseX = mouseX;
+      lastMouseY = mouseY;
+      const speed = Math.hypot(vx, vy);
+
+      if (speed > 2 && currentMode === 'default') {
+        const targetAngle = Math.atan2(vy, vx) * (180 / Math.PI);
+        const targetStretch = Math.min(speed * 0.012, 0.32);
+        currentAngle = targetAngle;
+        currentStretch += (targetStretch - currentStretch) * 0.25;
+      } else {
+        currentStretch += (0 - currentStretch) * 0.15;
+      }
+
       // Position dot directly
       dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
 
-      // Position follower smoothly
-      follower.style.transform = `translate3d(${followerX}px, ${followerY}px, 0)`;
+      // Position follower smoothly with organic velocity deformation
+      const scaleX = 1 + currentStretch;
+      const scaleY = 1 / (1 + currentStretch * 0.6);
+      const rotateDeg = currentMode === 'default' ? currentAngle.toFixed(1) : '0';
+      follower.style.transform = `translate3d(${followerX}px, ${followerY}px, 0) rotate(${rotateDeg}deg) scale(${scaleX.toFixed(3)}, ${scaleY.toFixed(3)})`;
+
+      // Position secondary trailing ring
+      if (trail) {
+        trail.style.transform = `translate3d(${trailX}px, ${trailY}px, 0)`;
+      }
 
       // Perform element inspection only periodically or on movement
       const target = document.elementFromPoint(mouseX, mouseY);
@@ -120,9 +174,11 @@ export function CustomCursor() {
           follower.dataset.mode = currentMode;
           dot.style.opacity = '0';
           follower.style.opacity = '0';
+          if (trail) trail.style.opacity = '0';
         } else {
           dot.style.opacity = '1';
           follower.style.opacity = '1';
+          if (trail) trail.style.opacity = '0.75';
 
           // Check custom cursor attributes
           const exploreEl = target.closest('[data-cursor="explore"], .coverflow-card');
@@ -155,7 +211,11 @@ export function CustomCursor() {
             if (label) label.textContent = '';
 
             // Check if magnetic button
-            if (interactiveEl.classList.contains('btn--primary') || interactiveEl.classList.contains('hero__btn')) {
+            if (
+              interactiveEl.classList.contains('btn--primary') ||
+              interactiveEl.classList.contains('hero__btn') ||
+              interactiveEl.classList.contains('contact-submit-btn')
+            ) {
               const rect = interactiveEl.getBoundingClientRect();
               magneticCenterX = rect.left + rect.width / 2;
               magneticCenterY = rect.top + rect.height / 2;
@@ -198,6 +258,7 @@ export function CustomCursor() {
       <div ref={followerRef} className="custom-cursor-follower" aria-hidden="true">
         <span ref={labelRef} className="custom-cursor-label" />
       </div>
+      <div ref={trailRef} className="custom-cursor-trail" aria-hidden="true" />
       <div ref={rippleRef} className="custom-cursor-ripple" aria-hidden="true" />
     </>
   );

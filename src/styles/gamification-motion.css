@@ -22,6 +22,7 @@
 @media (pointer: coarse) {
   .custom-cursor-dot,
   .custom-cursor-follower,
+  .custom-cursor-trail,
   .custom-cursor-ripple {
     display: none !important;
   }
@@ -168,6 +169,23 @@
 
 .custom-cursor-follower.is-clicking {
   transform: scale(0.9);
+}
+
+.custom-cursor-trail {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px dashed rgba(229, 9, 20, 0.28);
+  pointer-events: none;
+  z-index: 99996;
+  margin-left: -22px;
+  margin-top: -22px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  will-change: transform;
 }
 
 .custom-cursor-ripple {

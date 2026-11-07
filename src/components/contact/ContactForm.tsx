@@ -1,4 +1,5 @@
 import { useState, useRef, type ChangeEvent, type FormEvent } from 'react';
+import { useMagnetic } from '@/hooks/useMagnetic';
 import {
   validateContactForm,
   CONTACT_LIMITS,
@@ -53,6 +54,7 @@ export function ContactForm() {
   const emailInputRef = useRef<HTMLInputElement>(null);
   const subjectInputRef = useRef<HTMLInputElement>(null);
   const messageInputRef = useRef<HTMLTextAreaElement>(null);
+  const submitBtnRef = useMagnetic<HTMLButtonElement>({ strength: 0.35, radius: 14 });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -113,6 +115,13 @@ export function ContactForm() {
 
       if (response.ok && data?.success) {
         setStatus('success');
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(
+            new CustomEvent('emit-global-burst', {
+              detail: { x: window.innerWidth / 2, y: window.innerHeight / 2, count: 24 },
+            })
+          );
+        }
       } else {
         setStatus('error');
         setErrorMessage(
@@ -362,6 +371,7 @@ export function ContactForm() {
         {/* 5. Submit Action */}
         <div className="contact-form-actions">
           <button
+            ref={submitBtnRef}
             type="submit"
             className="contact-submit-btn"
             disabled={isSubmitting}

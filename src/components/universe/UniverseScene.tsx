@@ -743,6 +743,22 @@ export function UniverseScene() {
         item.mat.color.lerp(new THREE.Color(targetColor), 0.1);
       });
 
+      // Smooth Node Hover Scaling & Gentle Weightless Floating Motion
+      if (!prefersReducedMotion) {
+        allNodes.forEach((node, idx) => {
+          const isHov = hoveredNode?.id === node.id;
+          const isSel = selectedNode?.id === node.id;
+          const targetScale = isHov ? 1.4 : isSel ? 1.25 : 1.0;
+
+          // Smooth spring-like lerp scaling
+          node.mesh.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.14);
+
+          // Subtle harmonic floating motion
+          const floatY = Math.sin(time * 1.5 + idx * 0.7) * 0.04;
+          node.mesh.position.y = node.position.y + floatY;
+        });
+      }
+
       // Energy Particles Flowing Along Lines
       if (!prefersReducedMotion) {
         const posAttr = flowParticleGeo.getAttribute('position') as THREE.BufferAttribute;

@@ -459,6 +459,26 @@
   padding: 0.5rem 0.6rem;
 }
 
+.blueprint-connector-line {
+  stroke-dasharray: 6 3;
+  animation: blueprintDash 1.2s linear infinite;
+}
+
+@keyframes blueprintDash {
+  to {
+    stroke-dashoffset: -18;
+  }
+}
+
+.blueprint-connector-dot {
+  animation: blueprintPulse 1.8s ease-in-out infinite alternate;
+}
+
+@keyframes blueprintPulse {
+  from { filter: drop-shadow(0 0 2px #E50914); }
+  to { filter: drop-shadow(0 0 6px #FF4D55); }
+}
+
 .blueprint-footer-note {
   display: flex;
   align-items: center;

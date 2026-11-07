@@ -31,13 +31,29 @@ export function AcademicJourney() {
           if (entry.isIntersecting) {
             // Sequential cinematic reveals
             setScrollStage((prev) => Math.max(prev, 1));
+            const rect = entry.target.getBoundingClientRect();
+            window.dispatchEvent(
+              new CustomEvent('emit-global-burst', {
+                detail: { x: rect.left + 22, y: Math.max(80, rect.top + 60), count: 10 },
+              })
+            );
 
             const t1 = setTimeout(() => {
               setScrollStage((prev) => Math.max(prev, 2));
+              window.dispatchEvent(
+                new CustomEvent('emit-global-burst', {
+                  detail: { x: rect.left + 22, y: Math.max(160, rect.top + 280), count: 10 },
+                })
+              );
             }, 600);
 
             const t2 = setTimeout(() => {
               setScrollStage(3);
+              window.dispatchEvent(
+                new CustomEvent('emit-global-burst', {
+                  detail: { x: rect.left + 22, y: Math.max(240, rect.top + 500), count: 10 },
+                })
+              );
             }, 1200);
 
             return () => {
