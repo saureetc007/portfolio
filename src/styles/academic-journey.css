@@ -1,0 +1,644 @@
+/* ==========================================================================
+   ACADEMIC JOURNEY 2.0 — CINEMATIC EDITORIAL STORYTELLING
+   Clean, premium streaming-platform academic progression for Saureet
+   ========================================================================== */
+
+.academic-journey-root {
+  position: relative;
+  width: 100%;
+  max-width: 920px;
+  margin: var(--space-8) auto 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --------------------------------------------------------------------------
+   1. CONTINUOUS VERTICAL ILLUMINATED TIMELINE
+   -------------------------------------------------------------------------- */
+.academic-journey-rail {
+  position: absolute;
+  top: 1.5rem;
+  bottom: 3.5rem;
+  left: 18px;
+  width: 2px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@media (min-width: 768px) {
+  .academic-journey-rail {
+    left: 22px;
+  }
+}
+
+.academic-rail-track {
+  position: absolute;
+  inset: 0;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+}
+
+.academic-rail-beam {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    #E50914 0%,
+    #FF3333 75%,
+    rgba(229, 9, 20, 0.25) 100%
+  );
+  box-shadow: 0 0 10px rgba(229, 9, 20, 0.65);
+  border-radius: 2px;
+  transition: height 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.academic-rail-pulse {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  box-shadow:
+    0 0 10px 2px #E50914,
+    0 0 18px 4px rgba(229, 9, 20, 0.5);
+  z-index: 2;
+  transition: top 1s cubic-bezier(0.2, 1, 0.4, 1);
+}
+
+.academic-rail-pulse.is-at-top { top: 0%; }
+.academic-rail-pulse.is-at-mid { top: 50%; }
+.academic-rail-pulse.is-at-bottom { top: 100%; }
+
+/* --------------------------------------------------------------------------
+   2. CHAPTERS FLOW & MILESTONE MARKERS
+   -------------------------------------------------------------------------- */
+.academic-chapters-flow {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  position: relative;
+  z-index: 2;
+}
+
+.academic-milestone-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.academic-milestone-item.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (min-width: 768px) {
+  .academic-milestone-item {
+    gap: 2rem;
+  }
+}
+
+/* Elegant Milestone Numbered Marker */
+.academic-milestone-marker {
+  flex-shrink: 0;
+  margin-top: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.milestone-node {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #171717;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.7);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.milestone-node.is-active {
+  border-color: #E50914;
+  box-shadow:
+    0 0 14px rgba(229, 9, 20, 0.4),
+    0 4px 18px rgba(0, 0, 0, 0.85);
+}
+
+.milestone-number {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: 0.04em;
+}
+
+.academic-milestone-body {
+  flex: 1;
+  min-width: 0;
+}
+
+/* --------------------------------------------------------------------------
+   3. REFINED EDITORIAL CHAPTER CARDS (No oversized borders)
+   -------------------------------------------------------------------------- */
+.academic-chapter-card {
+  position: relative;
+  background: #1B1B1B;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: clamp(1.4rem, 3vw, 2.2rem);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  transition: transform 0.25s ease,
+              border-color 0.25s ease,
+              box-shadow 0.25s ease;
+}
+
+.academic-chapter-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(229, 9, 20, 0.35);
+  box-shadow:
+    0 18px 44px rgba(0, 0, 0, 0.75),
+    0 0 18px rgba(229, 9, 20, 0.1);
+}
+
+/* Card Header & Kicker */
+.academic-chapter-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.academic-chapter-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.academic-chapter-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #888888;
+  text-transform: uppercase;
+}
+
+.academic-chapter-kicker--active {
+  color: #E50914;
+}
+
+.academic-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 0.22rem 0.55rem;
+  border-radius: 4px;
+}
+
+.academic-status-badge--completed {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #D1D5DB;
+}
+
+.academic-status-badge--active {
+  background: rgba(229, 9, 20, 0.12);
+  border: 1px solid rgba(229, 9, 20, 0.35);
+  color: #FFFFFF;
+}
+
+.academic-live-beacon {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #E50914;
+  box-shadow: 0 0 6px #E50914;
+  animation: beaconPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes beaconPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.45); opacity: 0.55; }
+}
+
+.academic-institution-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.academic-institution-title {
+  font-size: clamp(1.4rem, 2.8vw, 2.1rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: #FFFFFF;
+  margin: 0;
+  line-height: 1.25;
+}
+
+.academic-institution-title--engineering {
+  font-size: clamp(1.5rem, 3.2vw, 2.3rem);
+}
+
+.academic-institution-location {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: #9CA3AF;
+  margin: 0;
+}
+
+.location-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #E50914;
+}
+
+.academic-programme-title {
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  font-weight: 700;
+  color: #E50914;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.academic-chapter-narrative {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: #B3B3B3;
+  margin: 0;
+}
+
+.academic-chapter-subtitle {
+  font-size: 0.88rem;
+  font-style: italic;
+  color: #D1D5DB;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* --------------------------------------------------------------------------
+   4. CHAPTER 01: TYPOGRAPHIC SCORE DISPLAYS (Class X 93.2% & Class XII 80%)
+   -------------------------------------------------------------------------- */
+.academic-scores-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@media (min-width: 600px) {
+  .academic-scores-container {
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 2rem;
+  }
+}
+
+.academic-score-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.academic-score-number {
+  font-size: clamp(2.8rem, 5.5vw, 4.2rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: #FFFFFF;
+  line-height: 1;
+  display: flex;
+  align-items: baseline;
+}
+
+.academic-score-pct {
+  color: #E50914;
+  font-size: clamp(1.5rem, 2.8vw, 2.2rem);
+  font-weight: 800;
+  margin-left: 2px;
+}
+
+.academic-score-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.academic-score-label {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #E5E7EB;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.academic-score-exam {
+  font-size: 0.78rem;
+  color: #9CA3AF;
+  margin: 0;
+}
+
+.academic-score-sub {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: #737373;
+}
+
+.academic-scores-divider {
+  display: none;
+}
+
+@media (min-width: 600px) {
+  .academic-scores-divider {
+    display: block;
+    width: 1px;
+    height: 70px;
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. CHAPTER 02: ENGINEERING & ARCHITECTURAL BLUEPRINT
+   -------------------------------------------------------------------------- */
+.academic-chapter-card--engineering {
+  background:
+    radial-gradient(ellipse 110% 80% at 50% 0%, rgba(229, 9, 20, 0.08) 0%, transparent 60%),
+    #1B1B1B;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.academic-chapter-card--engineering:hover {
+  border-color: rgba(229, 9, 20, 0.5);
+}
+
+.academic-blueprint-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.academic-ambient-flare {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(229, 9, 20, 0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Architectural Blueprint Visual */
+.academic-blueprint-schematic {
+  position: relative;
+  background: #111111;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+}
+
+.blueprint-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.45rem 0.8rem;
+  background: #161616;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.blueprint-tag {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: #A3A3A3;
+}
+
+.blueprint-status {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #E50914;
+}
+
+.blueprint-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 180px;
+  padding: 0.5rem 0.6rem;
+}
+
+.blueprint-footer-note {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.8rem;
+  background: #141414;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: #888888;
+}
+
+.blueprint-indicator-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #E50914;
+  flex-shrink: 0;
+}
+
+/* --------------------------------------------------------------------------
+   6. CHAPTER 03: COLLEGE COMMUNITIES ("BEYOND THE CLASSROOM")
+   -------------------------------------------------------------------------- */
+.academic-chapter-card--communities {
+  background: #1B1B1B;
+}
+
+.academic-communities-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .academic-communities-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.academic-community-entry {
+  background: #141414;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.85rem;
+  transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease;
+}
+
+.academic-community-entry:hover {
+  background: #161616;
+  border-color: rgba(229, 9, 20, 0.35);
+  transform: translateY(-2px);
+}
+
+.community-entry-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+}
+
+.community-icon-wrapper {
+  width: 42px;
+  height: 42px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.community-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.community-tag {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #E50914;
+}
+
+.community-name {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.community-affiliation {
+  font-size: 0.74rem;
+  color: #9CA3AF;
+  margin: 0;
+}
+
+.community-description {
+  font-size: 0.82rem;
+  color: #A3A3A3;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.community-footer {
+  display: flex;
+  align-items: center;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.community-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: #737373;
+}
+
+.community-status-badge .status-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #E50914;
+}
+
+/* --------------------------------------------------------------------------
+   7. RESPONSIVENESS & REDUCED MOTION
+   -------------------------------------------------------------------------- */
+@media (max-width: 600px) {
+  .academic-journey-rail {
+    left: 14px;
+  }
+
+  .academic-milestone-item {
+    gap: 0.85rem;
+  }
+
+  .milestone-node {
+    width: 30px;
+    height: 30px;
+  }
+
+  .milestone-number {
+    font-size: 0.62rem;
+  }
+
+  .academic-chapter-card {
+    padding: 1.15rem;
+  }
+
+  .academic-score-number {
+    font-size: 2.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .academic-milestone-item {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .academic-rail-beam {
+    height: 100% !important;
+    transition: none !important;
+  }
+
+  .academic-rail-pulse {
+    display: none !important;
+  }
+
+  .academic-live-beacon {
+    animation: none !important;
+  }
+}
