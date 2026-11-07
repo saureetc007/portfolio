@@ -1,0 +1,15 @@
+/* Order matters: tokens → base → layout → ui → motion → sections */
+@import './tokens.css';
+@import './base.css';
+@import './layout.css';
+@import './ui.css';
+@import './motion.css';
+@import './splash.css';
+@import './navbar.css';
+@import './hero.css';
+@import './sections.css';
+@import './skills-bento.css';
+@import './projects-coverflow.css';
+@import './universe-galaxy.css';
+@import './academic-journey.css';
+@import './footer.css';
