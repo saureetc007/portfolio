@@ -31,10 +31,8 @@
 @media (pointer: fine) {
   /* Hide standard cursor only when custom cursor is active on non-text elements */
   body:not(.is-touch-device) [data-cursor="explore"],
-  body:not(.is-touch-device) [data-cursor="inspect"],
   body:not(.is-touch-device) [data-cursor="drag"],
-  body:not(.is-touch-device) .coverflow-card,
-  body:not(.is-touch-device) .bento-card {
+  body:not(.is-touch-device) .coverflow-card {
     cursor: none !important;
   }
 }
@@ -121,21 +119,6 @@
 }
 
 .custom-cursor-follower.is-explore .custom-cursor-label {
-  opacity: 1;
-}
-
-.custom-cursor-follower.is-inspect {
-  width: 72px;
-  height: 72px;
-  margin-left: -36px;
-  margin-top: -36px;
-  border-color: #E50914;
-  background: rgba(18, 18, 18, 0.88);
-  backdrop-filter: blur(4px);
-  box-shadow: 0 0 24px rgba(229, 9, 20, 0.35);
-}
-
-.custom-cursor-follower.is-inspect .custom-cursor-label {
   opacity: 1;
 }
 

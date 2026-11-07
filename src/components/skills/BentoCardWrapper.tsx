@@ -6,7 +6,6 @@ import { gamification } from '@/lib/gamification';
 import { ReactTilt, TiltParallaxLayer } from './react-tilt/ReactTilt';
 import { HoloSheenOverlay } from './spin-card/HoloSheenOverlay';
 import { SpotlightCard } from './react-bits/SpotlightCard';
-import { BorderBeam } from './magicui/BorderBeam';
 
 export interface BentoCardWrapperProps {
   category: BentoSkillCategory;
@@ -84,7 +83,6 @@ export function BentoCardWrapper({
         tabIndex={0}
         aria-haspopup="dialog"
         aria-label={`${category.number} ${category.title} — Click to expand cinematic engineering details`}
-        data-cursor="inspect"
         className={`bento-card ${isHero ? 'is-featured-code-card' : ''} ${isHovered ? 'is-card-hovered' : ''} ${isSelected ? 'is-card-selected' : ''}`}
         style={{
           '--card-accent': category.accentColor,
@@ -97,16 +95,6 @@ export function BentoCardWrapper({
           borderColor="rgba(229, 9, 20, 0.45)"
           className="bento-card__inner-spotlight"
         >
-          {/* Animated Border Beam on hover / selected */}
-          {(isHovered || isSelected) && (
-            <BorderBeam
-              size={isHero ? 280 : 200}
-              duration={isHero ? 6 : 7.5}
-              borderWidth={1.5}
-              colorFrom={category.accentColor}
-              colorTo="#FFFFFF"
-            />
-          )}
           {/* ================================================================
               LAYER 1: ATMOSPHERIC BACKGROUND & LIGHTING (depth: 0)
               ================================================================ */}

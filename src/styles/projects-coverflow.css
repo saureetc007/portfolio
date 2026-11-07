@@ -10,7 +10,7 @@
 .projects-coverflow-section {
   position: relative;
   overflow: visible;
-  padding-block: var(--space-4) var(--space-8);
+  padding-block: var(--space-8) var(--space-12);
   isolation: isolate;
 }
 

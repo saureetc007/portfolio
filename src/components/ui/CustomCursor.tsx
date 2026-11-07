@@ -182,7 +182,6 @@ export function CustomCursor() {
 
           // Check custom cursor attributes
           const exploreEl = target.closest('[data-cursor="explore"], .coverflow-card');
-          const inspectEl = target.closest('[data-cursor="inspect"], .bento-card');
           const dragEl = target.closest('[data-cursor="drag"], .universe-canvas-container, .coverflow-stage');
           const externalEl = target.closest('a[target="_blank"], [data-cursor="external"]');
           const interactiveEl = target.closest(
@@ -193,10 +192,6 @@ export function CustomCursor() {
             currentMode = 'explore';
             follower.className = 'custom-cursor-follower is-explore';
             if (label) label.textContent = 'EXPLORE';
-          } else if (inspectEl) {
-            currentMode = 'inspect';
-            follower.className = 'custom-cursor-follower is-inspect';
-            if (label) label.textContent = 'INSPECT';
           } else if (dragEl) {
             currentMode = 'drag';
             follower.className = 'custom-cursor-follower is-drag';
