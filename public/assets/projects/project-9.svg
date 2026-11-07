@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+      <defs>
+        <radialGradient id="p9-g" cx="50%" cy="50%" r="65%">
+          <stop offset="0%" stop-color="#E50914" stop-opacity="0.32" />
+          <stop offset="60%" stop-color="#181818" stop-opacity="0.9" />
+          <stop offset="100%" stop-color="#141414" stop-opacity="1" />
+        </radialGradient>
+      </defs>
+      <rect width="800" height="450" fill="url(#p9-g)" />
+      <!-- Scatter plot coordinate axes -->
+      <line x1="220" y1="350" x2="620" y2="350" stroke="#808080" stroke-width="2" />
+      <line x1="220" y1="350" x2="220" y2="150" stroke="#808080" stroke-width="2" />
+      <!-- Linear Regression Trendline (Red) -->
+      <line x1="240" y1="330" x2="600" y2="170" stroke="#E50914" stroke-width="4" stroke-linecap="round" />
+      <!-- Data Scatter Points -->
+      <circle cx="280" cy="300" r="7" fill="#FFFFFF" />
+      <circle cx="320" cy="315" r="7" fill="#E50914" />
+      <circle cx="360" cy="265" r="7" fill="#FFFFFF" />
+      <circle cx="410" cy="275" r="7" fill="#FFFFFF" />
+      <circle cx="450" cy="220" r="7" fill="#E50914" />
+      <circle cx="500" cy="235" r="7" fill="#FFFFFF" />
+      <circle cx="540" cy="180" r="7" fill="#FFFFFF" />
+      <circle cx="580" cy="195" r="7" fill="#E50914" />
+      <rect x="270" y="65" width="260" height="42" rx="6" fill="#232323" stroke="#E50914" stroke-width="2" />
+      <text x="400" y="91" fill="#FFFFFF" font-family="monospace" font-size="15" font-weight="bold" text-anchor="middle">ML & REGRESSION LAB</text>
+    </svg>

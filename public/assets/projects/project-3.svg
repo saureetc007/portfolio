@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+      <defs>
+        <radialGradient id="p3-g" cx="50%" cy="50%" r="65%">
+          <stop offset="0%" stop-color="#E50914" stop-opacity="0.32" />
+          <stop offset="60%" stop-color="#181818" stop-opacity="0.9" />
+          <stop offset="100%" stop-color="#141414" stop-opacity="1" />
+        </radialGradient>
+      </defs>
+      <rect width="800" height="450" fill="url(#p3-g)" />
+      <!-- Vinyl record / waveform -->
+      <circle cx="320" cy="235" r="120" fill="#111111" stroke="#282828" stroke-width="8" />
+      <circle cx="320" cy="235" r="85" fill="none" stroke="#222222" stroke-width="2" />
+      <circle cx="320" cy="235" r="50" fill="#E50914" />
+      <circle cx="320" cy="235" r="14" fill="#FFFFFF" />
+      <!-- Audio Spectrum Bars -->
+      <g fill="#E50914" opacity="0.9">
+        <rect x="490" y="270" width="16" height="50" rx="3" />
+        <rect x="515" y="230" width="16" height="90" rx="3" fill="#FFFFFF" />
+        <rect x="540" y="180" width="16" height="140" rx="3" />
+        <rect x="565" y="210" width="16" height="110" rx="3" />
+        <rect x="590" y="150" width="16" height="170" rx="3" fill="#FFFFFF" />
+        <rect x="615" y="220" width="16" height="100" rx="3" />
+        <rect x="640" y="260" width="16" height="60" rx="3" />
+      </g>
+      <rect x="285" y="65" width="230" height="42" rx="6" fill="#232323" stroke="#E50914" stroke-width="2" />
+      <text x="400" y="91" fill="#FFFFFF" font-family="monospace" font-size="15" font-weight="bold" text-anchor="middle">STREAMING AUDIO</text>
+    </svg>

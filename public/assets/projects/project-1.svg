@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+      <defs>
+        <radialGradient id="p1-g" cx="50%" cy="50%" r="65%">
+          <stop offset="0%" stop-color="#E50914" stop-opacity="0.35" />
+          <stop offset="60%" stop-color="#181818" stop-opacity="0.9" />
+          <stop offset="100%" stop-color="#141414" stop-opacity="1" />
+        </radialGradient>
+      </defs>
+      <rect width="800" height="450" fill="url(#p1-g)" />
+      <!-- Git Branch DAG -->
+      <path d="M160,320 C240,320 280,225 360,225 L520,225 C600,225 640,140 700,140" fill="none" stroke="#E50914" stroke-width="5" />
+      <path d="M360,225 C420,225 450,320 540,320 L680,320" fill="none" stroke="#B3B3B3" stroke-width="3" stroke-dasharray="6,6" />
+      <!-- Commits -->
+      <circle cx="160" cy="320" r="14" fill="#232323" stroke="#E50914" stroke-width="4" />
+      <circle cx="360" cy="225" r="18" fill="#FFFFFF" stroke="#E50914" stroke-width="4" />
+      <circle cx="520" cy="225" r="14" fill="#232323" stroke="#E50914" stroke-width="4" />
+      <circle cx="700" cy="140" r="16" fill="#E50914" stroke="#FFFFFF" stroke-width="3" />
+      <circle cx="540" cy="320" r="12" fill="#232323" stroke="#808080" stroke-width="3" />
+      <!-- Badge label -->
+      <rect x="290" y="80" width="220" height="42" rx="6" fill="#232323" stroke="#E50914" stroke-width="2" />
+      <text x="400" y="106" fill="#FFFFFF" font-family="monospace" font-size="16" font-weight="bold" text-anchor="middle">DECISION RECOVERY</text>
+    </svg>
