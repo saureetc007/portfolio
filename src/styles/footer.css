@@ -1,0 +1,70 @@
+/* ==========================================================================
+   FOOTER — Netflix-inspired minimalist dark footer.
+   ========================================================================== */
+.footer {
+  padding-block: var(--space-12) var(--space-10);
+  border-top: 1px solid var(--color-border);
+  background: #101010;
+}
+
+.footer__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.footer__top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  padding-bottom: var(--space-6);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.footer__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.footer__links-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4) var(--space-6);
+  align-items: center;
+}
+
+.footer__nav-link {
+  font-size: var(--text-sm);
+  color: var(--color-text-2);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.footer__nav-link:hover {
+  color: var(--color-red);
+}
+
+.footer__socials {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.footer__copy {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.footer__disclaimer {
+  font-size: 0.72rem;
+  color: #666666;
+}
