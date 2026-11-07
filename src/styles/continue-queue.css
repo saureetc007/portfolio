@@ -1,0 +1,456 @@
+/* ==========================================================================
+   ACTIVE LEARNING & EXPLORATION QUEUE — CINEMATIC REFINED STYLESHEET
+   Restrained Charcoal Surfaces + Interaction-Based Red Highlight System
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. SECTION CONTAINER & HEADER
+   -------------------------------------------------------------------------- */
+.continue-queue-section {
+  position: relative;
+  padding-block: clamp(4rem, 8vw, 6.5rem);
+  overflow: hidden;
+}
+
+.continue-queue-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-6);
+  margin-bottom: clamp(1.75rem, 3.5vw, 2.75rem);
+}
+
+.continue-queue-heading-group {
+  max-width: 680px;
+}
+
+.continue-queue-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #E50914;
+  margin-bottom: 0.75rem;
+}
+
+.continue-queue-eyebrow-dash {
+  display: inline-block;
+  width: 14px;
+  height: 2px;
+  background: #E50914;
+}
+
+.continue-queue-title {
+  font-size: clamp(1.75rem, 3.5vw, 2.6rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  color: #FFFFFF;
+  margin: 0 0 0.85rem 0;
+}
+
+.continue-queue-desc {
+  font-size: clamp(0.9rem, 1.4vw, 1.02rem);
+  line-height: 1.6;
+  color: #A3A3A3;
+  margin: 0;
+  max-width: 620px;
+}
+
+/* --------------------------------------------------------------------------
+   2. CAROUSEL NAVIGATION CONTROLS
+   -------------------------------------------------------------------------- */
+.continue-queue-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.continue-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #181818;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #9CA3AF;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+  transition:
+    border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.2s ease,
+    box-shadow 0.25s ease;
+}
+
+.continue-nav-btn svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 2.5;
+  transition: transform 0.2s ease;
+}
+
+.continue-nav-btn:hover:not(:disabled) {
+  background: #202020;
+  border-color: #E50914;
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6), 0 0 14px rgba(229, 9, 20, 0.22);
+}
+
+.continue-nav-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.continue-nav-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+.continue-nav-btn:focus-visible {
+  outline: 2px solid #E50914;
+  outline-offset: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   3. HORIZONTAL SCROLL TRACK
+   -------------------------------------------------------------------------- */
+.continue-queue-track-wrapper {
+  position: relative;
+  margin-inline: calc(var(--gutter, 1.5rem) * -1);
+  padding-inline: var(--gutter, 1.5rem);
+}
+
+.continue-queue-track {
+  display: flex;
+  gap: clamp(1rem, 2vw, 1.5rem);
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  padding-block: 0.75rem 1.75rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.continue-queue-track::-webkit-scrollbar {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   4. QUEUE CARD — RESTING NEUTRAL STATE
+   -------------------------------------------------------------------------- */
+.continue-queue-card {
+  flex: 0 0 clamp(290px, 28vw, 360px);
+  scroll-snap-align: start;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 320px;
+  background: #181818;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: clamp(1.25rem, 2.2vw, 1.6rem);
+  overflow: hidden;
+  isolation: isolate;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  outline: none;
+  transition:
+    transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+    background 0.28s ease;
+}
+
+/* Spotlight Cursor Follower */
+.continue-queue-card__spotlight {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0;
+  background: radial-gradient(
+    320px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(229, 9, 20, 0.10),
+    transparent 80%
+  );
+  transition: opacity 0.3s ease-out;
+  z-index: 1;
+}
+
+/* Ambient glow bleed behind card */
+.continue-queue-card__ambient-glow {
+  position: absolute;
+  inset: -10px;
+  background: radial-gradient(
+    circle at 50% 30%,
+    rgba(229, 9, 20, 0.14) 0%,
+    transparent 70%
+  );
+  filter: blur(24px);
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease-out;
+}
+
+/* --------------------------------------------------------------------------
+   5. CARD ELEMENTS AT REST
+   -------------------------------------------------------------------------- */
+.continue-queue-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 1.15rem;
+  z-index: 2;
+}
+
+/* Play Glyph Action Indicator */
+.continue-queue-play-glyph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #141414;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #888888;
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.continue-queue-play-glyph svg {
+  width: 14px;
+  height: 14px;
+  margin-left: 2px;
+  fill: currentColor;
+}
+
+/* Status Pill */
+.continue-queue-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.24rem 0.65rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #9CA3AF;
+  transition:
+    border-color 0.25s ease,
+    color 0.25s ease,
+    background 0.25s ease;
+}
+
+.continue-queue-status-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #6B7280;
+  transition: background 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Card Content Body */
+.continue-queue-card__body {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+}
+
+.continue-queue-card__title {
+  font-size: clamp(1.08rem, 1.8vw, 1.22rem);
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+  color: #FFFFFF;
+  margin: 0 0 0.5rem 0;
+  transition: color 0.25s ease;
+}
+
+.continue-queue-card__desc {
+  font-size: 0.86rem;
+  line-height: 1.6;
+  color: #9CA3AF;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Card Tags */
+.continue-queue-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 1.25rem;
+  z-index: 2;
+}
+
+.continue-queue-tag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  padding: 0.18rem 0.5rem;
+  border-radius: 4px;
+  background: #141414;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: #888888;
+  letter-spacing: 0.02em;
+  transition:
+    border-color 0.25s ease,
+    color 0.25s ease,
+    background 0.25s ease;
+}
+
+/* Card Bottom Progress Bar */
+.continue-queue-progress-track {
+  position: absolute;
+  bottom: 0;
+  inset-inline: 0;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+  z-index: 3;
+}
+
+.continue-queue-progress-bar {
+  height: 100%;
+  background: #3A3A3A;
+  transition:
+    background 0.3s ease,
+    box-shadow 0.3s ease,
+    width 0.4s ease;
+}
+
+/* --------------------------------------------------------------------------
+   6. INTERACTION-BASED RED: HOVER, FOCUS & SELECTED
+   -------------------------------------------------------------------------- */
+.continue-queue-card:hover,
+.continue-queue-card:focus-visible,
+.continue-queue-card.is-card-selected {
+  background: #1C1C1C;
+  border-color: #E50914 !important;
+  transform: translateY(-4px);
+  box-shadow:
+    0 18px 45px rgba(0, 0, 0, 0.85),
+    0 0 20px rgba(229, 9, 20, 0.14) !important;
+}
+
+.continue-queue-card:focus-visible {
+  outline: 2px solid #E50914;
+  outline-offset: 2px;
+}
+
+/* Reveal spotlight on interaction */
+.continue-queue-card:hover .continue-queue-card__spotlight,
+.continue-queue-card:focus-visible .continue-queue-card__spotlight,
+.continue-queue-card.is-card-selected .continue-queue-card__spotlight {
+  opacity: 1;
+}
+
+/* Reveal ambient glow bleed */
+.continue-queue-card:hover .continue-queue-card__ambient-glow,
+.continue-queue-card:focus-visible .continue-queue-card__ambient-glow,
+.continue-queue-card.is-card-selected .continue-queue-card__ambient-glow {
+  opacity: 0.75;
+}
+
+/* Play glyph illuminates */
+.continue-queue-card:hover .continue-queue-play-glyph,
+.continue-queue-card:focus-visible .continue-queue-play-glyph,
+.continue-queue-card.is-card-selected .continue-queue-play-glyph {
+  background: rgba(229, 9, 20, 0.14);
+  border-color: rgba(229, 9, 20, 0.5);
+  color: #E50914;
+  transform: scale(1.05);
+  box-shadow: 0 0 12px rgba(229, 9, 20, 0.28);
+}
+
+/* Status dot illuminates */
+.continue-queue-card:hover .continue-queue-status-pill,
+.continue-queue-card:focus-visible .continue-queue-status-pill,
+.continue-queue-card.is-card-selected .continue-queue-status-pill {
+  border-color: rgba(229, 9, 20, 0.35);
+  color: #FFFFFF;
+  background: rgba(229, 9, 20, 0.05);
+}
+
+.continue-queue-card:hover .continue-queue-status-dot,
+.continue-queue-card:focus-visible .continue-queue-status-dot,
+.continue-queue-card.is-card-selected .continue-queue-status-dot {
+  background: #E50914;
+  box-shadow: 0 0 8px #E50914;
+}
+
+/* Tags illuminate subtly */
+.continue-queue-card:hover .continue-queue-tag,
+.continue-queue-card:focus-visible .continue-queue-tag,
+.continue-queue-card.is-card-selected .continue-queue-tag {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.14);
+  color: #D1D5DB;
+}
+
+/* Progress bar illuminates vivid red */
+.continue-queue-card:hover .continue-queue-progress-bar,
+.continue-queue-card:focus-visible .continue-queue-progress-bar,
+.continue-queue-card.is-card-selected .continue-queue-progress-bar {
+  background: #E50914;
+  box-shadow: 0 0 10px rgba(229, 9, 20, 0.5);
+}
+
+/* --------------------------------------------------------------------------
+   7. RESPONSIVENESS & REDUCED MOTION
+   -------------------------------------------------------------------------- */
+@media (max-width: 640px) {
+  .continue-queue-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .continue-queue-controls {
+    align-self: flex-end;
+  }
+
+  .continue-queue-card {
+    flex: 0 0 85vw;
+    min-height: 290px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .continue-queue-card,
+  .continue-nav-btn,
+  .continue-queue-play-glyph,
+  .continue-queue-progress-bar {
+    transition: none !important;
+  }
+
+  .continue-queue-track {
+    scroll-behavior: auto !important;
+  }
+}

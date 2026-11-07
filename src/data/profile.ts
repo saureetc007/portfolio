@@ -37,4 +37,4 @@ export const navLinks: NavLink[] = [
 ];
 
 /** Every section id on the page, in order (used by the scroll-spy). */
-export const sectionIds = ['top', 'skills', 'projects', 'universe', 'about', 'contact'] as const;
+export const sectionIds = ['top', 'skills', 'projects', 'exploring', 'universe', 'about', 'contact'] as const;

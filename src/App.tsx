@@ -6,6 +6,7 @@ import { SkipLink } from '@/components/layout/SkipLink';
 import { Hero } from '@/components/hero/Hero';
 import { SkillsSection } from '@/components/skills/SkillsSection';
 import { ProjectsSection } from '@/components/projects/ProjectsSection';
+import { ContinueExploring } from '@/components/journey/ContinueExploring';
 import { SkillsUniverse } from '@/components/universe/SkillsUniverse';
 import { About } from '@/components/about/About';
 import { Contact } from '@/components/contact/Contact';
@@ -41,6 +42,7 @@ export default function App() {
           <Hero />
           <SkillsSection />
           <ProjectsSection />
+          <ContinueExploring />
           <SkillsUniverse />
           <About />
           <Contact />
