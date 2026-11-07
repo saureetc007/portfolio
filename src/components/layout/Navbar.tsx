@@ -1,0 +1,81 @@
+import { useEffect, useState } from 'react';
+import { navLinks, sectionIds } from '@/data';
+import { useActiveSection } from '@/hooks/useActiveSection';
+import { cx } from '@/lib/cx';
+
+export function Navbar() {
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const active = useActiveSection(sectionIds);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setOpen(false);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [open]);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [open]);
+
+  return (
+    <header className={cx('navbar', scrolled && 'is-scrolled', open && 'is-open')}>
+      <div className="container navbar__inner">
+        <a className="brand" href="#top" onClick={() => setOpen(false)} aria-label="Saureet Chakrabarti - Home">
+          <span className="brand__logo-mark" aria-hidden="true">
+            <span className="brand__logo-accent" />
+          </span>
+          <span className="brand__name">
+            SAUREET<span className="brand__dot">.</span>
+          </span>
+        </a>
+
+        <button
+          type="button"
+          className="navbar__toggle"
+          aria-expanded={open}
+          aria-controls="primary-nav"
+          aria-label={open ? 'Close navigation menu' : 'Open navigation menu'}
+          onClick={() => setOpen((v) => !v)}
+        >
+          <span className="navbar__bars" aria-hidden="true" />
+        </button>
+
+        <nav id="primary-nav" className="navbar__nav" aria-label="Primary">
+          <ul className="navbar__links">
+            {navLinks.map((link) => (
+              <li key={link.target}>
+                <a
+                  href={`#${link.target}`}
+                  className={cx('navbar__link', active === link.target && 'is-active')}
+                  aria-current={active === link.target ? 'true' : undefined}
+                  onClick={() => setOpen(false)}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+    </header>
+  );
+}
