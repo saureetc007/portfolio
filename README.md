@@ -101,42 +101,102 @@ npm run dev
 # 3. Run strict TypeScript check
 npm run typecheck
 
-# 4. Create production build
+# 4. Run automated test suite (Contact validation, API, build verification)
+npm test
+
+# 5. Create production build
 npm run build
 
-# 5. Preview production build locally
+# 6. Preview production build locally
 npm run preview
 ```
+
+---
+
+## 📬 Contact Form & Serverless Email Delivery
+
+The portfolio includes a production-grade, functional contact form with serverless email dispatch powered by **Resend**:
+
+- **Destination**: Submissions are routed to `saureetc007@gmail.com`.
+- **Security & Spam Protection**:
+  - In-memory rate limiting per client IP (max 5 requests per 10 minutes).
+  - Silent honeypot field (`website`) to deflect automated bot submissions.
+  - Strict input sanitization (HTML entity encoding) to prevent XSS / header injection.
+  - Character limits and RFC-compliant email validation.
+- **Serverless Endpoints**:
+  - **Vercel**: `api/contact.ts` (Native Serverless Web Request handler).
+  - **Netlify**: `netlify/functions/contact.ts` (Netlify Functions v2).
+  - **Local Development**: Built-in Vite dev server middleware emulates `/api/contact` on `npm run dev`.
+
+### Environment Variables Configuration
+
+Copy `.env.example` to `.env.local` for local testing:
+
+```bash
+# Resend API Key (obtain from https://resend.com/api-keys)
+RESEND_API_KEY=re_your_api_key_here
+
+# Sender email address
+# Development (free tier): onboarding@resend.dev
+# Production (with verified domain): contact@yourdomain.com
+CONTACT_FROM_EMAIL=onboarding@resend.dev
+
+# Target notification recipient address (verified fixed destination)
+CONTACT_TO_EMAIL=saureetc007@gmail.com
+```
+
+### Deployment Instructions
+
+#### Deploying on Vercel
+1. Import this repository into Vercel.
+2. Under **Project Settings > Environment Variables**, add:
+   - `RESEND_API_KEY`: Your Resend secret key (`re_...`).
+   - `CONTACT_FROM_EMAIL`: `onboarding@resend.dev` (or your verified domain sender).
+   - `CONTACT_TO_EMAIL`: `saureetc007@gmail.com`.
+3. Vercel will automatically detect `api/contact.ts` and deploy it as a serverless endpoint.
+
+#### Deploying on Netlify
+1. Import this repository into Netlify.
+2. Under **Site configuration > Environment variables**, add the same three variables (`RESEND_API_KEY`, `CONTACT_FROM_EMAIL`, `CONTACT_TO_EMAIL`).
+3. Netlify will build the frontend with `npm run build` and publish `netlify/functions/contact.ts` at `/api/contact`.
 
 ---
 
 ## 📁 Project Structure
 
 ```
+├── api/
+│   └── contact.ts         # Vercel serverless function (Resend email dispatch)
+├── netlify/
+│   └── functions/
+│       └── contact.ts     # Netlify serverless function (Resend email dispatch)
 ├── public/
 │   └── assets/
-│       ├── hero/          # SVG slide backgrounds (slide-1..3 wide & tall)
+│       ├── hero/          # SVG slide backgrounds (slide-1..6)
 │       └── projects/      # 10 individual project SVG artworks (project-1..10)
 ├── scripts/
 │   ├── generate-assets.js # Node asset generator for hero slides & thumbnails
+│   ├── test-contact-api.js# Automated contact validation & API test suite
 │   └── verify-build.js    # Integrity verification script
 ├── src/
 │   ├── components/
-│   │   ├── hero/          # Hero slideshow component
-│   │   ├── skills/        # Horizontal browsing carousels & cards
-│   │   ├── projects/      # Top 10 numbered cards & ProjectModal dialog
-│   │   ├── journey/       # Continue building queue
-│   │   ├── universe/      # Three.js WebGL scene & accessible list
-│   │   ├── about/         # Editorial about & milestones
-│   │   ├── contact/       # Contact section & social buttons
+│   │   ├── hero/          # Hero slideshow, card stack, terminal
+│   │   ├── skills/        # Bento cards & interaction-based red highlight system
+│   │   ├── projects/      # 3D coverflow showcase & ProjectModal dialog
+│   │   ├── universe/      # Three.js WebGL spatial tech galaxy & accessible list
+│   │   ├── about/         # Academic Journey 2.0 (School -> Engineering -> Communities)
+│   │   ├── contact/       # Get In Touch & functional ContactForm
 │   │   ├── layout/        # Navbar, Footer, Section, Container
 │   │   └── ui/            # Buttons, Badges, Section headings, Icons
-│   ├── data/              # Central data layer (profile, hero, skills, projects, journey)
+│   ├── data/              # Central data layer (profile, hero, skills, projects, education)
 │   ├── hooks/             # useActiveSection, useReducedMotion, useReveal
+│   ├── lib/               # Contact validation, class utilities
 │   ├── styles/            # CSS tokens, layout, ui, motion, hero, sections, footer
 │   └── types/             # TypeScript interfaces for all site content
+├── .env.example           # Documented environment variables template
 ├── package.json
-└── vite.config.ts
+├── tsconfig.json
+└── vite.config.ts         # Vite config with local contact API dev middleware
 ```
 
 ---

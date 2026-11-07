@@ -7,8 +7,7 @@ export const profile: Profile = {
   university: 'Newton School of Technology',
   institution: 'Newton School of Technology',
   graduationYear: 2028,
-  // Editable placeholder until Saureet supplies the real address.
-  email: null,
+  email: 'saureetc007@gmail.com',
 
   about: [
     "I'm studying Computer Science and Artificial Intelligence at Newton School of Technology, with a core philosophy of learning by building.",

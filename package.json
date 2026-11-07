@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
+    "test": "node scripts/test-contact-api.js && node scripts/verify-build.js",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit"
   },
