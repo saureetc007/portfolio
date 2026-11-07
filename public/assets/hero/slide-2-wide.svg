@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 1350" width="2400" height="1350">
+  <defs>
+    <radialGradient id="s2-glow" cx="72%" cy="48%" r="55%">
+      <stop offset="0%" stop-color="#E50914" stop-opacity="0.4" />
+      <stop offset="50%" stop-color="#670005" stop-opacity="0.25" />
+      <stop offset="85%" stop-color="#141414" stop-opacity="0.05" />
+      <stop offset="100%" stop-color="#141414" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="s2-line" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E50914" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.3" />
+    </linearGradient>
+  </defs>
+
+  <rect width="2400" height="1350" fill="#141414" />
+  <rect width="2400" height="1350" fill="url(#s2-glow)" />
+
+  <!-- Background code matrix grid pattern -->
+  <g opacity="0.12" stroke="#FFFFFF" stroke-width="1">
+    <line x1="1278" y1="348" x2="2178" y2="348" stroke-dasharray="6,6" />
+    <line x1="1278" y1="498" x2="2178" y2="498" stroke-dasharray="6,6" />
+    <line x1="1278" y1="648" x2="2178" y2="648" stroke-dasharray="6,6" />
+    <line x1="1278" y1="798" x2="2178" y2="798" stroke-dasharray="6,6" />
+    <line x1="1278" y1="948" x2="2178" y2="948" stroke-dasharray="6,6" />
+    <line x1="1428" y1="298" x2="1428" y2="998" stroke-dasharray="6,6" />
+    <line x1="1728" y1="298" x2="1728" y2="998" stroke-dasharray="6,6" />
+    <line x1="2028" y1="298" x2="2028" y2="998" stroke-dasharray="6,6" />
+  </g>
+
+  <!-- Git DAG commit tree / DecisionTrace structure -->
+  <g stroke-linecap="round">
+    <!-- Branch traces -->
+    <path d="M1448,828 C1578,808 1628,698 1678,628" fill="none" stroke="#E50914" stroke-width="3" opacity="0.9" />
+    <path d="M1678,628 C1748,568 1848,508 1968,468" fill="none" stroke="#E50914" stroke-width="3" opacity="0.9" />
+    <path d="M1488,868 C1608,868 1708,828 1808,768" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2" stroke-dasharray="4,4" />
+    <path d="M1808,768 C1908,708 1938,588 1968,468" fill="none" stroke="#E50914" stroke-width="2.5" opacity="0.8" />
+    <path d="M1678,628 C1708,498 1788,438 1888,408" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2" />
+    <path d="M1448,828 C1508,688 1568,588 1678,628" fill="none" stroke="url(#s2-line)" stroke-width="2" opacity="0.7" />
+
+    <!-- Decision Nodes (Evidence markers) -->
+    <!-- Root commit -->
+    <circle cx="1448" cy="828" r="14" fill="#232323" stroke="#E50914" stroke-width="3" />
+    <circle cx="1448" cy="828" r="6" fill="#E50914" />
+
+    <!-- Decision Junction -->
+    <circle cx="1678" cy="628" r="22" fill="#181818" stroke="#E50914" stroke-width="4" />
+    <circle cx="1678" cy="628" r="10" fill="#FFFFFF" />
+    <!-- Pulse ring -->
+    <circle cx="1678" cy="628" r="38" fill="none" stroke="#E50914" stroke-width="1.5" opacity="0.5" stroke-dasharray="4,4" />
+
+    <!-- Evidence recovery cards / node tags -->
+    <g transform="translate(1698, 548)">
+      <rect x="0" y="0" width="130" height="34" rx="4" fill="#232323" stroke="#E50914" stroke-width="1.5" opacity="0.9" />
+      <text x="12" y="22" fill="#FFFFFF" font-family="monospace" font-size="12" font-weight="bold"># DECISION_01</text>
+    </g>
+
+    <g transform="translate(1838, 708)">
+      <rect x="0" y="0" width="120" height="34" rx="4" fill="#232323" stroke="rgba(255,255,255,0.3)" stroke-width="1" opacity="0.9" />
+      <text x="12" y="22" fill="#B3B3B3" font-family="monospace" font-size="11">REJECTED_ALT</text>
+    </g>
+
+    <!-- Sub nodes -->
+    <circle cx="1808" cy="768" r="12" fill="#232323" stroke="#B3B3B3" stroke-width="2" />
+    <circle cx="1888" cy="408" r="14" fill="#232323" stroke="#E50914" stroke-width="3" />
+    <circle cx="1888" cy="408" r="5" fill="#E50914" />
+    <circle cx="1968" cy="468" r="18" fill="#181818" stroke="#FFFFFF" stroke-width="3" />
+    <circle cx="1968" cy="468" r="8" fill="#E50914" />
+  </g>
+</svg>

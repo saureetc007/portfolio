@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 1350" width="2400" height="1350">
+  <defs>
+    <radialGradient id="s1-glow" cx="72%" cy="48%" r="60%">
+      <stop offset="0%" stop-color="#E50914" stop-opacity="0.45" />
+      <stop offset="40%" stop-color="#B20710" stop-opacity="0.2" />
+      <stop offset="70%" stop-color="#141414" stop-opacity="0.05" />
+      <stop offset="100%" stop-color="#141414" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="s1-core" cx="72%" cy="48%" r="18%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.8" />
+      <stop offset="25%" stop-color="#FF3333" stop-opacity="0.6" />
+      <stop offset="60%" stop-color="#E50914" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#141414" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="s1-blade" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#E50914" stop-opacity="0" />
+      <stop offset="35%" stop-color="#FF4D4D" stop-opacity="0.8" />
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="1" />
+      <stop offset="65%" stop-color="#E50914" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#E50914" stop-opacity="0" />
+    </linearGradient>
+    <linearGradient id="s1-slab-l" x1="100%" y1="0%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#232323" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#101010" stop-opacity="0.98" />
+    </linearGradient>
+    <linearGradient id="s1-slab-r" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#232323" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#101010" stop-opacity="0.98" />
+    </linearGradient>
+  </defs>
+
+  <rect width="2400" height="1350" fill="#141414" />
+  <rect width="2400" height="1350" fill="url(#s1-glow)" />
+
+  <!-- Monolithic architectural corridor converging on right focal point -->
+  <g opacity="0.85">
+    <!-- Left monoliths -->
+    <polygon points="1548,428 1678,568 1678,888 1548,988" fill="url(#s1-slab-l)" stroke="#E50914" stroke-opacity="0.25" stroke-width="1.5" />
+    <polygon points="1308,268 1488,408 1488,1028 1308,1168" fill="url(#s1-slab-l)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" />
+    <polygon points="948,128 1228,268 1228,1168 948,1348" fill="#111111" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+
+    <!-- Right monoliths -->
+    <polygon points="1778,568 1908,428 1908,988 1778,888" fill="url(#s1-slab-r)" stroke="#E50914" stroke-opacity="0.25" stroke-width="1.5" />
+    <polygon points="1968,408 2148,268 2148,1168 1968,1028" fill="url(#s1-slab-r)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" />
+    <polygon points="2228,268 2508,128 2508,1348 2228,1168" fill="#111111" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+  </g>
+
+  <!-- Dramatic vertical light blade -->
+  <line x1="1728" y1="268" x2="1728" y2="1068" stroke="url(#s1-blade)" stroke-width="4" stroke-linecap="round" />
+  <circle cx="1728" cy="648" r="120" fill="url(#s1-core)" />
+
+  <!-- Floor perspective lines reflecting red glow -->
+  <g opacity="0.4" stroke="#E50914" stroke-width="1">
+    <line x1="1728" y1="888" x2="1178" y2="1350" stroke-opacity="0.4" />
+    <line x1="1728" y1="888" x2="1448" y2="1350" stroke-opacity="0.6" />
+    <line x1="1728" y1="888" x2="1728" y2="1350" stroke-opacity="0.8" stroke-width="2" />
+    <line x1="1728" y1="888" x2="2008" y2="1350" stroke-opacity="0.6" />
+    <line x1="1728" y1="888" x2="2278" y2="1350" stroke-opacity="0.4" />
+  </g>
+
+  <!-- Subtle glowing dust particles -->
+  <g fill="#FFFFFF" opacity="0.7">
+    <circle cx="1668" cy="528" r="2" fill="#E50914" />
+    <circle cx="1808" cy="558" r="1.5" />
+    <circle cx="1608" cy="728" r="2.5" fill="#FF5555" />
+    <circle cx="1868" cy="798" r="1.5" />
+    <circle cx="1698" cy="828" r="2" fill="#E50914" />
+    <circle cx="1778" cy="438" r="2" />
+  </g>
+</svg>

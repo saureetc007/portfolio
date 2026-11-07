@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 1350" width="2400" height="1350">
+  <defs>
+    <radialGradient id="s3-glow" cx="72%" cy="48%" r="60%">
+      <stop offset="0%" stop-color="#E50914" stop-opacity="0.38" />
+      <stop offset="45%" stop-color="#4a0004" stop-opacity="0.25" />
+      <stop offset="85%" stop-color="#141414" stop-opacity="0.05" />
+      <stop offset="100%" stop-color="#141414" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="s3-laser" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#E50914" stop-opacity="0" />
+      <stop offset="50%" stop-color="#FF3333" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+
+  <rect width="2400" height="1350" fill="#141414" />
+  <rect width="2400" height="1350" fill="url(#s3-glow)" />
+
+  <!-- Dimensional orbital rings (Computation & AI) -->
+  <g fill="none" stroke="#E50914" opacity="0.35">
+    <ellipse cx="1728" cy="648" rx="280" ry="110" stroke-width="1.5" transform="rotate(-25 1728 648)" stroke-dasharray="8,4" />
+    <ellipse cx="1728" cy="648" rx="220" ry="85" stroke-width="1.5" transform="rotate(35 1728 648)" stroke-opacity="0.6" />
+    <ellipse cx="1728" cy="648" rx="140" ry="50" stroke-width="2" transform="rotate(-5 1728 648)" stroke-opacity="0.8" />
+  </g>
+
+  <!-- Neural Network Lattice -->
+  <g stroke="#E50914" stroke-width="1.5" opacity="0.75">
+    <line x1="1568" y1="528" x2="1728" y2="648" stroke-opacity="0.9" />
+    <line x1="1568" y1="748" x2="1728" y2="648" stroke-opacity="0.8" />
+    <line x1="1898" y1="558" x2="1728" y2="648" stroke-opacity="0.9" />
+    <line x1="1878" y1="768" x2="1728" y2="648" stroke-opacity="0.8" />
+    <line x1="1568" y1="528" x2="1648" y2="428" stroke-opacity="0.5" />
+    <line x1="1898" y1="558" x2="1968" y2="458" stroke-opacity="0.5" />
+    <line x1="1568" y1="748" x2="1668" y2="868" stroke-opacity="0.5" />
+    <line x1="1878" y1="768" x2="1808" y2="888" stroke-opacity="0.5" />
+    <line x1="1648" y1="428" x2="1798" y2="448" stroke="#FFFFFF" stroke-opacity="0.4" stroke-dasharray="3,3" />
+    <line x1="1668" y1="868" x2="1808" y2="888" stroke="#FFFFFF" stroke-opacity="0.4" stroke-dasharray="3,3" />
+  </g>
+
+  <!-- Synaptic Nodes -->
+  <circle cx="1728" cy="648" r="26" fill="#232323" stroke="#E50914" stroke-width="4" />
+  <circle cx="1728" cy="648" r="12" fill="#FFFFFF" />
+
+  <circle cx="1568" cy="528" r="14" fill="#181818" stroke="#E50914" stroke-width="2.5" />
+  <circle cx="1568" cy="528" r="5" fill="#E50914" />
+
+  <circle cx="1568" cy="748" r="14" fill="#181818" stroke="#FFFFFF" stroke-width="2" />
+  <circle cx="1568" cy="748" r="4" fill="#FFFFFF" />
+
+  <circle cx="1898" cy="558" r="15" fill="#181818" stroke="#E50914" stroke-width="3" />
+  <circle cx="1898" cy="558" r="6" fill="#E50914" />
+
+  <circle cx="1878" cy="768" r="14" fill="#181818" stroke="#B3B3B3" stroke-width="2" />
+  <circle cx="1878" cy="768" r="4" fill="#E50914" />
+
+  <circle cx="1648" cy="428" r="8" fill="#E50914" opacity="0.8" />
+  <circle cx="1968" cy="458" r="9" fill="#FFFFFF" opacity="0.9" />
+  <circle cx="1668" cy="868" r="8" fill="#E50914" opacity="0.8" />
+  <circle cx="1808" cy="888" r="10" fill="#E50914" opacity="0.9" />
+
+  <!-- Laser horizon sweep -->
+  <line x1="1328" y1="648" x2="2128" y2="648" stroke="url(#s3-laser)" stroke-width="2" />
+</svg>
