@@ -36,11 +36,13 @@ export function BentoCardWrapper({
   const cardRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
   const [isHovered, setIsHovered] = useState(false);
+  const [isSelected, setIsSelected] = useState(false);
 
   const isHero = category.id === 'code-engineering';
 
   const handleClick = (e: MouseEvent<HTMLDivElement>) => {
     emitSkillParticleBurst(e.clientX, e.clientY);
+    setIsSelected((prev) => !prev);
     onOpenModal(category);
   };
 
@@ -79,16 +81,16 @@ export function BentoCardWrapper({
         tabIndex={0}
         aria-haspopup="dialog"
         aria-label={`${category.number} ${category.title} — Click to expand cinematic engineering details`}
-        className={`bento-card ${isHero ? 'is-featured-code-card' : ''} ${isHovered ? 'is-card-hovered' : ''}`}
+        className={`bento-card ${isHero ? 'is-featured-code-card' : ''} ${isHovered ? 'is-card-hovered' : ''} ${isSelected ? 'is-card-selected' : ''}`}
         style={{
           '--card-accent': category.accentColor,
         } as React.CSSProperties}
       >
         <SpotlightCard
           isHero={isHero}
-          spotlightColor={isHero ? 'rgba(229, 9, 20, 0.28)' : 'rgba(229, 9, 20, 0.16)'}
-          spotlightSize={isHero ? 480 : 380}
-          borderColor={isHero ? 'rgba(229, 9, 20, 0.6)' : 'rgba(229, 9, 20, 0.35)'}
+          spotlightColor="rgba(229, 9, 20, 0.10)"
+          spotlightSize={isHero ? 420 : 360}
+          borderColor="rgba(229, 9, 20, 0.45)"
           className="bento-card__inner-spotlight"
         >
           {/* ================================================================
