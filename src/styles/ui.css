@@ -1,0 +1,213 @@
+/* ==========================================================================
+   SHARED UI — buttons, eyebrow labels, section headings, badges, social icons
+   Netflix streaming aesthetic
+   ========================================================================== */
+
+/* ---- Eyebrow ---- */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-red);
+}
+
+.eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 0.5rem;
+  height: 2px;
+  background: var(--color-red);
+}
+
+/* ---- Section heading ---- */
+.section-heading {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  max-width: 48rem;
+  margin-bottom: var(--space-8);
+}
+
+.section-heading__title {
+  font-size: var(--text-h2);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-display);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.section-heading__description {
+  font-size: var(--text-base);
+  color: var(--color-text-2);
+  max-width: 40rem;
+  line-height: 1.55;
+}
+
+/* ---- Buttons ---- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 2.85rem;
+  padding: 0 var(--space-5);
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
+}
+
+.btn--primary {
+  background: var(--color-red);
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px rgba(229, 9, 20, 0.4);
+}
+
+.btn--primary:hover {
+  background: var(--color-red-dark);
+  box-shadow: 0 6px 20px rgba(229, 9, 20, 0.6);
+}
+
+.btn__icon {
+  width: 1.15em;
+  height: 1.15em;
+  flex: none;
+}
+
+/* Netflix semi-translucent secondary button */
+.btn--secondary {
+  background: rgba(109, 109, 110, 0.4);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.btn--secondary:hover {
+  background: rgba(109, 109, 110, 0.65);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.btn--ghost {
+  background: transparent;
+  border-color: var(--color-border);
+  color: var(--color-text-2);
+}
+
+.btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: var(--color-text);
+}
+
+.btn--disabled,
+.btn[aria-disabled='true'] {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px dashed var(--color-border);
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .btn:not([aria-disabled='true']):hover {
+    transform: scale(1.02);
+  }
+  .btn:not([aria-disabled='true']):active {
+    transform: scale(0.98);
+  }
+}
+
+/* ---- Status badge ---- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.2rem 0.6rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xs);
+  background: rgba(0, 0, 0, 0.4);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--color-text-2);
+  white-space: nowrap;
+}
+
+.badge::before {
+  content: '';
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: var(--badge-dot, var(--color-text-muted));
+}
+
+.badge--completed {
+  --badge-dot: #46d369; /* Netflix green completion indicator */
+  border-color: rgba(70, 211, 105, 0.25);
+  color: #e5e5e5;
+}
+
+.badge--in-progress,
+.badge--building {
+  --badge-dot: var(--color-red);
+  border-color: rgba(229, 9, 20, 0.3);
+  color: #FFFFFF;
+}
+
+.badge--experiment {
+  --badge-dot: #e5a00d; /* amber experiment */
+  border-color: rgba(229, 160, 13, 0.25);
+}
+
+.badge--learning-project,
+.badge--learning,
+.badge--exploring {
+  --badge-dot: #a3a3a3;
+}
+
+/* ---- Social icon link ---- */
+.icon-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--tap-target);
+  height: var(--tap-target);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--color-text-2);
+  transition:
+    color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.icon-link:hover {
+  color: #FFFFFF;
+  border-color: var(--color-red);
+  background: rgba(229, 9, 20, 0.1);
+  transform: translateY(-2px);
+}
+
+.icon-link svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
