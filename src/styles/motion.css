@@ -1,0 +1,34 @@
+/* ==========================================================================
+   MOTION — scroll reveals + hero entrance. Everything is opt-in via
+   prefers-reduced-motion: no-preference, and content stays visible without JS
+   (the `js` class is added to <html> by an inline script in index.html).
+   ========================================================================== */
+
+@media (prefers-reduced-motion: no-preference) {
+  .js .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity var(--dur-slow) var(--ease-out),
+      transform var(--dur-slow) var(--ease-out);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  .js .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* One-shot entrance used by the hero. Stagger with --enter-delay. */
+  .enter {
+    animation: enter var(--dur-slow) var(--ease-out) both;
+    animation-delay: var(--enter-delay, 0ms);
+  }
+
+  @keyframes enter {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+  }
+}
