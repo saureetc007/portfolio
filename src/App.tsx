@@ -9,6 +9,9 @@ import { ProjectsSection } from '@/components/projects/ProjectsSection';
 import { SkillsUniverse } from '@/components/universe/SkillsUniverse';
 import { About } from '@/components/about/About';
 import { Contact } from '@/components/contact/Contact';
+import { CustomCursor } from '@/components/ui/CustomCursor';
+import { GlobalParticleCanvas } from '@/components/ui/GlobalParticleCanvas';
+import { ExplorationHUD } from '@/components/gamification/ExplorationHUD';
 
 export default function App() {
   // Splash screen plays before the website becomes visible
@@ -26,6 +29,10 @@ export default function App() {
 
   return (
     <>
+      {/* 0. Custom Interactive Mouse Cursor & Atmospheric Particle System */}
+      <CustomCursor />
+      <GlobalParticleCanvas />
+
       {/* 1. Full-Screen Cinematic Splash Screen Overlay */}
       {isSplashActive && <SplashScreen onComplete={handleSplashComplete} />}
 
@@ -46,6 +53,9 @@ export default function App() {
           <Contact />
         </main>
         <Footer />
+
+        {/* 3. Portfolio Gamification & Exploration Progress HUD */}
+        <ExplorationHUD />
       </div>
     </>
   );

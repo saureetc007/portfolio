@@ -15,6 +15,7 @@ import { ActiveProjectHUD } from './ActiveProjectHUD';
 import { CoverflowAutoplayControls } from './CoverflowAutoplayControls';
 import { CoverflowPagination } from './CoverflowPagination';
 import { ProjectModal } from './ProjectModal';
+import { gamification } from '@/lib/gamification';
 
 // Project-specific atmospheric ambient lighting colors
 const PROJECT_GLOWS: Record<string, string> = {
@@ -275,6 +276,11 @@ export function ProjectsSection() {
     setDragOffset(0);
   };
 
+  const handleOpenProjectModal = useCallback((p: Project) => {
+    gamification.unlockAchievement('code-explorer');
+    setSelectedProject(p);
+  }, []);
+
   return (
     <Section id="projects" labelledBy="projects-title" tone="alt">
       <div
@@ -313,6 +319,7 @@ export function ProjectsSection() {
         {/* 3. 3D Spatial Coverflow Stage */}
         <div
           ref={stageRef}
+          data-cursor="drag"
           className={`coverflow-stage-container ${isDragging ? 'is-dragging' : ''}`}
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
@@ -345,7 +352,7 @@ export function ProjectsSection() {
                 dragOffset={dragOffset}
                 isDragging={isDragging}
                 onSelect={handleSelectProject}
-                onOpenModal={(p) => setSelectedProject(p)}
+                onOpenModal={handleOpenProjectModal}
               />
             ))}
           </div>
@@ -354,7 +361,7 @@ export function ProjectsSection() {
         {/* 4. Active Project Spotlight HUD */}
         <ActiveProjectHUD
           project={activeProject}
-          onOpenModal={(p) => setSelectedProject(p)}
+          onOpenModal={handleOpenProjectModal}
         />
 
         {/* 5. Apple TV-style Timeline Track / Pagination */}

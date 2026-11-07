@@ -2,6 +2,7 @@ import { useState, useRef, type MouseEvent, type ReactNode } from 'react';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import type { BentoSkillCategory } from '@/data/skills';
 import { emitSkillParticleBurst } from './SkillsParticleCanvas';
+import { gamification } from '@/lib/gamification';
 import { ReactTilt, TiltParallaxLayer } from './react-tilt/ReactTilt';
 import { HoloSheenOverlay } from './spin-card/HoloSheenOverlay';
 import { SpotlightCard } from './react-bits/SpotlightCard';
@@ -43,6 +44,7 @@ export function BentoCardWrapper({
   const handleClick = (e: MouseEvent<HTMLDivElement>) => {
     emitSkillParticleBurst(e.clientX, e.clientY);
     setIsSelected((prev) => !prev);
+    gamification.unlockAchievement('skill-hunter');
     onOpenModal(category);
   };
 
@@ -81,6 +83,7 @@ export function BentoCardWrapper({
         tabIndex={0}
         aria-haspopup="dialog"
         aria-label={`${category.number} ${category.title} — Click to expand cinematic engineering details`}
+        data-cursor="inspect"
         className={`bento-card ${isHero ? 'is-featured-code-card' : ''} ${isHovered ? 'is-card-hovered' : ''} ${isSelected ? 'is-card-selected' : ''}`}
         style={{
           '--card-accent': category.accentColor,

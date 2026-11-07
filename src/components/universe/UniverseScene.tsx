@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, useMemo } from 'react';
 import * as THREE from 'three';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { gamification } from '@/lib/gamification';
 import {
   GALAXY_CLUSTERS,
   ALL_UNIVERSE_TECHS,
@@ -545,6 +546,7 @@ export function UniverseScene() {
       if (intersects.length > 0) {
         const hitData = intersects[0].object.userData as Node3DData;
         setSelectedNode(hitData);
+        gamification.unlockAchievement('skill-hunter');
         setIsAutoExploring(false);
       }
     };
@@ -638,6 +640,7 @@ export function UniverseScene() {
       const node = allNodes.find((n) => n.id === nodeId);
       if (node) {
         setSelectedNode(node);
+        gamification.unlockAchievement('skill-hunter');
         const focusPos = node.position.clone().add(new THREE.Vector3(0, 0, 6.5));
         targetCameraPos.copy(focusPos);
         targetLookAt.copy(node.position);
@@ -1031,7 +1034,7 @@ export function UniverseScene() {
       {/* ====================================================================
           2. 3D WEBGL CANVAS WRAPPER
           ==================================================================== */}
-      <div className="universe-canvas-wrapper" ref={containerRef}>
+      <div className="universe-canvas-wrapper" data-cursor="drag" ref={containerRef}>
         {/* Auto-Explore Tour Banner */}
         {isAutoExploring && currentTourCluster && (
           <div

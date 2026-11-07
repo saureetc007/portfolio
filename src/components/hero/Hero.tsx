@@ -8,6 +8,7 @@ import { ParticleNameReveal } from './ParticleNameReveal';
 import { HeroCardStack } from './HeroCardStack';
 import { RepositoryExplorerModal } from './RepositoryExplorerModal';
 import { SecretTerminal } from './SecretTerminal';
+import { gamification } from '@/lib/gamification';
 import { cx } from '@/lib/cx';
 
 function PlayIcon() {
@@ -78,11 +79,15 @@ export function Hero() {
         (e.altKey && (e.key === 't' || e.key === 'T'))
       ) {
         e.preventDefault();
-        setIsTerminalOpen((prev) => !prev);
+        setIsTerminalOpen((prev) => {
+          if (!prev) gamification.unlockAchievement('curious-mind');
+          return !prev;
+        });
       }
     };
 
     const handleOpenTerminalEvent = () => {
+      gamification.unlockAchievement('curious-mind');
       setIsTerminalOpen(true);
     };
 
@@ -240,7 +245,22 @@ export function Hero() {
               {/* Left Column: Text & Actions with Particle Reveal */}
               <div className="hero__left-column">
                 {slide.badge && (
-                  <div className="hero__badge">
+                  <div
+                    className="hero__badge interactive-target"
+                    onClick={(e) => {
+                      gamification.triggerEasterEgg(
+                        "Command Node Active: 'Every complex system starts with one honest prototype.' — Saureet"
+                      );
+                      window.dispatchEvent(
+                        new CustomEvent('emit-global-burst', {
+                          detail: { x: e.clientX, y: e.clientY, count: 18 },
+                        })
+                      );
+                    }}
+                    role="button"
+                    tabIndex={0}
+                    title="Click to ping developer beacon"
+                  >
                     <span className="hero__badge-dot" aria-hidden="true" />
                     <span>{slide.badge}</span>
                   </div>

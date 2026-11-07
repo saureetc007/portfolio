@@ -1,0 +1,641 @@
+/* ==========================================================================
+   GAMIFICATION, CUSTOM CURSOR & CINEMATIC MOTION SYSTEM
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. GLOBAL CANVAS PARTICLES
+   -------------------------------------------------------------------------- */
+.global-particle-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 2;
+  will-change: transform;
+}
+
+/* --------------------------------------------------------------------------
+   2. CUSTOM INTERACTIVE MOUSE CURSOR
+   -------------------------------------------------------------------------- */
+/* Hide custom cursor on coarse touch screens */
+@media (pointer: coarse) {
+  .custom-cursor-dot,
+  .custom-cursor-follower,
+  .custom-cursor-ripple {
+    display: none !important;
+  }
+}
+
+@media (pointer: fine) {
+  /* Hide standard cursor only when custom cursor is active on non-text elements */
+  body:not(.is-touch-device) [data-cursor="explore"],
+  body:not(.is-touch-device) [data-cursor="inspect"],
+  body:not(.is-touch-device) [data-cursor="drag"],
+  body:not(.is-touch-device) .coverflow-card,
+  body:not(.is-touch-device) .bento-card {
+    cursor: none !important;
+  }
+}
+
+.custom-cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #E50914;
+  pointer-events: none;
+  z-index: 99999;
+  margin-left: -3px;
+  margin-top: -3px;
+  opacity: 0;
+  box-shadow: 0 0 6px #E50914;
+  transition: opacity 0.2s ease;
+  will-change: transform;
+}
+
+.custom-cursor-follower {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(229, 9, 20, 0.45);
+  background: rgba(229, 9, 20, 0.04);
+  pointer-events: none;
+  z-index: 99998;
+  margin-left: -16px;
+  margin-top: -16px;
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    width 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    height 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    margin 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    background 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
+  will-change: transform;
+}
+
+.custom-cursor-label {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #FFFFFF;
+  text-align: center;
+  user-select: none;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* Cursor Context Modes */
+.custom-cursor-follower.is-hover {
+  width: 50px;
+  height: 50px;
+  margin-left: -25px;
+  margin-top: -25px;
+  border-color: #E50914;
+  background: rgba(229, 9, 20, 0.12);
+  box-shadow: 0 0 16px rgba(229, 9, 20, 0.2);
+}
+
+.custom-cursor-follower.is-explore {
+  width: 72px;
+  height: 72px;
+  margin-left: -36px;
+  margin-top: -36px;
+  border-color: #E50914;
+  background: rgba(18, 18, 18, 0.88);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 0 24px rgba(229, 9, 20, 0.35);
+}
+
+.custom-cursor-follower.is-explore .custom-cursor-label {
+  opacity: 1;
+}
+
+.custom-cursor-follower.is-inspect {
+  width: 72px;
+  height: 72px;
+  margin-left: -36px;
+  margin-top: -36px;
+  border-color: #E50914;
+  background: rgba(18, 18, 18, 0.88);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 0 24px rgba(229, 9, 20, 0.35);
+}
+
+.custom-cursor-follower.is-inspect .custom-cursor-label {
+  opacity: 1;
+}
+
+.custom-cursor-follower.is-drag {
+  width: 64px;
+  height: 64px;
+  margin-left: -32px;
+  margin-top: -32px;
+  border-color: rgba(255, 255, 255, 0.7);
+  background: rgba(18, 18, 18, 0.88);
+  backdrop-filter: blur(4px);
+}
+
+.custom-cursor-follower.is-drag .custom-cursor-label {
+  opacity: 1;
+}
+
+.custom-cursor-follower.is-external {
+  width: 40px;
+  height: 40px;
+  margin-left: -20px;
+  margin-top: -20px;
+  border-color: #E50914;
+  background: rgba(229, 9, 20, 0.15);
+}
+
+.custom-cursor-follower.is-external .custom-cursor-label {
+  opacity: 1;
+  font-size: 0.85rem;
+}
+
+.custom-cursor-follower.is-clicking {
+  transform: scale(0.9);
+}
+
+.custom-cursor-ripple {
+  position: fixed;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid #E50914;
+  pointer-events: none;
+  z-index: 99997;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+/* --------------------------------------------------------------------------
+   3. EXPLORATION PROGRESS HUD & DRAWER
+   -------------------------------------------------------------------------- */
+.exploration-hud {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 90;
+  isolation: isolate;
+}
+
+.exploration-hud__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.45rem 0.95rem;
+  border-radius: 9999px;
+  background: #181818;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  transition:
+    border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.25s ease;
+}
+
+.exploration-hud__pill:hover {
+  border-color: #E50914;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.85), 0 0 16px rgba(229, 9, 20, 0.25);
+}
+
+.exploration-hud__icon {
+  font-size: 0.95rem;
+}
+
+.exploration-hud__pill-text {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.exploration-hud__pill-label {
+  color: #A3A3A3;
+}
+
+.exploration-hud__pill-pct {
+  color: #E50914;
+}
+
+.exploration-hud__mini-track {
+  width: 44px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.exploration-hud__mini-bar {
+  height: 100%;
+  background: #E50914;
+  transition: width 0.4s ease;
+}
+
+.exploration-hud__chevron {
+  font-size: 0.7rem;
+  color: #888888;
+}
+
+/* Expanded Drawer */
+.exploration-hud__drawer {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  right: 0;
+  width: min(92vw, 360px);
+  background: #161616;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: 1.25rem;
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.9),
+    0 0 24px rgba(229, 9, 20, 0.12);
+  animation: hud-drawer-reveal 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes hud-drawer-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.exploration-hud__drawer-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1.15rem;
+}
+
+.exploration-hud__drawer-eyebrow {
+  display: block;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #E50914;
+  letter-spacing: 0.1em;
+  margin-bottom: 2px;
+}
+
+.exploration-hud__drawer-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.exploration-hud__close-btn {
+  background: transparent;
+  border: none;
+  color: #888888;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0.2rem;
+  line-height: 1;
+}
+
+.exploration-hud__close-btn:hover {
+  color: #FFFFFF;
+}
+
+.exploration-hud__progress-container {
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.exploration-hud__progress-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  color: #9CA3AF;
+  margin-bottom: 0.4rem;
+}
+
+.exploration-hud__pct-large {
+  font-weight: 800;
+  color: #FFFFFF;
+}
+
+.exploration-hud__full-track {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.exploration-hud__full-bar {
+  height: 100%;
+  background: #E50914;
+  box-shadow: 0 0 10px rgba(229, 9, 20, 0.6);
+  transition: width 0.45s ease;
+}
+
+.exploration-hud__subheading {
+  display: block;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #888888;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.65rem;
+}
+
+/* Sectors list */
+.exploration-hud__sectors-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.exploration-hud__sector-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+}
+
+.exploration-hud__check {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.exploration-hud__sector-item.is-visited .exploration-hud__check {
+  color: #10B981;
+}
+
+.exploration-hud__sector-item.is-pending .exploration-hud__check {
+  color: #555555;
+}
+
+.exploration-hud__sector-name {
+  flex: 1;
+  color: #D1D5DB;
+}
+
+.exploration-hud__sector-item.is-visited .exploration-hud__sector-name {
+  color: #FFFFFF;
+}
+
+.exploration-hud__sector-status {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.65rem;
+  color: #888888;
+}
+
+.exploration-hud__sector-item.is-visited .exploration-hud__sector-status {
+  color: #10B981;
+}
+
+/* Achievements */
+.exploration-hud__achievements-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.65rem;
+}
+
+.exploration-hud__badge-count {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #E50914;
+}
+
+.exploration-hud__achievements-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  max-height: 180px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.exploration-hud__badge {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  background: #141414;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.exploration-hud__badge.is-unlocked {
+  border-color: rgba(229, 9, 20, 0.35);
+}
+
+.exploration-hud__badge-icon {
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.exploration-hud__badge-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.exploration-hud__badge-title {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.exploration-hud__badge.is-locked .exploration-hud__badge-title {
+  color: #777777;
+}
+
+.exploration-hud__badge-desc {
+  font-size: 0.68rem;
+  color: #888888;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* --------------------------------------------------------------------------
+   4. TOAST NOTIFICATIONS (ACHIEVEMENT & EASTER EGG)
+   -------------------------------------------------------------------------- */
+.achievement-toast {
+  position: fixed;
+  bottom: 84px;
+  right: 24px;
+  z-index: 95;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  max-width: min(90vw, 360px);
+  padding: 1rem 1.25rem;
+  background: #181818;
+  border: 1px solid rgba(229, 9, 20, 0.55);
+  border-radius: 12px;
+  box-shadow:
+    0 20px 45px rgba(0, 0, 0, 0.9),
+    0 0 24px rgba(229, 9, 20, 0.28);
+  animation: toast-slide-up 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+@keyframes toast-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.achievement-toast__accent-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #E50914;
+  box-shadow: 0 0 8px #E50914;
+}
+
+.achievement-toast__icon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.achievement-toast__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.achievement-toast__eyebrow {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: #E50914;
+}
+
+.achievement-toast__title {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.achievement-toast__desc {
+  font-size: 0.78rem;
+  color: #A3A3A3;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.achievement-toast__dismiss {
+  background: transparent;
+  border: none;
+  color: #888888;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0.2rem;
+}
+
+.achievement-toast__dismiss:hover {
+  color: #FFFFFF;
+}
+
+/* Easter Egg Toast */
+.easter-egg-toast {
+  position: fixed;
+  bottom: 84px;
+  right: 24px;
+  z-index: 95;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  max-width: min(90vw, 400px);
+  padding: 1rem 1.25rem;
+  background: #181818;
+  border: 1px solid rgba(250, 204, 21, 0.45);
+  border-radius: 12px;
+  box-shadow:
+    0 20px 45px rgba(0, 0, 0, 0.9),
+    0 0 20px rgba(250, 204, 21, 0.15);
+  animation: toast-slide-up 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.easter-egg-toast__icon {
+  font-size: 1.35rem;
+  flex-shrink: 0;
+}
+
+.easter-egg-toast__content {
+  flex: 1;
+}
+
+.easter-egg-toast__eyebrow {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #FACC15;
+  letter-spacing: 0.08em;
+}
+
+.easter-egg-toast__text {
+  font-size: 0.84rem;
+  color: #FFFFFF;
+  margin: 0.2rem 0 0;
+  line-height: 1.45;
+}
+
+/* --------------------------------------------------------------------------
+   5. REDUCED MOTION SAFEGUARDS
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .global-particle-canvas,
+  .custom-cursor-dot,
+  .custom-cursor-follower,
+  .custom-cursor-ripple {
+    display: none !important;
+  }
+
+  .exploration-hud__drawer,
+  .achievement-toast,
+  .easter-egg-toast {
+    animation: none !important;
+  }
+}

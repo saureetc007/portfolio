@@ -1,12 +1,32 @@
 import { useEffect, useState } from 'react';
 import { navLinks, sectionIds } from '@/data';
 import { useActiveSection } from '@/hooks/useActiveSection';
+import { gamification } from '@/lib/gamification';
 import { cx } from '@/lib/cx';
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [logoClicks, setLogoClicks] = useState(0);
   const active = useActiveSection(sectionIds);
+
+  const handleBrandClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    setOpen(false);
+    const nextClicks = logoClicks + 1;
+    setLogoClicks(nextClicks);
+
+    if (nextClicks >= 5) {
+      setLogoClicks(0);
+      gamification.triggerEasterEgg(
+        "Easter Egg Unlocked: 'Learn by building. Stay curious, break things thoughtfully.' — Saureet"
+      );
+      window.dispatchEvent(
+        new CustomEvent('emit-global-burst', {
+          detail: { x: e.clientX, y: e.clientY, count: 24 },
+        })
+      );
+    }
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -39,7 +59,7 @@ export function Navbar() {
   return (
     <header className={cx('navbar', scrolled && 'is-scrolled', open && 'is-open')}>
       <div className="container navbar__inner">
-        <a className="brand" href="#top" onClick={() => setOpen(false)} aria-label="Saureet Chakrabarti - Home">
+        <a className="brand" href="#top" onClick={handleBrandClick} aria-label="Saureet Chakrabarti - Home">
           <span className="brand__logo-mark" aria-hidden="true">
             <span className="brand__logo-accent" />
           </span>

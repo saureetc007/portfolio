@@ -210,6 +210,7 @@ export function CoverflowCard({
   return (
     <div
       ref={cardRef}
+      data-cursor="explore"
       className={`coverflow-card ${isActive ? 'is-active' : 'is-side'} ${isSideEnlarged ? 'is-side-hovered' : ''} ${isActive && !isHovered && !isDragging ? 'is-floating' : ''}`}
       style={{
         transform,
