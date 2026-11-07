@@ -1,0 +1,49 @@
+/* ==========================================================================
+   LAYOUT PRIMITIVES — Container, Section, Stack, Cluster
+   ========================================================================== */
+
+.container {
+  width: min(100% - 2 * var(--gutter), var(--container-max));
+  margin-inline: auto;
+}
+
+.container--wide {
+  width: min(100% - 2 * var(--gutter), var(--container-wide));
+}
+
+.section {
+  position: relative;
+  padding-block: var(--section-y);
+}
+
+.section--alt {
+  background: linear-gradient(180deg, rgba(24, 24, 24, 0.98), rgba(20, 20, 20, 0.95));
+  border-block: 1px solid var(--color-border);
+}
+
+/* Vertical rhythm: set --stack-gap on the element to tune it. */
+.stack > * + * {
+  margin-top: var(--stack-gap, var(--space-4));
+}
+
+/* Horizontal wrap with consistent gaps. */
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--cluster-gap, var(--space-3));
+}
+
+/* Two-column split that collapses to one column below lg. */
+.split {
+  display: grid;
+  gap: var(--space-10);
+}
+
+@media (min-width: 1024px) {
+  .split {
+    grid-template-columns: var(--split-cols, 1fr 1fr);
+    gap: var(--space-16);
+    align-items: var(--split-align, start);
+  }
+}
