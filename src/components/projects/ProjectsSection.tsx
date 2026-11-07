@@ -60,6 +60,9 @@ export function ProjectsSection() {
   const isPointerDownRef = useRef<boolean>(false);
   const startXRef = useRef<number>(0);
   const hasDraggedRef = useRef<boolean>(false);
+  const velocityRef = useRef<number>(0);
+  const lastMoveTimeRef = useRef<number>(0);
+  const lastClientXRef = useRef<number>(0);
 
   // Time tracking for 8-second progress loop
   const elapsedMsRef = useRef<number>(0);
@@ -221,17 +224,28 @@ export function ProjectsSection() {
     return () => window.removeEventListener('keydown', handleGlobalKey);
   }, [selectedProject, handlePrev, handleNext]);
 
-  // 5. Pointer Drag & Touch Swipe Gesture Mechanics
+  // 5. Pointer Drag & Touch Swipe Gesture Mechanics with Momentum
   const handlePointerDown = (e: PointerEvent<HTMLDivElement>) => {
     if (e.button !== 0) return;
     isPointerDownRef.current = true;
     startXRef.current = e.clientX;
+    lastClientXRef.current = e.clientX;
+    lastMoveTimeRef.current = performance.now();
+    velocityRef.current = 0;
     hasDraggedRef.current = false;
     e.currentTarget.setPointerCapture(e.pointerId);
   };
 
   const handlePointerMove = (e: PointerEvent<HTMLDivElement>) => {
     if (!isPointerDownRef.current) return;
+    const now = performance.now();
+    const dt = now - lastMoveTimeRef.current;
+    if (dt > 8) {
+      velocityRef.current = (e.clientX - lastClientXRef.current) / dt;
+      lastMoveTimeRef.current = now;
+      lastClientXRef.current = e.clientX;
+    }
+
     const deltaX = e.clientX - startXRef.current;
 
     if (Math.abs(deltaX) > 6) {
@@ -254,11 +268,12 @@ export function ProjectsSection() {
 
     if (hasDraggedRef.current) {
       const deltaX = e.clientX - startXRef.current;
-      const threshold = 45; // pixels to trigger carousel page turn
+      const velocity = velocityRef.current;
+      const isFlick = Math.abs(velocity) > 0.3; // Responsive swipe flick threshold
 
-      if (deltaX < -threshold) {
+      if (deltaX < -35 || (isFlick && velocity < 0)) {
         handleNext();
-      } else if (deltaX > threshold) {
+      } else if (deltaX > 35 || (isFlick && velocity > 0)) {
         handlePrev();
       }
     }

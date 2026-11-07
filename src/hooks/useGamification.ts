@@ -50,3 +50,4 @@ export function useGamification() {
     unlockAchievement: (id: string) => gamification.unlockAchievement(id),
   };
 }
+

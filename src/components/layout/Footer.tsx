@@ -1,9 +1,12 @@
 import { profile, socialLinks } from '@/data';
 import { SocialIcon } from '@/components/ui/SocialIcon';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 export function Footer() {
+  const [footerRef, isVisible] = useScrollReveal<HTMLElement>({ threshold: 0.1 });
+
   return (
-    <footer className="footer">
+    <footer ref={footerRef} className={`footer footer-reveal ${isVisible ? 'is-visible' : ''}`}>
       <div className="container footer__inner">
         <div className="footer__top">
           <div className="footer__brand">

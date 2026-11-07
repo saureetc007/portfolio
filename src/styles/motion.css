@@ -1,10 +1,25 @@
 /* ==========================================================================
-   MOTION — scroll reveals + hero entrance. Everything is opt-in via
-   prefers-reduced-motion: no-preference, and content stays visible without JS
-   (the `js` class is added to <html> by an inline script in index.html).
+   MOTION — scroll reveals + hero entrance + comprehensive motion system.
+   Everything is opt-in via prefers-reduced-motion: no-preference.
+   Content stays visible without JS (the `js` class is added to <html>).
    ========================================================================== */
 
+/* ---- Extended motion tokens ---------------------------------------------- */
+:root {
+  --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-sharp:     cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-cinematic:  700ms;
+  --dur-xfast:      100ms;
+
+  /* Stagger base delays */
+  --stagger-xs: 40ms;
+  --stagger-sm: 70ms;
+  --stagger-md: 110ms;
+  --stagger-lg: 160ms;
+}
+
 @media (prefers-reduced-motion: no-preference) {
+  /* ---- Legacy reveal class (Reveal.tsx) ---------------------------------- */
   .js .reveal {
     opacity: 0;
     transform: translateY(18px);
@@ -19,7 +34,7 @@
     transform: none;
   }
 
-  /* One-shot entrance used by the hero. Stagger with --enter-delay. */
+  /* ---- Hero entrance animation ------------------------------------------ */
   .enter {
     animation: enter var(--dur-slow) var(--ease-out) both;
     animation-delay: var(--enter-delay, 0ms);
@@ -30,5 +45,261 @@
       opacity: 0;
       transform: translateY(16px);
     }
+  }
+
+  /* ---- Hero slide panel content — staggered line entrance --------------- */
+  .hero__slide-panel.is-active .hero__badge {
+    animation: slideEnter 0.55s var(--ease-cinematic) both;
+    animation-delay: 80ms;
+  }
+  .hero__slide-panel.is-active .hero__title-wrapper,
+  .hero__slide-panel.is-active .hero__particle-name {
+    animation: slideEnter 0.60s var(--ease-cinematic) both;
+    animation-delay: 160ms;
+  }
+  .hero__slide-panel.is-active .hero__subtitle {
+    animation: slideEnter 0.60s var(--ease-cinematic) both;
+    animation-delay: 240ms;
+  }
+  .hero__slide-panel.is-active .hero__description {
+    animation: slideEnter 0.60s var(--ease-cinematic) both;
+    animation-delay: 320ms;
+  }
+  .hero__slide-panel.is-active .hero__actions {
+    animation: slideEnter 0.65s var(--ease-cinematic) both;
+    animation-delay: 420ms;
+  }
+  .hero__slide-panel.is-active .hero__right-column {
+    animation: slideEnterRight 0.70s var(--ease-cinematic) both;
+    animation-delay: 200ms;
+  }
+
+  @keyframes slideEnter {
+    from {
+      opacity: 0;
+      transform: translateY(22px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideEnterRight {
+    from {
+      opacity: 0;
+      transform: translateX(28px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  /* ---- Bento card entrance animations ----------------------------------- */
+  .skill-card-enter {
+    opacity: 0;
+    transform: translateY(40px);
+    transition:
+      opacity 0.6s var(--ease-cinematic),
+      transform 0.6s var(--ease-cinematic);
+    transition-delay: var(--card-entrance-delay, 0ms);
+  }
+
+  .skill-card-enter.enter-left  { transform: translateX(-40px) translateY(20px); }
+  .skill-card-enter.enter-right { transform: translateX(40px) translateY(20px); }
+  .skill-card-enter.enter-up    { transform: translateY(40px); }
+
+  .skill-card-enter.has-entered {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+
+  /* ---- Tech pill stagger on card hover ---------------------------------- */
+  .bento-card.is-card-hovered .bento-tech-pill {
+    animation: pillPop 0.3s var(--ease-cinematic) both;
+  }
+
+  .bento-card.is-card-hovered .bento-tech-pill:nth-child(1) { animation-delay: 0ms; }
+  .bento-card.is-card-hovered .bento-tech-pill:nth-child(2) { animation-delay: 40ms; }
+  .bento-card.is-card-hovered .bento-tech-pill:nth-child(3) { animation-delay: 80ms; }
+  .bento-card.is-card-hovered .bento-tech-pill:nth-child(4) { animation-delay: 120ms; }
+  .bento-card.is-card-hovered .bento-tech-pill:nth-child(5) { animation-delay: 160ms; }
+  .bento-card.is-card-hovered .bento-tech-pill:nth-child(6) { animation-delay: 200ms; }
+  .bento-card.is-card-hovered .bento-tech-pill:nth-child(7) { animation-delay: 240ms; }
+  .bento-card.is-card-hovered .bento-tech-pill:nth-child(8) { animation-delay: 280ms; }
+
+  @keyframes pillPop {
+    from { opacity: 0.4; transform: scale(0.85); }
+    to   { opacity: 1;   transform: scale(1); }
+  }
+
+  /* ---- Section heading animated underline ------------------------------- */
+  .section-heading__underline-animated {
+    position: relative;
+  }
+  .section-heading__underline-animated::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--color-red);
+    transition: width 0.6s var(--ease-cinematic);
+  }
+  .section-heading__underline-animated.is-visible::after {
+    width: 100%;
+  }
+
+  /* ---- Navbar link underline slide -------------------------------------- */
+  .navbar__link {
+    position: relative;
+  }
+  .navbar__link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    right: 50%;
+    height: 1.5px;
+    background: var(--color-red);
+    transition:
+      left  0.3s var(--ease-cinematic),
+      right 0.3s var(--ease-cinematic);
+  }
+  .navbar__link:hover::after,
+  .navbar__link.is-active::after {
+    left: 0;
+    right: 0;
+  }
+  .navbar__link.is-active::after {
+    background: var(--color-red);
+  }
+
+  /* ---- Contact section entrance stagger --------------------------------- */
+  .contact-stagger-child {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 0.55s var(--ease-cinematic),
+      transform 0.55s var(--ease-cinematic);
+    transition-delay: var(--stagger-delay, 0ms);
+  }
+  .contact-stagger-child.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ---- Contact form field stagger --------------------------------------- */
+  .contact-form-field {
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+      opacity 0.45s var(--ease-cinematic),
+      transform 0.45s var(--ease-cinematic);
+    transition-delay: var(--field-delay, 0ms);
+  }
+  .contact-form-field.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ---- Academic journey chapter transitions ----------------------------- */
+  .academic-milestone-item {
+    opacity: 0;
+    transform: translateX(-24px);
+    transition:
+      opacity 0.6s var(--ease-cinematic),
+      transform 0.6s var(--ease-cinematic);
+  }
+  .academic-milestone-item.is-revealed {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* ---- Percentage counter animation ------------------------------------- */
+  @keyframes countUp {
+    from { opacity: 0; transform: translateY(8px) scale(0.9); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .stat-counter-animate {
+    animation: countUp 0.7s var(--ease-cinematic) both;
+    animation-delay: var(--counter-delay, 400ms);
+  }
+
+  /* ---- Scroll parallax layers ------------------------------------------- */
+  .parallax-layer {
+    will-change: transform;
+    transition: transform 0.1s linear;
+  }
+
+  /* ---- Button magnetic hover effect ------------------------------------- */
+  .btn {
+    transition:
+      background-color var(--dur-base) var(--ease-out),
+      border-color     var(--dur-base) var(--ease-out),
+      color            var(--dur-base) var(--ease-out),
+      transform        0.25s var(--ease-cinematic),
+      box-shadow       0.3s var(--ease-out);
+  }
+  .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.5);
+  }
+  .btn:active {
+    transform: translateY(0) scale(0.97);
+    transition-duration: 0.1s;
+  }
+
+  /* ---- Projects coverflow card tech tag stagger ------------------------- */
+  .coverflow-card.is-active .coverflow-tech-pill,
+  .coverflow-card-wrapper.is-active .coverflow-card-tags .coverflow-tag {
+    animation: pillPop 0.35s var(--ease-cinematic) both;
+  }
+  .coverflow-card.is-active .coverflow-tech-pill:nth-child(1),
+  .coverflow-card-wrapper.is-active .coverflow-card-tags .coverflow-tag:nth-child(1) { animation-delay: 60ms; }
+  .coverflow-card.is-active .coverflow-tech-pill:nth-child(2),
+  .coverflow-card-wrapper.is-active .coverflow-card-tags .coverflow-tag:nth-child(2) { animation-delay: 110ms; }
+  .coverflow-card.is-active .coverflow-tech-pill:nth-child(3),
+  .coverflow-card-wrapper.is-active .coverflow-card-tags .coverflow-tag:nth-child(3) { animation-delay: 160ms; }
+  .coverflow-card.is-active .coverflow-tech-pill:nth-child(4),
+  .coverflow-card-wrapper.is-active .coverflow-card-tags .coverflow-tag:nth-child(4) { animation-delay: 210ms; }
+
+  /* ---- Navbar mobile drawer slide --------------------------------------- */
+  .navbar__nav {
+    transition: transform 0.4s var(--ease-cinematic), opacity 0.4s var(--ease-cinematic);
+  }
+
+  /* ---- Footer entrance -------------------------------------------------- */
+  .footer-reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s var(--ease-cinematic), transform 0.6s var(--ease-cinematic);
+  }
+  .footer-reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ---- Hover lift for social cards -------------------------------------- */
+  .contact-social-card {
+    transition:
+      transform     0.28s var(--ease-cinematic),
+      border-color  0.28s var(--ease-out),
+      box-shadow    0.28s var(--ease-out),
+      background    0.28s var(--ease-out);
+  }
+  .contact-social-card:hover {
+    transform: translateY(-3px) !important;
+  }
+
+  /* ---- Hero indicator progress bar fill --------------------------------- */
+  .hero__indicator-bar.is-active .hero__indicator-progress {
+    animation: progressFill var(--hero-autoplay-duration, 8000ms) linear forwards;
+  }
+  @keyframes progressFill {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
   }
 }

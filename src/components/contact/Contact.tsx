@@ -1,7 +1,10 @@
 import { useState } from 'react';
+import { motion } from 'motion/react';
 import { profile, socialLinks } from '@/data';
 import { Section } from '@/components/layout/Section';
 import { ContactForm } from './ContactForm';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { ease, dur, stagger as staggerTokens } from '@/lib/motion-presets';
 
 function MailIcon() {
   return (
@@ -57,6 +60,15 @@ function ExternalArrowIcon() {
 export function Contact() {
   const [copied, setCopied] = useState(false);
   const emailAddress = profile.email || 'saureetc007@gmail.com';
+  const [contactRef, isVisible] = useScrollReveal<HTMLDivElement>({ threshold: 0.1 });
+  const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setMousePos({ x, y });
+  };
 
   const handleCopyEmail = async () => {
     try {
@@ -88,17 +100,56 @@ export function Contact() {
     socialLinks.find((s) => s.id === 'linkedin')?.href ||
     'https://www.linkedin.com/in/saureet-chakrabarti-140a59238/';
 
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: staggerTokens.sm,
+        delayChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: dur.slow, ease: ease.cinematic },
+    },
+  };
+
   return (
     <Section id="contact" labelledBy="contact-title" tone="alt">
-      <div className="contact-section">
-        <div className="contact-section__ambient-atmosphere" aria-hidden="true" />
+      <div
+        ref={contactRef}
+        className="contact-section"
+        onMouseMove={handleMouseMove}
+        style={{
+          '--contact-mouse-x': `${mousePos.x}%`,
+          '--contact-mouse-y': `${mousePos.y}%`,
+        } as React.CSSProperties}
+      >
+        <div
+          className="contact-section__ambient-atmosphere"
+          style={{
+            background: `radial-gradient(ellipse 65% 45% at var(--contact-mouse-x, 50%) var(--contact-mouse-y, 0%), rgba(229, 9, 20, 0.10) 0%, rgba(139, 0, 0, 0.03) 45%, transparent 75%)`,
+            transition: 'background 0.2s ease-out',
+          }}
+          aria-hidden="true"
+        />
 
         <div className="contact-grid">
           {/* ==============================================================
-              LEFT COLUMN: INVITATION & DIRECT CHANNELS
+              LEFT COLUMN: INVITATION & DIRECT CHANNELS (Staggered motion)
               ============================================================== */}
-          <div className="contact-info-col">
-            <div>
+          <motion.div
+            className="contact-info-col"
+            variants={containerVariants}
+            initial="hidden"
+            animate={isVisible ? 'visible' : 'hidden'}
+          >
+            <motion.div variants={itemVariants}>
               <div className="contact-eyebrow">
                 <span className="contact-eyebrow-dash" aria-hidden="true" />
                 <span>Get In Touch</span>
@@ -106,21 +157,21 @@ export function Contact() {
               <h2 id="contact-title" className="contact-headline">
                 Have an idea worth building?
               </h2>
-            </div>
+            </motion.div>
 
-            <p className="contact-narrative">
+            <motion.p className="contact-narrative" variants={itemVariants}>
               Whether it&apos;s exploring an applied AI challenge, discussing open-source software,
               hackathons, or creative tech collaborations—I&apos;d love to connect.
-            </p>
+            </motion.p>
 
             {/* Restrained Availability Indicator */}
-            <div className="contact-availability-badge">
+            <motion.div className="contact-availability-badge" variants={itemVariants}>
               <span className="contact-availability-dot" aria-hidden="true" />
               <span>Open to select technical collaborations &amp; engineering discussions</span>
-            </div>
+            </motion.div>
 
             {/* Clickable Email Card with Copy Interaction */}
-            <div className="contact-direct-card">
+            <motion.div className="contact-direct-card" variants={itemVariants}>
               <div className="contact-direct-main">
                 <div className="contact-direct-icon-wrap" aria-hidden="true">
                   <MailIcon />
@@ -155,10 +206,14 @@ export function Contact() {
                   </>
                 )}
               </button>
-            </div>
+            </motion.div>
 
             {/* Social Network Access Cards */}
-            <div className="contact-social-grid" aria-label="Social and developer profiles">
+            <motion.div
+              className="contact-social-grid"
+              aria-label="Social and developer profiles"
+              variants={itemVariants}
+            >
               <a
                 href={githubUrl}
                 target="_blank"
@@ -192,23 +247,28 @@ export function Contact() {
                 </div>
                 <ExternalArrowIcon />
               </a>
-            </div>
+            </motion.div>
 
             {/* Alternative Direct Option */}
-            <p className="contact-alt-note">
+            <motion.p className="contact-alt-note" variants={itemVariants}>
               Prefer direct email? Send a message anytime to{' '}
               <a href={`mailto:${emailAddress}`} className="contact-alt-link">
                 {emailAddress}
               </a>
-            </p>
-          </div>
+            </motion.p>
+          </motion.div>
 
           {/* ==============================================================
-              RIGHT COLUMN: FUNCTIONAL CONTACT FORM
+              RIGHT COLUMN: FUNCTIONAL CONTACT FORM (Animated reveal)
               ============================================================== */}
-          <div className="contact-form-col">
+          <motion.div
+            className="contact-form-col"
+            initial={{ opacity: 0, y: 32 }}
+            animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 32 }}
+            transition={{ duration: dur.cinematic, ease: ease.cinematic, delay: 0.15 }}
+          >
             <ContactForm />
-          </div>
+          </motion.div>
         </div>
       </div>
     </Section>
