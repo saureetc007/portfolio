@@ -99,6 +99,7 @@ export function Hero() {
   const slideCount = heroSlides.length;
   const timerRef = useRef<number | null>(null);
   const touchStartXRef = useRef<number | null>(null);
+  const touchStartYRef = useRef<number | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
 
   // Global listener for Secret Terminal (Ctrl+` or ~ or custom event)
@@ -201,21 +202,32 @@ export function Hero() {
   // Mobile Touch Swipe Handling
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartXRef.current = e.touches[0].clientX;
+    touchStartYRef.current = e.touches[0].clientY;
   };
 
   const handleTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartXRef.current === null) return;
+    if (touchStartXRef.current === null || touchStartYRef.current === null) return;
     const touchEndX = e.changedTouches[0].clientX;
-    const diff = touchStartXRef.current - touchEndX;
+    const touchEndY = e.changedTouches[0].clientY;
+    const diffX = touchStartXRef.current - touchEndX;
+    const diffY = touchStartYRef.current - touchEndY;
 
-    if (Math.abs(diff) > 50) {
-      if (diff > 0) {
+    // Check if vertical swipe dominates
+    if (Math.abs(diffY) > Math.abs(diffX) && Math.abs(diffY) > 50) {
+      if (diffY > 0) {
+        // Swiped UP -> Scroll down to Skills section
+        const skillsEl = document.getElementById('skills');
+        skillsEl?.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else if (Math.abs(diffX) > 50) {
+      if (diffX > 0) {
         nextSlide();
       } else {
         prevSlide();
       }
     }
     touchStartXRef.current = null;
+    touchStartYRef.current = null;
   };
 
   const handlePrimaryClick = (e: React.MouseEvent, slide: HeroSlide) => {
@@ -407,6 +419,19 @@ export function Hero() {
           );
         })}
       </div>
+
+      {/* Floating Swipe-Down Indicator to Explore Sections */}
+      <a
+        href="#skills"
+        className="hero__swipe-indicator"
+        aria-label="Swipe or scroll down to explore competencies"
+      >
+        <span className="hero__swipe-mouse">
+          <span className="hero__swipe-wheel" />
+        </span>
+        <span className="hero__swipe-text">SWIPE DOWN</span>
+        <span className="hero__swipe-arrow">↓</span>
+      </a>
 
       {/* Interactive GitHub Repository & Technology Explorer Modal */}
       <RepositoryExplorerModal

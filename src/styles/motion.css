@@ -342,4 +342,111 @@
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
     transition: clip-path 0.7s var(--ease-cinematic);
   }
+
+  /* ---- Directional Swipe-Fade Section Transitions ------------------------ */
+  .section--swipe-fade {
+    transition:
+      opacity 0.75s var(--ease-cinematic),
+      transform 0.75s var(--ease-cinematic),
+      filter 0.75s var(--ease-cinematic);
+    will-change: opacity, transform, filter;
+  }
+
+  /* Entering while swiping/scrolling down: fades up from bottom */
+  .section--swipe-fade.from-bottom:not(.is-visible) {
+    opacity: 0;
+    transform: translate3d(0, 36px, 0);
+    filter: blur(4px);
+  }
+
+  /* Entering while swiping/scrolling up: fades down from top */
+  .section--swipe-fade.from-top:not(.is-visible) {
+    opacity: 0;
+    transform: translate3d(0, -36px, 0);
+    filter: blur(4px);
+  }
+
+  /* Visible state */
+  .section--swipe-fade.is-visible {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    filter: blur(0);
+  }
+
+  /* ---- Hero Swipe-Down Floating Indicator -------------------------------- */
+  .hero__swipe-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    color: #808080;
+    text-decoration: none;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    z-index: 20;
+    transition: all var(--dur-fast);
+    opacity: 0.75;
+  }
+
+  .hero__swipe-indicator:hover {
+    color: #FFFFFF;
+    opacity: 1;
+    transform: translateX(-50%) translateY(3px);
+  }
+
+  .hero__swipe-mouse {
+    width: 20px;
+    height: 32px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+
+  .hero__swipe-wheel {
+    width: 3px;
+    height: 6px;
+    background: var(--color-red);
+    border-radius: 2px;
+    position: absolute;
+    top: 5px;
+    animation: swipeWheel 1.6s ease-in-out infinite;
+  }
+
+  @keyframes swipeWheel {
+    0% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    60% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(0);
+    }
+  }
+
+  .hero__swipe-arrow {
+    font-size: 0.8rem;
+    color: var(--color-red);
+    animation: swipeBounce 1.6s ease-in-out infinite;
+  }
+
+  @keyframes swipeBounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(4px);
+    }
+  }
 }

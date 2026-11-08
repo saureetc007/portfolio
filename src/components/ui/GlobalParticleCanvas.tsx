@@ -43,6 +43,8 @@ export function GlobalParticleCanvas() {
     // Mouse coordinates
     let mouseX = -9999;
     let mouseY = -9999;
+    let lastScrollY = window.scrollY;
+    let scrollVelocityY = 0;
 
     const onPointerMove = (e: PointerEvent) => {
       mouseX = e.clientX;
@@ -52,6 +54,12 @@ export function GlobalParticleCanvas() {
     const onPointerLeave = () => {
       mouseX = -9999;
       mouseY = -9999;
+    };
+
+    const onScroll = () => {
+      const currentY = window.scrollY;
+      scrollVelocityY = Math.max(-10, Math.min(10, (currentY - lastScrollY) * 0.12));
+      lastScrollY = currentY;
     };
 
     // Pool configuration
@@ -121,6 +129,7 @@ export function GlobalParticleCanvas() {
 
     window.addEventListener('resize', onResize);
     window.addEventListener('pointermove', onPointerMove, { passive: true });
+    window.addEventListener('scroll', onScroll, { passive: true });
     document.addEventListener('mouseleave', onPointerLeave);
     window.addEventListener('pointerdown', onPointerDown, { passive: true });
     window.addEventListener('emit-global-burst', handleCustomBurst);
@@ -183,7 +192,7 @@ export function GlobalParticleCanvas() {
         }
 
         p.x += p.vx;
-        p.y += p.vy;
+        p.y += p.vy - scrollVelocityY * 0.35;
 
         // Wrap edges
         if (p.x < 0) p.x = width;
@@ -197,6 +206,8 @@ export function GlobalParticleCanvas() {
         ctx.globalAlpha = p.alpha;
         ctx.fill();
       }
+
+      scrollVelocityY *= 0.94;
 
       // 3. Update and draw burst particles
       for (let i = burstParticles.length - 1; i >= 0; i--) {
@@ -233,6 +244,7 @@ export function GlobalParticleCanvas() {
       cancelAnimationFrame(animId);
       window.removeEventListener('resize', onResize);
       window.removeEventListener('pointermove', onPointerMove);
+      window.removeEventListener('scroll', onScroll);
       document.removeEventListener('mouseleave', onPointerLeave);
       window.removeEventListener('pointerdown', onPointerDown);
       window.removeEventListener('emit-global-burst', handleCustomBurst);
