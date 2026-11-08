@@ -11,7 +11,6 @@ import { Section } from '@/components/layout/Section';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { CoverflowCard } from './CoverflowCard';
-import { ActiveProjectHUD } from './ActiveProjectHUD';
 import { CoverflowAutoplayControls } from './CoverflowAutoplayControls';
 import { CoverflowPagination } from './CoverflowPagination';
 import { ProjectModal } from './ProjectModal';
@@ -373,13 +372,7 @@ export function ProjectsSection() {
           </div>
         </div>
 
-        {/* 4. Active Project Spotlight HUD */}
-        <ActiveProjectHUD
-          project={activeProject}
-          onOpenModal={handleOpenProjectModal}
-        />
-
-        {/* 5. Apple TV-style Timeline Track / Pagination */}
+        {/* 4. Apple TV-style Timeline Track / Pagination */}
         <CoverflowPagination
           projects={projects}
           activeIndex={activeIndex}

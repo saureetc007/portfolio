@@ -10,7 +10,6 @@
 .projects-coverflow-section {
   position: relative;
   overflow: visible;
-  padding-block: var(--space-8) var(--space-12);
   isolation: isolate;
 }
 
@@ -67,14 +66,19 @@
   position: relative;
   z-index: 5;
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
   justify-content: space-between;
-  gap: var(--space-4);
-  margin-bottom: var(--space-8);
+  gap: var(--space-6);
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
 }
 
 .coverflow-header-row .section-heading {
   margin-bottom: 0;
+}
+
+.coverflow-header-row .coverflow-top-controls {
+  margin-top: 1.35rem;
+  flex-shrink: 0;
 }
 
 .coverflow-top-controls {
@@ -180,7 +184,7 @@
   position: relative;
   z-index: 4;
   width: 100%;
-  height: clamp(430px, 52vw, 560px);
+  height: clamp(440px, 52vw, 560px);
   perspective: 1250px;
   perspective-origin: 50% 45%;
   display: flex;
@@ -190,6 +194,7 @@
   touch-action: pan-y;
   user-select: none;
   cursor: grab;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
 }
 
 .coverflow-stage-container.is-dragging {
@@ -221,7 +226,7 @@
   pointer-events: none;
   z-index: 1;
   transform-style: preserve-3d;
-  opacity: 0.75;
+  opacity: 0.45;
 }
 
 .coverflow-turntable__ring-outer {
@@ -519,9 +524,9 @@
 .coverflow-card__actions {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-  margin-top: 0.4rem;
+  justify-content: flex-start;
+  gap: 0.55rem;
+  margin-top: 0.45rem;
 }
 
 .coverflow-card__more-btn {
@@ -530,10 +535,10 @@
   gap: 5px;
   font-family: var(--font-mono);
   font-size: 0.72rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.03em;
   color: #FFFFFF;
-  padding: 0.32rem 0.75rem;
+  padding: 0.32rem 0.8rem;
   border-radius: 4px;
   background: var(--color-red);
   border: 1px solid var(--color-red);
@@ -549,6 +554,36 @@
 }
 
 .coverflow-card__more-btn svg {
+  width: 12px;
+  height: 12px;
+}
+
+.coverflow-card__repo-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: #D4D4D4;
+  padding: 0.32rem 0.72rem;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--dur-fast) var(--ease-out);
+}
+
+.coverflow-card__repo-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #FFFFFF;
+  transform: translateY(-1px);
+}
+
+.coverflow-card__repo-btn svg {
   width: 12px;
   height: 12px;
 }
@@ -1201,8 +1236,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  margin-top: var(--space-6);
+  gap: 0.65rem;
+  margin-top: 0;
 }
 
 .coverflow-pagination__track {
@@ -1269,16 +1304,17 @@
 @media (max-width: 768px) {
   .projects-coverflow-wrapper,
   .projects-coverflow-section {
-    padding-block: var(--space-4) var(--space-8);
+    padding-block: 0;
   }
 
   .coverflow-header-row {
     flex-direction: column;
     align-items: flex-start;
-    gap: 1rem;
+    gap: 1.25rem;
   }
 
-  .coverflow-top-controls {
+  .coverflow-header-row .coverflow-top-controls {
+    margin-top: 0;
     width: 100%;
     justify-content: space-between;
     flex-wrap: wrap;
