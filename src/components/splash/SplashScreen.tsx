@@ -128,7 +128,7 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
     setIsVideoFading(true);
     setTimeout(() => {
       finishSequence();
-    }, 240);
+    }, 140);
   }, [finishSequence]);
 
   const triggerExit = useCallback(
@@ -149,6 +149,7 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
       const video = videoRef.current;
       if (video) {
         video.currentTime = 0;
+        video.playbackRate = 1.35; // Fast, punchy cinematic tempo
         if (userGesture) {
           video.muted = false;
           setIsMuted(false);
@@ -177,10 +178,10 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
         setIsSpectrumZooming(true);
       });
 
-      // Video is 1.72s. Set a fallback completion timer at 2.1s so sequence never hangs
+      // Rapid cinematic surge: finish transition after ~850ms
       setTimeout(() => {
         handleVideoEnded();
-      }, 2100);
+      }, 880);
     },
     [isRevealing, isVideoActive, finishSequence, handleVideoEnded, playNetflixTaDum]
   );
@@ -226,26 +227,32 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
     // Lock scrolling while splash screen is active
     document.body.style.overflow = 'hidden';
 
-    // Phase 2: Ambient Keylight & Particle emergence (200ms)
+    // Phase 2: Ambient Keylight (40ms)
     const tAmbient = setTimeout(() => {
       setAmbientVisible(true);
-    }, 200);
+    }, 40);
 
-    // Phase 3: Kicker & Scramble Decryption (480ms)
+    // Phase 3: Kicker & Soundmark Bars (80ms)
     const tKicker = setTimeout(() => {
       setKickerVisible(true);
-    }, 480);
+      setLineVisible(true);
+      setStatusVisible(true);
+      requestAnimationFrame(() => {
+        setLineActive(true);
+      });
+    }, 80);
 
     let charTimer: NodeJS.Timeout | null = null;
     let scrambleInterval: NodeJS.Timeout | null = null;
 
-    // Scramble glyph updater
+    // Rapid scramble glyph updater (16ms)
     scrambleInterval = setInterval(() => {
       setScrambleChar(
         SCRAMBLE_POOL[Math.floor(Math.random() * SCRAMBLE_POOL.length)] ?? '#'
       );
-    }, 35);
+    }, 16);
 
+    // High-speed matrix text decrypting: 100ms start, 12ms per character
     const tCharsStart = setTimeout(() => {
       let count = 0;
       charTimer = setInterval(() => {
@@ -255,32 +262,23 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
           if (charTimer) clearInterval(charTimer);
           if (scrambleInterval) clearInterval(scrambleInterval);
         }
-      }, 42); // 42ms per letter (~750ms total for 18 letters)
-    }, 520);
+      }, 12);
+    }, 100);
 
-    // Phase 4: Decorative Soundmark Bar & Progress Line (1050ms)
-    const tLine = setTimeout(() => {
-      setLineVisible(true);
-      setStatusVisible(true);
-      requestAnimationFrame(() => {
-        setLineActive(true);
-      });
-    }, 1050);
-
-    // Initializing Experience -> Experience Ready (1900ms)
+    // Status resolves to "EXPERIENCE READY" at 340ms
     const tStatusReady = setTimeout(() => {
       setStatusText('EXPERIENCE READY');
-    }, 1900);
+    }, 340);
 
-    // Phase 5: Automatic Cinematic Reveal with Netflix Video Transition (2250ms)
+    // Phase 5: Fast Netflix Intro Transition begins at 500ms
     const tReveal = setTimeout(() => {
       triggerExit('up', false);
-    }, 2250);
+    }, 500);
 
-    // Failsafe timeout
+    // Failsafe timeout (2200ms)
     const tFailsafe = setTimeout(() => {
       finishSequence();
-    }, 5000);
+    }, 2200);
 
     return () => {
       clearTimeout(tAmbient);
@@ -288,7 +286,6 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
       clearTimeout(tCharsStart);
       if (charTimer) clearInterval(charTimer);
       if (scrambleInterval) clearInterval(scrambleInterval);
-      clearTimeout(tLine);
       clearTimeout(tStatusReady);
       clearTimeout(tReveal);
       clearTimeout(tFailsafe);
@@ -323,7 +320,7 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
     touchStartYRef.current = null;
   };
 
-  // Cosmic Atmosphere Particle Engine with 3D Depth
+  // Cosmic Atmosphere Particle Engine with 3D Depth & Native Retina Resolution
   useEffect(() => {
     if (prefersReducedMotion) return;
 
@@ -333,13 +330,25 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    let width = (canvas.width = window.innerWidth);
-    let height = (canvas.height = window.innerHeight);
+    const dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+
+    const setupCanvas = () => {
+      if (!canvas) return;
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+
+    setupCanvas();
 
     const handleResize = () => {
-      if (!canvas) return;
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
+      setupCanvas();
     };
 
     window.addEventListener('resize', handleResize);
@@ -381,8 +390,8 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
       const elapsed = now - startTime;
       ctx.clearRect(0, 0, width, height);
 
-      if (elapsed > 180) {
-        const isFadingOut = elapsed > 2200;
+      if (elapsed > 40) {
+        const isFadingOut = elapsed > 500;
         const pList = particlesRef.current;
 
         // Constellation connection lines
@@ -637,6 +646,23 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
         >
           {/* Background Ambient Glow */}
           <div className="spectrum-ambient" />
+
+          {/* High-Fidelity Vector Netflix 'N' */}
+          <div className="spectrum-netflix-n-container">
+            <svg
+              className="spectrum-netflix-n"
+              viewBox="0 0 100 150"
+              width="100"
+              height="150"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M15 10 L38 10 L38 140 L15 140 Z" fill="#B20710" />
+              <path d="M62 10 L85 10 L85 140 L62 140 Z" fill="#B20710" />
+              <path d="M62 10 L85 10 L85 140 L62 55 Z" fill="rgba(0,0,0,0.65)" />
+              <path d="M15 10 L38 10 L85 140 L62 140 Z" fill="#E50914" />
+            </svg>
+          </div>
 
           {/* High-Fidelity Spectrum Ribbons from User Reference */}
           <div className="spectrum-texture-layer" />
