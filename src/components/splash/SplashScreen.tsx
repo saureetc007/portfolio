@@ -46,10 +46,14 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
   const [statusVisible, setStatusVisible] = useState(false);
   const [statusText, setStatusText] = useState('INITIALIZING EXPERIENCE');
   const [isRevealing, setIsRevealing] = useState(false);
+  const [isVideoActive, setIsVideoActive] = useState(false);
+  const [isVideoFading, setIsVideoFading] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
   const [isSpectrumActive, setIsSpectrumActive] = useState(false);
   const [isSpectrumZooming, setIsSpectrumZooming] = useState(false);
   const [exitDirection, setExitDirection] = useState<'up' | 'down'>('up');
 
+  const videoRef = useRef<HTMLVideoElement>(null);
   const animIdRef = useRef<number | null>(null);
   const particlesRef = useRef<SplashParticle[]>([]);
   const isFinishedRef = useRef(false);
@@ -119,35 +123,93 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
     onComplete();
   }, [onComplete]);
 
+  const handleVideoEnded = useCallback(() => {
+    if (isFinishedRef.current) return;
+    setIsVideoFading(true);
+    setTimeout(() => {
+      finishSequence();
+    }, 240);
+  }, [finishSequence]);
+
   const triggerExit = useCallback(
-    (dir: 'up' | 'down' = 'up') => {
-      if (isRevealing || isFinishedRef.current) return;
+    (dir: 'up' | 'down' = 'up', userGesture = false) => {
+      if (isFinishedRef.current) return;
+
+      // If user clicks, taps, or presses key WHILE the video transition is already running, skip immediately
+      if (isRevealing || isVideoActive) {
+        finishSequence();
+        return;
+      }
+
       setExitDirection(dir);
       setIsRevealing(true);
+      setIsVideoActive(true);
       setIsSpectrumActive(true);
-      playNetflixTaDum();
+
+      const video = videoRef.current;
+      if (video) {
+        video.currentTime = 0;
+        if (userGesture) {
+          video.muted = false;
+          setIsMuted(false);
+        }
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              // Video is playing authentic Netflix intro
+            })
+            .catch(() => {
+              // If browser blocked unmuted autoplay, mute video and use WebAudio fallback
+              try {
+                video.muted = true;
+                setIsMuted(true);
+                video.play().catch(() => {});
+              } catch {}
+              playNetflixTaDum();
+            });
+        }
+      } else {
+        playNetflixTaDum();
+      }
 
       requestAnimationFrame(() => {
         setIsSpectrumZooming(true);
       });
 
-      // Let the high-speed 3D Netflix spectrum zoom play out before handing off
+      // Video is 1.72s. Set a fallback completion timer at 2.1s so sequence never hangs
       setTimeout(() => {
-        finishSequence();
-      }, 950);
+        handleVideoEnded();
+      }, 2100);
     },
-    [isRevealing, finishSequence, playNetflixTaDum]
+    [isRevealing, isVideoActive, finishSequence, handleVideoEnded, playNetflixTaDum]
   );
+
+  // Audio unlock listener on first user gesture
+  useEffect(() => {
+    const unlockAudio = () => {
+      if (videoRef.current) {
+        videoRef.current.muted = false;
+        setIsMuted(false);
+      }
+    };
+    window.addEventListener('pointerdown', unlockAudio, { once: true });
+    window.addEventListener('keydown', unlockAudio, { once: true });
+    return () => {
+      window.removeEventListener('pointerdown', unlockAudio);
+      window.removeEventListener('keydown', unlockAudio);
+    };
+  }, []);
 
   // Keyboard navigation / dismissal
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === ' ' || e.key === 'Enter' || e.key === 'Escape' || e.key === 'ArrowUp') {
         e.preventDefault();
-        triggerExit('up');
+        triggerExit('up', true);
       } else if (e.key === 'ArrowDown') {
         e.preventDefault();
-        triggerExit('down');
+        triggerExit('down', true);
       }
     };
     window.addEventListener('keydown', handleKey);
@@ -210,15 +272,15 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
       setStatusText('EXPERIENCE READY');
     }, 1900);
 
-    // Phase 5: Automatic Cinematic Reveal with Netflix Spectrum Light Transition (2350ms)
+    // Phase 5: Automatic Cinematic Reveal with Netflix Video Transition (2250ms)
     const tReveal = setTimeout(() => {
-      triggerExit('up');
-    }, 2350);
+      triggerExit('up', false);
+    }, 2250);
 
     // Failsafe timeout
     const tFailsafe = setTimeout(() => {
       finishSequence();
-    }, 3600);
+    }, 5000);
 
     return () => {
       clearTimeout(tAmbient);
@@ -243,7 +305,7 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
     if (touchStartYRef.current === null) return;
     const diffY = touchStartYRef.current - e.changedTouches[0].clientY;
     if (Math.abs(diffY) > 35) {
-      triggerExit(diffY > 0 ? 'up' : 'down');
+      triggerExit(diffY > 0 ? 'up' : 'down', true);
     }
     touchStartYRef.current = null;
   };
@@ -256,7 +318,7 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
     if (touchStartYRef.current === null) return;
     const diffY = touchStartYRef.current - e.clientY;
     if (Math.abs(diffY) > 35) {
-      triggerExit(diffY > 0 ? 'up' : 'down');
+      triggerExit(diffY > 0 ? 'up' : 'down', true);
     }
     touchStartYRef.current = null;
   };
@@ -404,7 +466,7 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
       onTouchEnd={handleTouchEnd}
       onPointerDown={handlePointerDown}
       onPointerUp={handlePointerUp}
-      onClick={() => triggerExit('up')}
+      onClick={() => triggerExit('up', true)}
     >
       {/* 1. Ambient Background Keylight */}
       <div
@@ -536,7 +598,36 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
         <span className="splash-screen__swipe-chevron">▼</span>
       </div>
 
-      {/* 6. Authentic Netflix Spectrum Light Ribbon Zoom Transition */}
+      {/* 6. Authentic Netflix Video Transition (From user-provided media) */}
+      <video
+        ref={videoRef}
+        className={`splash-screen__netflix-video ${
+          isVideoActive ? 'is-active' : ''
+        } ${isVideoFading ? 'is-fading' : ''}`}
+        src="/assets/splash/netflix-intro.mp4"
+        playsInline
+        preload="auto"
+        muted={isMuted}
+        onEnded={handleVideoEnded}
+        aria-hidden="true"
+      />
+
+      {/* 7. Netflix-Style Skip Button during playback */}
+      {isVideoActive && (
+        <button
+          type="button"
+          className="splash-screen__skip-intro-btn"
+          onClick={(e) => {
+            e.stopPropagation();
+            finishSequence();
+          }}
+          aria-label="Skip intro animation"
+        >
+          SKIP INTRO <span aria-hidden="true">›</span>
+        </button>
+      )}
+
+      {/* 8. Authentic Netflix Spectrum Light Ribbon Zoom Transition (Fallback / Ambient Underlay) */}
       {isSpectrumActive && (
         <div
           className={`splash-screen__spectrum-stage ${
