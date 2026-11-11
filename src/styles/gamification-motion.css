@@ -108,32 +108,23 @@
 }
 
 .custom-cursor-follower.is-explore {
-  width: 72px;
-  height: 72px;
-  margin-left: -36px;
-  margin-top: -36px;
-  border-color: #E50914;
-  background: rgba(18, 18, 18, 0.88);
-  backdrop-filter: blur(4px);
-  box-shadow: 0 0 24px rgba(229, 9, 20, 0.35);
-}
-
-.custom-cursor-follower.is-explore .custom-cursor-label {
-  opacity: 1;
+  width: 52px;
+  height: 52px;
+  margin-left: -26px;
+  margin-top: -26px;
+  border-color: rgba(229, 9, 20, 0.7);
+  background: rgba(229, 9, 20, 0.08);
+  box-shadow: 0 0 20px rgba(229, 9, 20, 0.25);
 }
 
 .custom-cursor-follower.is-drag {
-  width: 64px;
-  height: 64px;
-  margin-left: -32px;
-  margin-top: -32px;
-  border-color: rgba(255, 255, 255, 0.7);
-  background: rgba(18, 18, 18, 0.88);
-  backdrop-filter: blur(4px);
-}
-
-.custom-cursor-follower.is-drag .custom-cursor-label {
-  opacity: 1;
+  width: 50px;
+  height: 50px;
+  margin-left: -25px;
+  margin-top: -25px;
+  border-color: rgba(229, 9, 20, 0.6);
+  background: rgba(229, 9, 20, 0.08);
+  box-shadow: 0 0 16px rgba(229, 9, 20, 0.2);
 }
 
 .custom-cursor-follower.is-external {

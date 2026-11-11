@@ -181,40 +181,37 @@ export function CustomCursor() {
           if (trail) trail.style.opacity = '0.75';
 
           // Check custom cursor attributes
-          const exploreEl = target.closest('[data-cursor="explore"], .coverflow-card');
+          const exploreEl = target.closest('[data-cursor="explore"], .coverflow-card, .bento-card');
           const dragEl = target.closest('[data-cursor="drag"], .universe-canvas-container, .coverflow-stage');
           const externalEl = target.closest('a[target="_blank"], [data-cursor="external"]');
           const interactiveEl = target.closest(
             'button, a, input, select, [role="button"], .interactive-target'
           );
 
-          if (exploreEl) {
-            currentMode = 'explore';
-            follower.className = 'custom-cursor-follower is-explore';
-            if (label) label.textContent = 'EXPLORE';
-          } else if (dragEl) {
-            currentMode = 'drag';
-            follower.className = 'custom-cursor-follower is-drag';
-            if (label) label.textContent = 'DRAG';
-          } else if (externalEl) {
+          if (externalEl) {
             currentMode = 'external';
             follower.className = 'custom-cursor-follower is-external';
             if (label) label.textContent = '↗';
-          } else if (interactiveEl) {
+          } else if (exploreEl || interactiveEl) {
             currentMode = 'hover';
             follower.className = 'custom-cursor-follower is-hover';
             if (label) label.textContent = '';
 
+            const targetBtn = (interactiveEl || exploreEl) as HTMLElement;
             // Check if magnetic button
             if (
-              interactiveEl.classList.contains('btn--primary') ||
-              interactiveEl.classList.contains('hero__btn') ||
-              interactiveEl.classList.contains('contact-submit-btn')
+              targetBtn.classList.contains('btn--primary') ||
+              targetBtn.classList.contains('hero__btn') ||
+              targetBtn.classList.contains('contact-submit-btn')
             ) {
-              const rect = interactiveEl.getBoundingClientRect();
+              const rect = targetBtn.getBoundingClientRect();
               magneticCenterX = rect.left + rect.width / 2;
               magneticCenterY = rect.top + rect.height / 2;
             }
+          } else if (dragEl) {
+            currentMode = 'drag';
+            follower.className = 'custom-cursor-follower is-drag';
+            if (label) label.textContent = '';
           } else {
             currentMode = 'default';
             follower.className = 'custom-cursor-follower';

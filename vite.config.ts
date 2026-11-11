@@ -60,6 +60,7 @@ export default defineConfig(({ mode }) => {
           manualChunks: {
             three: ['three'],
             react: ['react', 'react-dom'],
+            motion: ['motion'],
           },
         },
       },
