@@ -152,12 +152,18 @@
 .bento-card.is-card-hovered,
 .bento-card.is-card-selected,
 .bento-card:focus-visible {
-  background: #1C1C1C;
-  border-color: #E50914 !important;
+  background: radial-gradient(
+    ellipse 120% 120% at var(--glare-x, 50%) var(--glare-y, 30%),
+    rgba(229, 9, 20, 0.24) 0%,
+    rgba(180, 0, 15, 0.13) 40%,
+    rgba(120, 0, 10, 0.05) 65%,
+    #171717 90%
+  ) !important;
+  border-color: rgba(229, 9, 20, 0.55) !important;
   transform: translateY(-4px);
   box-shadow:
-    0 18px 45px rgba(0, 0, 0, 0.85),
-    0 0 20px rgba(229, 9, 20, 0.14) !important;
+    0 22px 50px rgba(0, 0, 0, 0.9),
+    0 0 30px rgba(229, 9, 20, 0.22) !important;
 }
 
 .bento-card:focus-visible {
@@ -517,7 +523,7 @@
 
 /* Priority 01: Code & Engineering Prominence */
 .code-card-content--prominent {
-  border-color: rgba(229, 9, 20, 0.25);
+  border-color: rgba(255, 255, 255, 0.08);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
 }
 
@@ -3175,9 +3181,9 @@
   opacity: var(--glare-opacity, 0.35);
   mix-blend-mode: overlay;
   background: radial-gradient(
-    360px circle at var(--glare-x, 50%) var(--glare-y, 50%),
-    rgba(255, 255, 255, 0.45) 0%,
-    rgba(229, 9, 20, 0.15) 40%,
+    400px circle at var(--glare-x, 50%) var(--glare-y, 50%),
+    rgba(255, 120, 120, 0.35) 0%,
+    rgba(229, 9, 20, 0.18) 35%,
     transparent 75%
   );
   transition: opacity 0.25s ease-out;
@@ -3331,12 +3337,18 @@
 .is-featured-code-card.is-card-hovered,
 .is-featured-code-card.is-card-selected,
 .is-featured-code-card:focus-visible {
-  background: #1C1C1C !important;
-  border-color: #E50914 !important;
+  background: radial-gradient(
+    ellipse 120% 120% at var(--glare-x, 50%) var(--glare-y, 30%),
+    rgba(229, 9, 20, 0.26) 0%,
+    rgba(180, 0, 15, 0.14) 40%,
+    rgba(120, 0, 10, 0.05) 65%,
+    #171717 90%
+  ) !important;
+  border-color: rgba(229, 9, 20, 0.55) !important;
   transform: translateY(-4px) !important;
   box-shadow:
     0 22px 50px rgba(0, 0, 0, 0.9),
-    0 0 22px rgba(229, 9, 20, 0.16) !important;
+    0 0 32px rgba(229, 9, 20, 0.24) !important;
 }
 
 .bento-card__hero-tag {
@@ -3356,9 +3368,9 @@
 .bento-card.is-card-hovered .bento-card__hero-tag,
 .bento-card.is-card-selected .bento-card__hero-tag,
 .bento-card:focus-visible .bento-card__hero-tag {
-  background: rgba(229, 9, 20, 0.12);
-  border-color: rgba(229, 9, 20, 0.4);
-  color: #FF5A60;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: #FFFFFF;
 }
 
 /* ==========================================================================
