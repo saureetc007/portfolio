@@ -44,13 +44,73 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
   const [lineVisible, setLineVisible] = useState(false);
   const [lineActive, setLineActive] = useState(false);
   const [statusVisible, setStatusVisible] = useState(false);
+  const [statusText, setStatusText] = useState('INITIALIZING EXPERIENCE');
   const [isRevealing, setIsRevealing] = useState(false);
+  const [isSpectrumActive, setIsSpectrumActive] = useState(false);
+  const [isSpectrumZooming, setIsSpectrumZooming] = useState(false);
   const [exitDirection, setExitDirection] = useState<'up' | 'down'>('up');
 
   const animIdRef = useRef<number | null>(null);
   const particlesRef = useRef<SplashParticle[]>([]);
   const isFinishedRef = useRef(false);
   const touchStartYRef = useRef<number | null>(null);
+
+  // Synthesizes the authentic Netflix "Ta-Dum" cinematic soundmark resonance
+  const playNetflixTaDum = useCallback(() => {
+    try {
+      const AudioCtx =
+        window.AudioContext ||
+        (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = new AudioCtx();
+      if (ctx.state === 'suspended') {
+        ctx.resume();
+      }
+      const now = ctx.currentTime;
+
+      // 1. Initial "TA" attack: punchy mid-low kick
+      const osc1 = ctx.createOscillator();
+      const gain1 = ctx.createGain();
+      osc1.type = 'sine';
+      osc1.frequency.setValueAtTime(68, now);
+      osc1.frequency.exponentialRampToValueAtTime(32, now + 0.32);
+      gain1.gain.setValueAtTime(0.75, now);
+      gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.32);
+      osc1.connect(gain1);
+      gain1.connect(ctx.destination);
+      osc1.start(now);
+      osc1.stop(now + 0.33);
+
+      // 2. Heavy "DUM" sub-bass boom: seismic chest thud (0.14s later)
+      const tDum = now + 0.14;
+      const osc2 = ctx.createOscillator();
+      const gain2 = ctx.createGain();
+      osc2.type = 'sine';
+      osc2.frequency.setValueAtTime(54, tDum);
+      osc2.frequency.exponentialRampToValueAtTime(26, tDum + 0.85);
+      gain2.gain.setValueAtTime(0.85, tDum);
+      gain2.gain.exponentialRampToValueAtTime(0.001, tDum + 0.85);
+      osc2.connect(gain2);
+      gain2.connect(ctx.destination);
+      osc2.start(tDum);
+      osc2.stop(tDum + 0.86);
+
+      // 3. Shimmering chromatic harmonic overtone (matching the light spectrum)
+      const osc3 = ctx.createOscillator();
+      const gain3 = ctx.createGain();
+      osc3.type = 'triangle';
+      osc3.frequency.setValueAtTime(220, tDum);
+      osc3.frequency.exponentialRampToValueAtTime(520, tDum + 0.75);
+      gain3.gain.setValueAtTime(0.12, tDum);
+      gain3.gain.exponentialRampToValueAtTime(0.001, tDum + 0.75);
+      osc3.connect(gain3);
+      gain3.connect(ctx.destination);
+      osc3.start(tDum);
+      osc3.stop(tDum + 0.76);
+    } catch {
+      // Audio autoplay restrictions gracefully handled
+    }
+  }, []);
 
   const finishSequence = useCallback(() => {
     if (isFinishedRef.current) return;
@@ -64,11 +124,19 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
       if (isRevealing || isFinishedRef.current) return;
       setExitDirection(dir);
       setIsRevealing(true);
+      setIsSpectrumActive(true);
+      playNetflixTaDum();
+
+      requestAnimationFrame(() => {
+        setIsSpectrumZooming(true);
+      });
+
+      // Let the high-speed 3D Netflix spectrum zoom play out before handing off
       setTimeout(() => {
         finishSequence();
-      }, 620);
+      }, 950);
     },
-    [isRevealing, finishSequence]
+    [isRevealing, finishSequence, playNetflixTaDum]
   );
 
   // Keyboard navigation / dismissal
@@ -137,15 +205,20 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
       });
     }, 1050);
 
-    // Phase 5: Automatic Cinematic Reveal (2400ms)
+    // Initializing Experience -> Experience Ready (1900ms)
+    const tStatusReady = setTimeout(() => {
+      setStatusText('EXPERIENCE READY');
+    }, 1900);
+
+    // Phase 5: Automatic Cinematic Reveal with Netflix Spectrum Light Transition (2350ms)
     const tReveal = setTimeout(() => {
       triggerExit('up');
-    }, 2400);
+    }, 2350);
 
     // Failsafe timeout
     const tFailsafe = setTimeout(() => {
       finishSequence();
-    }, 3100);
+    }, 3600);
 
     return () => {
       clearTimeout(tAmbient);
@@ -154,6 +227,7 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
       if (charTimer) clearInterval(charTimer);
       if (scrambleInterval) clearInterval(scrambleInterval);
       clearTimeout(tLine);
+      clearTimeout(tStatusReady);
       clearTimeout(tReveal);
       clearTimeout(tFailsafe);
       document.body.style.overflow = '';
@@ -446,7 +520,7 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
             statusVisible ? 'is-visible' : ''
           }`}
         >
-          INITIALIZING ARCHITECTURE
+          {statusText}
         </div>
       </div>
 
@@ -461,6 +535,40 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
         <span className="splash-screen__swipe-text">SWIPE UP OR DOWN TO ENTER</span>
         <span className="splash-screen__swipe-chevron">▼</span>
       </div>
+
+      {/* 6. Authentic Netflix Spectrum Light Ribbon Zoom Transition */}
+      {isSpectrumActive && (
+        <div
+          className={`splash-screen__spectrum-stage ${
+            isSpectrumZooming ? 'is-zooming' : ''
+          }`}
+          aria-hidden="true"
+        >
+          {/* Background Ambient Glow */}
+          <div className="spectrum-ambient" />
+
+          {/* High-Fidelity Spectrum Ribbons from User Reference */}
+          <div className="spectrum-texture-layer" />
+
+          {/* Procedural Glowing Light Beams for Additive Shimmer */}
+          <div className="spectrum-beams-container">
+            <div className="spectrum-beam beam-gold" />
+            <div className="spectrum-beam beam-crimson-1" />
+            <div className="spectrum-beam beam-crimson-2" />
+            <div className="spectrum-beam beam-green-slit" />
+            <div className="spectrum-beam beam-netflix-red" />
+            <div className="spectrum-beam beam-coral" />
+            <div className="spectrum-beam beam-magenta" />
+            <div className="spectrum-beam beam-violet" />
+            <div className="spectrum-beam beam-cyan" />
+            <div className="spectrum-beam beam-blue" />
+          </div>
+
+          {/* Anamorphic Horizontal Lens Flare Sweep */}
+          <div className="spectrum-flare-core" />
+          <div className="spectrum-flare-streak" />
+        </div>
+      )}
     </div>
   );
 }

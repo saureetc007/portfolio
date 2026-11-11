@@ -377,14 +377,28 @@
    3. VISUAL COMPOSITION 1: CODE & ENGINEERING
    -------------------------------------------------------------------------- */
 .code-card-content {
+  position: relative;
   display: flex;
   flex-direction: column;
-  background: #121212;
+  background: rgba(18, 18, 18, 0.94);
+  backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 8px;
   overflow: hidden;
   font-family: var(--font-mono);
   font-size: 0.72rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+}
+
+.code-card-content::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 38%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.035) 0%, transparent 100%);
+  pointer-events: none;
 }
 
 .code-card-content__header {

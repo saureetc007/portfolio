@@ -494,19 +494,35 @@ export function UniverseScene() {
 
     // Background Starfield Particles
     const starGeo = new THREE.BufferGeometry();
-    const starCount = 550;
+    const starCount = 850;
     const starPositions = new Float32Array(starCount * 3);
-    for (let i = 0; i < starCount * 3; i += 3) {
-      starPositions[i] = (Math.random() - 0.5) * 80;
-      starPositions[i + 1] = (Math.random() - 0.5) * 80;
-      starPositions[i + 2] = (Math.random() - 0.5) * 80;
+    const starColors = new Float32Array(starCount * 3);
+    const starPalette = [
+      new THREE.Color('#FFFFFF'),
+      new THREE.Color('#E50914'),
+      new THREE.Color('#38BDF8'),
+      new THREE.Color('#F59E0B'),
+      new THREE.Color('#A855F7'),
+    ];
+
+    for (let i = 0; i < starCount; i++) {
+      starPositions[i * 3] = (Math.random() - 0.5) * 90;
+      starPositions[i * 3 + 1] = (Math.random() - 0.5) * 90;
+      starPositions[i * 3 + 2] = (Math.random() - 0.5) * 90;
+
+      const col = starPalette[Math.floor(Math.random() * starPalette.length)] ?? new THREE.Color('#FFFFFF');
+      starColors[i * 3] = col.r;
+      starColors[i * 3 + 1] = col.g;
+      starColors[i * 3 + 2] = col.b;
     }
     starGeo.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
+    starGeo.setAttribute('color', new THREE.BufferAttribute(starColors, 3));
     const starMat = new THREE.PointsMaterial({
-      color: 0x888888,
-      size: 0.16,
+      size: 0.18,
       transparent: true,
-      opacity: 0.45,
+      opacity: 0.75,
+      vertexColors: true,
+      blending: THREE.AdditiveBlending,
     });
     const starField = new THREE.Points(starGeo, starMat);
     scene.add(starField);

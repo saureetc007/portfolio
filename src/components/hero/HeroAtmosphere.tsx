@@ -75,9 +75,9 @@ export function HeroAtmosphere({ className = 'hero__atmosphere' }: { className?:
 
       const g = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
       g.addColorStop(0.0, 'rgba(255, 255, 255, 1)');
-      g.addColorStop(0.18, 'rgba(255, 210, 215, 0.9)');
-      g.addColorStop(0.42, 'rgba(229, 9, 20, 0.45)');
-      g.addColorStop(0.75, 'rgba(178, 7, 16, 0.15)');
+      g.addColorStop(0.14, 'rgba(255, 225, 230, 0.95)');
+      g.addColorStop(0.35, 'rgba(229, 9, 20, 0.65)');
+      g.addColorStop(0.65, 'rgba(178, 7, 16, 0.25)');
       g.addColorStop(1.0, 'rgba(20, 20, 20, 0)');
 
       ctx.fillStyle = g;
@@ -90,7 +90,7 @@ export function HeroAtmosphere({ className = 'hero__atmosphere' }: { className?:
 
     // 5. Particle Field Setup
     const isMobile = window.innerWidth < 768;
-    const COUNT = isMobile ? 70 : 140;
+    const COUNT = isMobile ? 100 : 220;
 
     const positions = new Float32Array(COUNT * 3);
     const colors = new Float32Array(COUNT * 3);
@@ -100,15 +100,16 @@ export function HeroAtmosphere({ className = 'hero__atmosphere' }: { className?:
     const seed = new Float32Array(COUNT * 4); // phaseX, phaseY, speed, ampScale
     const base = new Float32Array(COUNT * 3); // origin coordinates
 
-    // Restrained palette: Netflix Red, Dark Crimson, Ruby Highlight, Warm White, Platinum
+    // Restrained palette: Netflix Red, Dark Crimson, Ruby Highlight, Warm White, Golden Ember
     const palette = [
       new THREE.Color('#E50914'), // Netflix primary red
       new THREE.Color('#B20710'), // Dark crimson
       new THREE.Color('#FF3E4D'), // Bright ruby highlight
       new THREE.Color('#FFFFFF'), // Crisp white bokeh
       new THREE.Color('#FFA8AF'), // Soft rose ember
+      new THREE.Color('#FFB300'), // Warm cinematic golden ember
     ];
-    const weights = [0.42, 0.28, 0.14, 0.10, 0.06];
+    const weights = [0.38, 0.24, 0.14, 0.12, 0.06, 0.06];
 
     const pickColor = () => {
       let r = Math.random();
