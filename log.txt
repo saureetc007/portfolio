@@ -1,0 +1,517 @@
+================================================================================
+SAUREET CHAKRABARTI — CINEMATIC DEVELOPER PORTFOLIO & MOTION EXPERIENCE
+PROJECT TECHNICAL MANIFEST & COMPREHENSIVE ARCHITECTURE AUDIT LOG
+================================================================================
+Generated: 2026-11-12
+Version: 0.1.0 (Prototype MVP)
+Author / Subject: Saureet Chakrabarti
+Repository: saureet-portfolio
+Remote: https://github.com/saureetc007/portfolio.git
+Branch: main
+
+--------------------------------------------------------------------------------
+TABLE OF CONTENTS
+--------------------------------------------------------------------------------
+1. EXECUTIVE SUMMARY & DESIGN PHILOSOPHY
+2. CORE TECH STACK & DEPENDENCY AUDIT
+3. PROJECT FILE STRUCTURE & ASSET TOPOLOGY
+4. SUBSYSTEM & COMPONENT BREAKDOWN
+   4.1. Splash Screen & Netflix Intro Transition
+   4.2. Hero Experience & Atmospheric Particle Engine
+   4.3. Interactive Skills Bento Grid & In-Browser Code Execution
+   4.4. 3D Skills Universe (Three.js WebGL Cosmos)
+   4.5. Top 10 Featured Projects (3D Perspective Coverflow)
+   4.6. Academic & Engineering Journey (Chaptered Timeline)
+   4.7. Production Contact Engine & Anti-Spam Security
+   4.8. Custom Cursor & Interactive Atmosphere
+   4.9. Portfolio Gamification & Exploration Progress HUD
+5. DESIGN TOKENS, COLOR MATRIX & TYPOGRAPHY
+6. MOTION SYSTEM & MICROINTERACTION SPECIFICATION
+7. SECURITY, SANITIZATION & PERFORMANCE OPTIMIZATIONS
+8. TESTING, VERIFICATION & BUILD CONFIGURATION
+9. COMPLETE RECENT COMMIT LOG & MILESTONES
+
+================================================================================
+1. EXECUTIVE SUMMARY & DESIGN PHILOSOPHY
+================================================================================
+This repository houses the personal engineering portfolio of Saureet Chakrabarti.
+The application departs from standard static web portfolios by providing an
+ultra-immersive, cinematic dark streaming aesthetic directly inspired by Netflix
+and high-performance developer tools.
+
+Key Themes:
+- Streaming-Grade Dark Visual Identity: Solid black (#000000), deep Netflix charcoal
+  (#141414), secondary card surface (#181818), and authentic Netflix Crimson Red
+  (#E50914) with dimensional dark red accents (#B20710).
+- Extreme Motion Design: Multi-axis 3D perspective card physics, momentum-based
+  swiping, high-velocity character deciphering, liquid cursor rings, and smooth
+  layered transitions.
+- Interactive Proof-of-Skill: Live in-browser runnable code editor with simulated
+  Python and TypeScript engine runtimes, real-time tensor normalization output,
+  and interactive terminal CLI.
+- 3D Interactive Cosmos: Three.js WebGL scene with 850 interactive nodes representing
+  technologies connected via dynamic neural pathways.
+- Accessibility & Performance: Strict compliance with prefers-reduced-motion,
+  Retina devicePixelRatio canvas scaling, zero-blur GPU transforms, and WCAG AA contrast.
+
+================================================================================
+2. CORE TECH STACK & DEPENDENCY AUDIT
+================================================================================
+Runtime & Framework:
+- React 19.1.0 (Latest React primitives, concurrent rendering hooks)
+- React-DOM 19.1.0
+- TypeScript 5.8.3 (Strict type checking, strictNullChecks, noImplicitAny)
+- Vite 6.3.5 (ESM build pipeline, instant HMR, Rollup production bundling)
+
+Graphics & Physics:
+- Three.js 0.187.0 + @types/three 0.187.0 (WebGL 3D galaxy scene, orbit controls,
+  particle flow shaders, camera interpolation)
+- Motion 14.10.1 (Framer Motion v14 — gesture physics, FLIP layouts, AnimatePresence)
+- HTML5 Canvas 2D (Retina DPR-scaled particle engines in Splash, Hero, and Global)
+- Web Audio API (Synthesized authentic Netflix "Ta-Dum" sub-bass and overtone acoustics)
+
+Build & Tooling:
+- Node.js ESM tooling (scripts/test-contact-api.js, scripts/verify-build.js)
+- Rollup manualChunks optimization (separating Three.js, Motion, and React into
+  dedicated cached vendor chunks)
+- Vercel Serverless Function runtime for contact submissions
+
+================================================================================
+3. PROJECT FILE STRUCTURE & ASSET TOPOLOGY
+================================================================================
+saureet-portfolio/
+├── .gitignore
+├── api/
+│   └── contact.ts                       # Serverless contact submission handler
+├── index.html                           # Root HTML with SEO, Open Graph & Twitter cards
+├── package.json                         # Dependencies and build scripts
+├── public/
+│   ├── assets/
+│   │   ├── hero/                        # Hero slide vector/raster imagery
+│   │   │   ├── hero-tall.webp
+│   │   │   ├── hero-wide.webp
+│   │   │   ├── slide-1-tall.svg
+│   │   │   ├── slide-1-wide.svg
+│   │   │   ├── slide-2-tall.svg
+│   │   │   ├── slide-2-wide.svg
+│   │   │   ├── slide-3-tall.svg
+│   │   │   └── slide-3-wide.svg
+│   │   ├── projects/                    # 10 detailed project architecture SVGs
+│   │   │   ├── project-1.svg through project-10.svg
+│   │   └── splash/                      # Splash assets
+│   │       ├── netflix-intro.mp4        # Official Netflix 2019 logo transition video
+│   │       └── netflix-spectrum.jpg     # High-res reference spectrum texture
+│   ├── favicon.ico
+│   └── robots.txt
+├── scripts/
+│   ├── generate-assets.js               # Asset validation and creation helper
+│   ├── render-hero-art.py               # Procedural art renderer
+│   ├── test-contact-api.js              # 21 unit/integration tests for contact API
+│   └── verify-build.js                  # Production build and asset integrity checker
+├── src/
+│   ├── App.tsx                          # Root application container & splash orchestration
+│   ├── main.tsx                         # React 19 bootstrap mount
+│   ├── vite-env.d.ts                    # Vite client types declaration
+│   ├── components/
+│   │   ├── about/                       # Academic & communities journey
+│   │   │   ├── About.tsx
+│   │   │   ├── AcademicJourney.tsx
+│   │   │   ├── CommunitiesChapter.tsx
+│   │   │   ├── EngineeringChapter.tsx
+│   │   │   └── SchoolChapter.tsx
+│   │   ├── contact/                     # Contact section
+│   │   │   ├── Contact.tsx
+│   │   │   └── ContactForm.tsx
+│   │   ├── gamification/                # Exploration tracking
+│   │   │   └── ExplorationHUD.tsx
+│   │   ├── hero/                        # Hero carousel & interactive modules
+│   │   │   ├── ArchitectureHologram.tsx
+│   │   │   ├── GitHubActivityCard.tsx
+│   │   │   ├── Hero.tsx
+│   │   │   ├── HeroAtmosphere.tsx
+│   │   │   ├── HeroCardStack.tsx
+│   │   │   ├── HeroNav.tsx
+│   │   │   ├── HeroSlide.tsx
+│   │   │   ├── HeroVideoBackground.tsx
+│   │   │   ├── HeroVisuals.tsx
+│   │   │   ├── MiniCodeEditor.tsx
+│   │   │   ├── ParticleNameReveal.tsx
+│   │   │   ├── RepositoryExplorerModal.tsx
+│   │   │   ├── SecretTerminal.tsx
+│   │   │   └── TechIcons.tsx
+│   │   ├── layout/                      # Layout wrappers & global navigation
+│   │   │   ├── Container.tsx
+│   │   │   ├── Footer.tsx
+│   │   │   ├── Navbar.tsx
+│   │   │   ├── Section.tsx
+│   │   │   └── SkipLink.tsx
+│   │   ├── projects/                    # 3D Coverflow projects carousel
+│   │   │   ├── ActiveProjectHUD.tsx
+│   │   │   ├── CoverflowAutoplayControls.tsx
+│   │   │   ├── CoverflowCard.tsx
+│   │   │   ├── CoverflowPagination.tsx
+│   │   │   ├── ProjectCinematicVisual.tsx
+│   │   │   ├── ProjectModal.tsx
+│   │   │   ├── ProjectsSection.tsx
+│   │   │   └── Top10Card.tsx
+│   │   ├── skills/                      # Interactive Skills Bento Grid
+│   │   │   ├── AIDataIntelligenceCardContent.tsx
+│   │   │   ├── BentoCardWrapper.tsx
+│   │   │   ├── CodeEngineeringCardContent.tsx
+│   │   │   ├── DesignDigitalCreationCardContent.tsx
+│   │   │   ├── MobileDevelopmentCardContent.tsx
+│   │   │   ├── SkillCard.tsx
+│   │   │   ├── SkillDetailsModal.tsx
+│   │   │   ├── SkillIcons.tsx
+│   │   │   ├── SkillRowCarousel.tsx
+│   │   │   ├── SkillsParticleCanvas.tsx
+│   │   │   ├── SkillsSection.tsx
+│   │   │   └── WebDevelopmentCardContent.tsx
+│   │   ├── splash/                      # Fast cinematic Netflix splash screen
+│   │   │   └── SplashScreen.tsx
+│   │   ├── ui/                          # Microinteraction & atomic UI primitives
+│   │   │   ├── Button.tsx
+│   │   │   ├── CustomCursor.tsx
+│   │   │   ├── Eyebrow.tsx
+│   │   │   ├── GlobalParticleCanvas.tsx
+│   │   │   ├── MotionReveal.tsx
+│   │   │   ├── Reveal.tsx
+│   │   │   ├── SectionHeading.tsx
+│   │   │   ├── SocialIcon.tsx
+│   │   │   ├── StatusBadge.tsx
+│   │   │   └── WordReveal.tsx
+│   │   └── universe/                    # Three.js 3D skills cosmos
+│   │       ├── SkillsList.tsx
+│   │       ├── SkillsUniverse.tsx
+│   │       ├── UniverseData.ts
+│   │       └── UniverseScene.tsx
+│   ├── data/                            # Content models & configuration
+│   │   ├── education.ts
+│   │   ├── hero.ts
+│   │   ├── index.ts
+│   │   ├── journey.ts
+│   │   ├── profile.ts
+│   │   ├── projects.ts
+│   │   ├── repositories.ts
+│   │   └── skills.ts
+│   ├── hooks/                           # Custom React hooks
+│   │   ├── useActiveSection.ts
+│   │   ├── useGamification.ts
+│   │   ├── useMagnetic.ts
+│   │   ├── useReducedMotion.ts
+│   │   ├── useReveal.ts
+│   │   ├── useScrollReveal.ts
+│   │   └── useSwipeScrollFade.ts
+│   ├── lib/                             # Core utilities & domain logic
+│   │   ├── breakpoints.ts
+│   │   ├── contactValidation.ts
+│   │   ├── cx.ts
+│   │   ├── gamification.ts
+│   │   └── motion-presets.ts
+│   ├── styles/                          # Modular CSS design architecture
+│   │   ├── academic-journey.css
+│   │   ├── base.css
+│   │   ├── contact-cinematic.css
+│   │   ├── footer.css
+│   │   ├── gamification-motion.css
+│   │   ├── hero.css
+│   │   ├── index.css
+│   │   ├── layout.css
+│   │   ├── motion.css
+│   │   ├── navbar.css
+│   │   ├── projects-coverflow.css
+│   │   ├── sections.css
+│   │   ├── skills-bento.css
+│   │   ├── splash.css
+│   │   ├── tokens.css
+│   │   ├── ui.css
+│   │   └── universe-galaxy.css
+│   └── types/
+│       └── content.ts                   # Domain entity type contracts
+├── tsconfig.json                        # TypeScript configuration
+├── tsconfig.node.json
+└── vite.config.ts                       # Vite build & chunking configuration
+
+================================================================================
+4. SUBSYSTEM & COMPONENT BREAKDOWN
+================================================================================
+
+--------------------------------------------------------------------------------
+4.1. SPLASH SCREEN & NETFLIX INTRO TRANSITION (src/components/splash/SplashScreen.tsx)
+--------------------------------------------------------------------------------
+- Purpose: Provides a full-screen, cinema-grade preloader that isolates the
+  underlying DOM until the experience is completely initialized.
+- High-Speed Orchestration (~1.4s Total Duration):
+  * 00ms: Preloads video & assets; locks document scrolling.
+  * 40ms: Ambient crimson keylight fades in.
+  * 80ms: Kicker badge and audio waveform frequency bars ignite.
+  * 100ms: Decrypted matrix typographic reveal starts at 12ms/letter, deciphering
+    "SAUREET CHAKRABARTI" across 18 characters within ~216ms.
+  * 340ms: System status flips from "INITIALIZING EXPERIENCE" to "EXPERIENCE READY".
+  * 500ms: Fast Netflix transition begins.
+  * 500-1350ms: Vector Netflix 'N' scales in 3D perspective while infinite-resolution
+    mathematical spectral ribbons surge forward at 1.35x tempo.
+  * 1380ms: Flawless hand-off to App.tsx with zero delay.
+- Crystal-Clear 4K Graphics:
+  * Removed all legacy CSS blur filters (blur(18px), blur(6px), blur(4px)).
+  * Canvas is scaled with window.devicePixelRatio (2x/3x on Retina Mac/mobile).
+  * Centerpiece SVG vector Netflix 'N' with multi-stage bevels and drop shadows.
+  * Procedural 28-beam mathematical repeating linear gradient (Gold, Coral,
+    Emerald slit, Netflix Red, Rose, Magenta, Violet, Cyan, and Blue) with pitch-black
+    (#000000) separation gutters to prevent bleeding.
+- Audio Architecture:
+  * Embedded video soundmark + Web Audio API synthesizer for the iconic "Ta-Dum".
+  * 1st wave: 68Hz to 32Hz sine oscillator punch.
+  * 2nd wave: 54Hz to 26Hz seismic chest sub-bass boom at +140ms.
+  * 3rd wave: 220Hz to 520Hz triangle harmonic overtone.
+  * One-touch audio unlock listener on first pointerdown/keydown ensures compliant
+    unmuted playback without browser policy violations.
+- Interaction: Instant bypass on tap, click, swipe, Space, Enter, or Escape, plus a
+  frosted-glass "SKIP INTRO ›" button.
+
+--------------------------------------------------------------------------------
+4.2. HERO EXPERIENCE & ATMOSPHERIC ENGINE (src/components/hero/)
+--------------------------------------------------------------------------------
+- 3 Rotating Cinematic Hero Slides:
+  * Slide 01: Systems & AI Engineering (Decision Intelligence, High-throughput data)
+  * Slide 02: Full-Stack & Cloud Architecture (Distributed systems, microservices)
+  * Slide 03: Creative Technology & 3D Web (Three.js WebGL, interactive physics)
+- HeroAtmosphere.tsx:
+  * Canvas 2D particle simulation running 220 micro-particles.
+  * Dynamic depth layering with warm golden embers, red starlight, and subtle
+    cursor gravitational pull.
+- ArchitectureHologram.tsx:
+  * Interactive SVG system diagram showing user client, API gateway, ML inference
+    worker, and database store with live animated data flow packets.
+- MiniCodeEditor.tsx:
+  * Authentic in-browser code editor simulation with syntax highlighting.
+  * Tab switching between Python (engine.py) and JavaScript (runtime.js).
+  * Working "▶ Run" button that executes simulated vector normalization and
+    outputs real-time tensor embedding shape and execution time (0.012s).
+- SecretTerminal.tsx & GitHubActivityCard.tsx:
+  * Interactive CLI console accessible via keyboard shortcut or HUD.
+  * Live GitHub activity card showing commits, streak, and language distribution.
+
+--------------------------------------------------------------------------------
+4.3. SKILLS BENTO GRID & CODE ENGINEERING (src/components/skills/)
+--------------------------------------------------------------------------------
+- Layout: Asymmetric 5-card Bento Grid layout with responsive column spanning.
+- 5 Core Disciplines:
+  1. Code & Engineering: Prominent code card featuring vector similarity engine,
+     terminal output, Python/JS toggles, and full-square red radial hover gradient.
+     Inner red border removed to match clean dark design.
+  2. AI & Data Intelligence: Neural network representations, cosine similarity matrix.
+  3. Web Development: Modern stack overview (React, TypeScript, Next.js, Node.js).
+  4. Mobile Development: Cross-platform iOS/Android architectures.
+  5. Design & Digital Creation: Design systems, Figma Code Connect, WebGL shaders.
+- Interaction: Category tabs filter skills dynamically. Clicking any card opens
+  the SkillDetailsModal with in-depth proficiency ratings and applied project links.
+
+--------------------------------------------------------------------------------
+4.4. 3D SKILLS UNIVERSE (src/components/universe/)
+--------------------------------------------------------------------------------
+- Engine: Native Three.js WebGL rendering scene inside UniverseScene.tsx.
+- 850 Stellar Nodes:
+  * Grouped into 5 gravitational orbital clusters (Frontend, Backend, AI/ML,
+    Cloud/DevOps, Tools).
+  * Procedural line connections representing inter-skill dependencies.
+  * Luminous particle flow traversing connecting lines.
+- Controls & Camera:
+  * Smooth orbit drag, zoom, and rotation controls.
+  * Clicking a node animates the camera smoothly towards the node and surfaces
+    an interactive skill card with experience metrics.
+
+--------------------------------------------------------------------------------
+4.5. TOP 10 FEATURED PROJECTS (src/components/projects/)
+--------------------------------------------------------------------------------
+- 3D Perspective Coverflow:
+  * Inspired by macOS Coverflow and streaming media galleries.
+  * Active card stands at center with 0 rotation, scaled to 1.05 with vivid crimson glow.
+  * Inactive cards rotate on the Y-axis (-38deg / +38deg) and scale down with depth
+    parallax (translateZ: -180px).
+- Project Inventory (10 Verified Builds):
+  1. DecisionVault / DecisionTrace — Engineering decision recovery system
+  2. AI-Powered Cognitive Support Platform — Assistive tools for older adults
+  3. Spotify-Inspired Music Player — Modern streaming audio client with Web Audio
+  4. Automated Trading Intelligence Bot — Algorithmic backtesting & signal engine
+  5. Real-Time Distributed Chat Hub — WebSocket low-latency communication mesh
+  6. Autonomous Robotics Pathfinding Simulator — A* / Dijkstra visualizer
+  7. Healthcare Analytics Dashboard — Clinical telemetry & HIPAA-compliant metrics
+  8. Cloud Resource Optimization CLI — AWS/GCP cost reduction engine
+  9. Computer Vision Gesture Controller — MediaPipe hand tracking interface
+  10. Developer Portfolio & Motion Engine — This reactive portfolio experience
+- Controls: Touch swipe velocity detection, mouse drag, autoplay timer with
+  play/pause toggle, pagination track, and ProjectModal with full technical dossier.
+
+--------------------------------------------------------------------------------
+4.6. ACADEMIC & ENGINEERING JOURNEY (src/components/about/)
+--------------------------------------------------------------------------------
+- Chaptered Narrative Timeline:
+  * School Chapter: Foundation in mathematics, physics, and computer science.
+  * Engineering Chapter: University degree, algorithms, systems engineering, research.
+  * Communities Chapter: Open-source leadership, hackathons, and tech mentorship.
+- Visual Features:
+  * Dynamic timeline progress bar drawn sequentially as the user scrolls.
+  * Milestone activation badges with red illumination upon entering viewport.
+  * Verification credentials and academic awards.
+
+--------------------------------------------------------------------------------
+4.7. PRODUCTION CONTACT ENGINE & SECURITY (src/components/contact/, api/)
+--------------------------------------------------------------------------------
+- Serverless API (api/contact.ts):
+  * Production Vercel serverless function supporting Resend email dispatch.
+  * Validates HTTP method (POST only).
+  * Honeypot Anti-Spam Decoy: Hidden field '_gotcha'. Bots filling this field
+    receive a 200 OK decoy response without triggering an outbound email.
+  * Graceful Unconfigured State: When RESEND_API_KEY is not set, returns a 503
+    status with a direct mailto fallback link to saureetc007@gmail.com.
+- Client Validation (src/lib/contactValidation.ts):
+  * Strict regex validation for RFC-compliant email formatting.
+  * String length verification: subject (>= 3 chars), message (>= 10 chars).
+  * XSS HTML Entity Sanitization: Converts <, >, &, ", and ' into secure HTML entities.
+
+--------------------------------------------------------------------------------
+4.8. CUSTOM CURSOR & INTERACTIVE ATMOSPHERE (src/components/ui/)
+--------------------------------------------------------------------------------
+- CustomCursor.tsx:
+  * Dual-layer cursor system:
+    1. Precision center crimson dot (4px) with instant tracking.
+    2. Fluid trailing ring (28px) with spring physics and delayed interpolation.
+  * Clean Non-Intrusive Design: Large obstructive black bubbles ("EXPLORE", "DRAG")
+    have been removed and replaced with clean red ring hover scaling.
+  * Touch Device Disablement: Automatically deactivates on touch screens to preserve
+    native mobile gesture UX.
+- GlobalParticleCanvas.tsx:
+  * Full-bleed canvas listening to scroll and mouse movement.
+  * Generates ambient stellar dust and occasional shooting stars.
+
+--------------------------------------------------------------------------------
+4.9. PORTFOLIO GAMIFICATION & EXPLORATION HUD (src/components/gamification/)
+--------------------------------------------------------------------------------
+- ExplorationHUD.tsx:
+  * Non-intrusive floating HUD displaying portfolio completion percentage.
+  * Tracks user discovery: sections visited, code editor executed, 3D universe
+    nodes inspected, secret terminal opened.
+  * Unlocks subtle achievements without degrading the professional aesthetic.
+
+================================================================================
+5. DESIGN TOKENS, COLOR MATRIX & TYPOGRAPHY
+================================================================================
+Color Palette:
+- Pitch Black:            #000000 (Splash background, canvas base)
+- Netflix Dark Canvas:    #141414 (Main background body, app wrapper)
+- Secondary Surface:      #181818 (Card backgrounds, modals)
+- Elevated Surface:       #202020 (Hover states, elevated containers)
+- Border Subtle:          rgba(255, 255, 255, 0.08)
+- Border Prominent:       rgba(255, 255, 255, 0.18)
+- Netflix Primary Red:    #E50914 (Brand red, active indicators, highlights)
+- Netflix Deep Crimson:   #B20710 (Secondary red, dark accents, active gradients)
+- Electric Crimson:       #FF1E27 (Bright red highlight, active terminal text)
+- Pure White:             #FFFFFF (Headings, primary typography)
+- Muted Grey:             #A3A3A3 / #808080 (Secondary labels, descriptions)
+- Spectral Accents:       #FFA000 (Gold), #00E676 (Emerald), #E040FB (Magenta),
+                          #7C4DFF (Violet), #00E5FF (Cyan), #2979FF (Blue)
+
+Typography:
+- Primary Sans:           Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif
+- Monospace / Terminal:   'JetBrains Mono', 'Fira Code', 'SF Mono', Menlo, Consolas, monospace
+- Font Scaling:           clamp() expressions ensuring fluid responsiveness from 320px mobile to 4K displays
+
+================================================================================
+6. MOTION SYSTEM & MICROINTERACTION SPECIFICATION
+================================================================================
+Animation Levels:
+- Level 1 (Ambient):
+  * Constant background particles running at 60fps on requestAnimationFrame.
+  * Subtle radial gradients moving with low-frequency sine waves.
+  * Soundmark equalizer bars pulsing smoothly.
+- Level 2 (Interactive):
+  * Card 3D tilt responding to pointer position with transform-style: preserve-3d.
+  * Full-square red radial gradient tracking hover on Bento cards.
+  * Magnetic button attraction and fluid cursor ring expansion.
+  * In-browser code runner terminal execution feedback.
+- Level 3 (Cinematic):
+  * Splash screen matrix character decryption.
+  * Fast Netflix spectrum ribbon 3D zoom transition.
+  * 3D Coverflow carousel transitions with multi-axis rotation and scale.
+  * Three.js camera transitions flying to selected cosmic nodes.
+
+Spring Physics & Easings:
+- Netflix Zoom Curve:     cubic-bezier(0.16, 1, 0.3, 1) — immediate explosion with smooth deceleration
+- Standard Interface Ease:cubic-bezier(0.22, 1, 0.36, 1)
+- Spring Physics:         stiffness: 300, damping: 25, mass: 0.8
+- Reduced Motion:         prefers-reduced-motion queries instantly bypass animations
+
+================================================================================
+7. SECURITY, SANITIZATION & PERFORMANCE OPTIMIZATIONS
+================================================================================
+Security:
+- Strict HTML entity encoding in contact validation prevents script injection (XSS).
+- Anti-spam honeypot field catches automated bots with decoy 200 responses.
+- Environment variables (RESEND_API_KEY) remain strictly server-side inside api/.
+
+Performance & Bundle Engineering:
+- Code Splitting in vite.config.ts:
+  * 'three': Three.js library isolated into its own 532KB chunk.
+  * 'motion': Motion v14 isolated into a 126KB chunk.
+  * 'react': React core isolated into a 12KB chunk.
+  * 'index': Main application entry bundle reduced to 553KB.
+- Retina 4K Display Optimization:
+  * All canvas elements detect window.devicePixelRatio and scale buffer dimensions.
+  * CSS image-rendering: -webkit-optimize-contrast applied to media elements.
+- Zero Unnecessary Repaints:
+  * Heavy visual effects use GPU-accelerated CSS properties (transform, opacity).
+  * Inactive background tabs pause animation frames to minimize CPU load.
+
+================================================================================
+8. TESTING, VERIFICATION & BUILD CONFIGURATION
+================================================================================
+Automated Test Suite (scripts/test-contact-api.js & scripts/verify-build.js):
+- 21 Unit & Integration Tests Passing:
+  1. Valid payload validation passes
+  2. No errors on valid payload
+  3. Email normalized and preserved
+  4. Empty payload fails validation
+  5. Name required error present
+  6. Email required error present
+  7. Subject required error present
+  8. Message required error present
+  9. Rejected invalid email: "plainaddress"
+  10. Rejected invalid email: "@missingusername.com"
+  11. Rejected invalid email: "user@.com"
+  12. Rejected invalid email: "user@domain"
+  13. Subject < 3 chars rejected
+  14. Message < 10 chars rejected
+  15. Script tags escaped (XSS protection)
+  16. LT/GT replaced with HTML entities
+  17. Honeypot returns 200 decoy
+  18. Honeypot returns success decoy without dispatching email
+  19. Returns 503 when RESEND_API_KEY is not configured
+  20. Returns success: false when provider is unconfigured
+  21. Provides direct fallback email in error response
+
+Build Verification:
+- dist/index.html verified
+- Theme color confirmed as #141414
+- All 6 hero slide assets confirmed on disk
+- All 10 project thumbnails confirmed on disk
+- TypeScript zero-error type check: npx tsc --noEmit (0 errors)
+- Production Vite build: npm run build (successful compile in ~1.3s)
+
+================================================================================
+9. COMPLETE RECENT COMMIT LOG & MILESTONES
+================================================================================
+- b0a115e: feat(splash): accelerate timing and eliminate haziness with crisp 4K Retina rendering
+- 024e0c4: feat(splash): integrate authentic Netflix logo intro transition video from user upload
+- 9856032: feat(graphics): implement authentic Netflix spectrum light ribbon zoom transition and elevate visual graphics
+- d4c4fbc: feat(final): polish prototype MVP — refined non-intrusive cursor, Open Graph metadata, and optimized bundle chunks
+- 99ea4d3: fix(skills): remove inner red border and apply full-square red hover gradient
+- c467b45: feat(motion): add directional swipe fade animations, encrypted splash screen and scene look upgrade
+- af6dc67: fix(projects): align header controls with title, fix margins and remove overlapping HUD
+- 05307fb: fix(ui): remove inspect cursor mode, remove rotating border beam animation, and fix section heading margins
+- d6f3e68: feat(motion): Extreme Motion Design Upgrade — Phase 2: magnetic attraction, liquid cursor deformation, word reveals, border tracing, and 3D depth physics
+- 6b124b1: feat(motion): comprehensive animation upgrade — Motion v14, gesture momentum, scroll reveals, and cinematic hover states
+
+================================================================================
+END OF MANIFEST & ARCHITECTURE LOG
+================================================================================
