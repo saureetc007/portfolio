@@ -16,18 +16,18 @@ import { CoverflowPagination } from './CoverflowPagination';
 import { ProjectModal } from './ProjectModal';
 import { gamification } from '@/lib/gamification';
 
-// Project-specific atmospheric ambient lighting colors
+// Project-specific atmospheric ambient lighting colors (restrained streaming red palette)
 const PROJECT_GLOWS: Record<string, string> = {
-  decisiontrace: 'rgba(229, 9, 20, 0.28)',
-  'cognitive-support': 'rgba(168, 85, 247, 0.26)',
-  'music-player': 'rgba(39, 201, 63, 0.24)',
-  'simon-game': 'rgba(234, 179, 8, 0.24)',
-  portfolio: 'rgba(229, 9, 20, 0.30)',
-  'python-collection': 'rgba(56, 189, 248, 0.24)',
-  'js-interactive': 'rgba(250, 204, 21, 0.24)',
-  'responsive-interfaces': 'rgba(236, 72, 153, 0.24)',
-  'ml-experiments': 'rgba(139, 92, 246, 0.24)',
-  'video-projects': 'rgba(153, 153, 255, 0.26)',
+  decisiontrace: 'rgba(229, 9, 20, 0.15)',
+  'cognitive-support': 'rgba(229, 9, 20, 0.12)',
+  'music-player': 'rgba(229, 9, 20, 0.12)',
+  'simon-game': 'rgba(229, 9, 20, 0.12)',
+  portfolio: 'rgba(229, 9, 20, 0.15)',
+  'python-collection': 'rgba(229, 9, 20, 0.12)',
+  'js-interactive': 'rgba(229, 9, 20, 0.12)',
+  'responsive-interfaces': 'rgba(229, 9, 20, 0.12)',
+  'ml-experiments': 'rgba(229, 9, 20, 0.12)',
+  'video-projects': 'rgba(229, 9, 20, 0.12)',
 };
 
 const AUTOPLAY_DURATION_MS = 8000; // 8 seconds per project

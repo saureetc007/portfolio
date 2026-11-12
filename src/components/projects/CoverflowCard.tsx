@@ -153,12 +153,12 @@ export function CoverflowCard({
 
       // Smooth opacity falloff as cards curve around toward the sides and rear of the cylinder
       if (absOffset <= 2.2) {
-        opacity = Math.max(0.25, Math.cos(angleRad) * 0.82 + 0.18);
+        opacity = Math.max(0.40, Math.cos(angleRad) * 0.70 + 0.30);
       } else {
-        opacity = Math.max(0, (2.7 - absOffset) / 0.5) * 0.35;
+        opacity = Math.max(0, (2.7 - absOffset) / 0.5) * 0.40;
       }
 
-      filter = `brightness(${Math.max(0.42, 0.72 - (absOffset - 1) * 0.14).toFixed(2)}) contrast(0.95)`;
+      filter = `brightness(${Math.max(0.65, 0.82 - (absOffset - 1) * 0.10).toFixed(2)}) contrast(0.98)`;
     }
   }
 

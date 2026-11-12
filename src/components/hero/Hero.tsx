@@ -320,6 +320,7 @@ export function Hero() {
                   />
                 ) : (
                   <div className="hero__title-wrapper">
+                    <span className="hero__owner-kicker">Saureet Chakrabarti · Project Showcase</span>
                     <h1 className="hero__title">
                       <WordReveal text={slide.title} as="span" wordDelay={0.06} />
                     </h1>

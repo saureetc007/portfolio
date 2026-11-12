@@ -3,13 +3,13 @@ import type { HeroSlide } from '@/types/content';
 export const heroSlides: HeroSlide[] = [
   {
     id: 'developer-spotlight',
-    badge: 'DEVELOPER SPOTLIGHT',
+    badge: 'SAUREET CHAKRABARTI // DEVELOPER SPOTLIGHT',
     titleFirst: 'Saureet',
     titleLast: 'Chakrabarti',
     title: 'Saureet Chakrabarti',
-    subtitle: 'Building ideas into reality.',
+    subtitle: 'CS & AI Developer · Building systems that turn ideas into reality.',
     description:
-      'CS & AI student exploring software engineering, intelligent systems, and creative technology. Building projects that turn ideas into working experiences.',
+      'Computer Science & Artificial Intelligence student at Newton School of Technology. Exploring low-level systems, local neural inference, and responsive web experiences.',
     primaryCta: {
       label: 'Explore My Work',
       target: 'projects',
@@ -24,9 +24,9 @@ export const heroSlides: HeroSlide[] = [
   },
   {
     id: 'decisionvault',
-    badge: 'FEATURED ARCHITECTURE',
+    badge: 'FEATURED ARCHITECTURE // BY SAUREET CHAKRABARTI',
     title: 'DecisionVault',
-    subtitle: 'Engineering decisions, preserved.',
+    subtitle: 'Architecture decision recovery engine by Saureet.',
     description:
       'A developer-focused tool for extracting structured engineering decisions from technical discussions and retaining their supporting evidence.',
     primaryCta: {
@@ -46,9 +46,9 @@ export const heroSlides: HeroSlide[] = [
   },
   {
     id: 'cognitive-support',
-    badge: 'APPLIED AI // HEALTHCARE',
+    badge: 'APPLIED AI // BY SAUREET CHAKRABARTI',
     title: 'Cognitive Support Platform',
-    subtitle: 'Accessible AI for older adults.',
+    subtitle: 'Accessible cognitive support system designed by Saureet.',
     description:
       'An applied AI project exploring accessible assistive interfaces, cognitive exercises, and supportive tooling designed specifically for older adults and caregivers.',
     primaryCta: {
@@ -67,9 +67,9 @@ export const heroSlides: HeroSlide[] = [
   },
   {
     id: 'project-collection',
-    badge: 'ENGINEERING SHOWCASE',
+    badge: 'PORTFOLIO SHOWCASE // SAUREET CHAKRABARTI',
     title: 'Project Collection',
-    subtitle: 'From algorithms to streaming interfaces.',
+    subtitle: 'Curated software engineering portfolio of Saureet.',
     description:
       'A dynamic showcase highlighting 10 curated projects spanning local LLM architecture, cognitive assistive tools, streaming web applications, and algorithmic experiments.',
     primaryCta: {

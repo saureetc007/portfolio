@@ -154,16 +154,32 @@
 .bento-card:focus-visible {
   background: radial-gradient(
     ellipse 120% 120% at var(--glare-x, 50%) var(--glare-y, 30%),
-    rgba(229, 9, 20, 0.24) 0%,
-    rgba(180, 0, 15, 0.13) 40%,
-    rgba(120, 0, 10, 0.05) 65%,
+    rgba(229, 9, 20, 0.12) 0%,
+    rgba(180, 0, 15, 0.06) 40%,
+    transparent 70%,
     #171717 90%
   ) !important;
-  border-color: rgba(229, 9, 20, 0.55) !important;
+  border-color: rgba(229, 9, 20, 0.45) !important;
   transform: translateY(-4px);
   box-shadow:
     0 22px 50px rgba(0, 0, 0, 0.9),
-    0 0 30px rgba(229, 9, 20, 0.22) !important;
+    0 0 16px rgba(229, 9, 20, 0.10) !important;
+}
+
+/* Reduced glow on Mobile Development card for balanced contrast */
+.bento-grid__item--mobile .bento-card:hover,
+.bento-grid__item--mobile .bento-card.is-card-hovered,
+.bento-grid__item--mobile .bento-card.is-card-selected {
+  background: radial-gradient(
+    ellipse 120% 120% at var(--glare-x, 50%) var(--glare-y, 30%),
+    rgba(229, 9, 20, 0.08) 0%,
+    transparent 60%,
+    #171717 90%
+  ) !important;
+  border-color: rgba(229, 9, 20, 0.35) !important;
+  box-shadow:
+    0 18px 42px rgba(0, 0, 0, 0.85),
+    0 0 12px rgba(229, 9, 20, 0.08) !important;
 }
 
 .bento-card:focus-visible {
@@ -603,7 +619,7 @@
 }
 
 .status-item--git {
-  color: #A855F7;
+  color: #B3B3B3;
 }
 
 /* --------------------------------------------------------------------------
@@ -896,29 +912,27 @@
   overflow: hidden;
 }
 
-/* Priority 02: AI & Data Intelligence Purple / Red Lighting */
+/* Priority 02: AI & Data Intelligence Crimson / Dark Surfaces */
 .ai-card-content--lighting {
   position: relative;
-  border-color: rgba(168, 85, 247, 0.28);
+  border-color: rgba(255, 255, 255, 0.08);
   background: radial-gradient(
     circle at 85% 15%,
-    rgba(168, 85, 247, 0.16) 0%,
-    rgba(229, 9, 20, 0.12) 45%,
-    #121212 80%
+    rgba(229, 9, 20, 0.08) 0%,
+    rgba(178, 7, 16, 0.04) 45%,
+    #141414 80%
   );
-  box-shadow:
-    inset 0 0 25px rgba(168, 85, 247, 0.06),
-    0 4px 20px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
 }
 
-.ai-purple-red-glow {
+.ai-ambient-glow {
   position: absolute;
   top: -40px;
   right: -40px;
   width: 180px;
   height: 180px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(168, 85, 247, 0.25) 0%, rgba(229, 9, 20, 0.14) 50%, transparent 75%);
+  background: radial-gradient(circle, rgba(229, 9, 20, 0.08) 0%, transparent 70%);
   pointer-events: none;
   filter: blur(24px);
   z-index: 1;
@@ -980,14 +994,14 @@
 
 .ai-card-content__canvas {
   position: relative;
-  padding: 0.75rem;
+  padding: 0.85rem;
   background: #101010;
-  min-height: 140px;
+  min-height: 175px;
 }
 
 .neural-network-visual {
   position: relative;
-  height: 130px;
+  height: 160px;
 }
 
 .neural-synapses-svg {

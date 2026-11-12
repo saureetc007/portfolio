@@ -24,15 +24,15 @@
   border-radius: 50%;
   background: radial-gradient(
     ellipse 65% 55% at 50% 50%,
-    var(--active-project-glow, rgba(229, 9, 20, 0.25)) 0%,
-    rgba(180, 0, 15, 0.1) 45%,
+    var(--active-project-glow, rgba(229, 9, 20, 0.14)) 0%,
+    rgba(140, 0, 10, 0.05) 45%,
     transparent 75%
   );
   filter: blur(70px);
   pointer-events: none;
   z-index: 0;
   transition: background 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease;
-  opacity: 0.9;
+  opacity: 0.55;
 }
 
 /* Cinematic Vignette */
@@ -300,7 +300,7 @@
   box-shadow:
     0 16px 45px rgba(0, 0, 0, 0.85),
     0 0 20px rgba(0, 0, 0, 0.6);
-  -webkit-box-reflect: below 10px linear-gradient(to bottom, transparent 65%, rgba(0, 0, 0, 0.38) 100%);
+  -webkit-box-reflect: below 12px linear-gradient(to bottom, transparent 80%, rgba(0, 0, 0, 0.14) 100%);
   transition:
     border-color 0.25s ease-out,
     box-shadow 0.25s ease-out,
@@ -309,14 +309,14 @@
 
 /* Active Center Card Treatment (Steps forward in Z-space) */
 .coverflow-card.is-active .coverflow-card__surface {
-  border-color: rgba(229, 9, 20, 0.6);
+  border-color: rgba(229, 9, 20, 0.5);
   background:
-    radial-gradient(ellipse 130% 130% at 50% 30%, rgba(229, 9, 20, 0.24) 0%, rgba(180, 0, 15, 0.11) 50%, rgba(18, 18, 18, 0.98) 90%),
+    radial-gradient(ellipse 130% 130% at 50% 30%, rgba(229, 9, 20, 0.13) 0%, rgba(140, 0, 10, 0.05) 50%, rgba(18, 18, 18, 0.98) 90%),
     #151515;
   box-shadow:
     0 28px 70px rgba(0, 0, 0, 0.95),
-    0 0 40px rgba(229, 9, 20, 0.3),
-    0 0 0 1px rgba(229, 9, 20, 0.45);
+    0 0 22px rgba(229, 9, 20, 0.16),
+    0 0 0 1px rgba(229, 9, 20, 0.35);
 }
 
 /* Idle Floating Animation on Active Center Card */
@@ -370,6 +370,14 @@
 /* Side Card Clickable State */
 .coverflow-card.is-side {
   cursor: pointer;
+}
+
+.coverflow-card.is-side .coverflow-card__title {
+  color: #FFFFFF;
+}
+
+.coverflow-card.is-side .coverflow-card__tagline {
+  color: #CCCCCC;
 }
 
 .coverflow-card.is-side:hover .coverflow-card__surface {

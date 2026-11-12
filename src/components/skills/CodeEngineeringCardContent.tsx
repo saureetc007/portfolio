@@ -20,7 +20,7 @@ const SNIPPETS: Record<string, CodeSnippet> = {
     lang: 'Python 3.11',
     icon: 'python',
     command: 'python -m engine --vectorize-embeddings --threads=8',
-    output: '[STATUS]: 1024 tensor embeddings normalized (shape: [1024, 768]) in 12.4ms. Memory: 38MB. Exit: 0',
+    output: '[SIMULATION]: 1024 tensor embeddings normalized (shape: [1024, 768]). Status: OK (Exit: 0)',
     lines: [
       {
         num: '01',
@@ -91,7 +91,7 @@ const SNIPPETS: Record<string, CodeSnippet> = {
     lang: 'JavaScript ES6+',
     icon: 'javascript',
     command: 'node --experimental-vm-modules runtime.js',
-    output: '[STATUS]: Event loop microtask queue drained. Latency: 1.1ms. 48/48 tests OK.',
+    output: '[SIMULATION]: Event loop microtask queue drained. 48/48 unit assertions passed.',
     lines: [
       {
         num: '01',
@@ -297,7 +297,7 @@ export function CodeEngineeringCardContent() {
             <DecryptedText key={snippet.fileName} text={snippet.command} speed={25} maxIterations={8} animateOn="mount" />
           </span>
           <span className={`terminal-indicator ${runSuccess ? 'is-success' : 'is-loading'}`}>
-            {isRunning ? '● COMPILING' : '● EXECUTED (0.012s)'}
+            {isRunning ? '● COMPILING' : '● SIMULATED RUNTIME'}
           </span>
         </div>
         <p className="terminal-output-text">

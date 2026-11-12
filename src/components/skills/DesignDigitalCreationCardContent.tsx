@@ -75,7 +75,7 @@ export function DesignDigitalCreationCardContent() {
               </svg>
             )}
           </button>
-          <span className="fps-badge">60 FPS</span>
+          <span className="fps-badge">TIMELINE CANVAS</span>
         </div>
       </div>
 
@@ -200,7 +200,7 @@ export function DesignDigitalCreationCardContent() {
       <div className="design-card-content__deploy-bar">
         <div className="deploy-pill">
           <SkillIcon name="vercel" size={11} />
-          <span>Vercel Edge (12ms)</span>
+          <span>Vercel Edge Network</span>
         </div>
         <div className="deploy-pill">
           <SkillIcon name="netlify" size={11} />

@@ -30,14 +30,14 @@ export function AIDataIntelligenceCardContent() {
       {/* Aceternity Background Beams */}
       <BackgroundBeams />
 
-      {/* Subtle Purple / Red Atmospheric Lighting */}
-      <div className="ai-purple-red-glow" aria-hidden="true" />
+      {/* Subtle Crimson / Charcoal Atmospheric Lighting */}
+      <div className="ai-ambient-glow" aria-hidden="true" />
 
       {/* 1. Header Toolbar with Mode Switcher */}
       <div className="ai-card-content__header">
         <div className="ai-status-indicator">
           <span className="ai-pulse-dot" />
-          <span className="ai-status-text">NEURAL GRAPH // PURPLE-RED LIGHTING</span>
+          <span className="ai-status-text">NEURAL GRAPH // INFERENCE PIPELINE</span>
         </div>
 
         <div className="ai-tabs" role="tablist" aria-label="AI Visualization Modes">
@@ -84,28 +84,28 @@ export function AIDataIntelligenceCardContent() {
       <div className="ai-card-content__canvas">
         {activeTab === 'network' && (
           <div className="neural-network-visual">
-            <svg className="neural-synapses-svg" viewBox="0 0 340 140" aria-hidden="true">
+            <svg className="neural-synapses-svg" viewBox="0 0 340 160" aria-hidden="true">
               <defs>
                 <linearGradient id="synapse-grad-ai" x1="0%" y1="0%" x2="100%" y2="0%">
                   <stop offset="0%" stopColor="#E50914" stopOpacity="0.4" />
-                  <stop offset="50%" stopColor="#A855F7" stopOpacity="0.9" />
+                  <stop offset="50%" stopColor="#FFFFFF" stopOpacity="0.85" />
                   <stop offset="100%" stopColor="#E50914" stopOpacity="0.5" />
                 </linearGradient>
               </defs>
-              {/* Synaptic paths from Input to Hidden (Purple / Red lighting) */}
-              <line x1="30" y1="30" x2="160" y2="20" stroke="rgba(168, 85, 247, 0.35)" strokeWidth="1.2" />
-              <line x1="30" y1="30" x2="160" y2="55" stroke="rgba(229, 9, 20, 0.4)" strokeWidth="1.2" />
-              <line x1="30" y1="70" x2="160" y2="55" stroke="rgba(168, 85, 247, 0.3)" strokeWidth="1.2" />
-              <line x1="30" y1="70" x2="160" y2="90" stroke="rgba(229, 9, 20, 0.6)" strokeWidth="1.5" />
-              <line x1="30" y1="110" x2="160" y2="90" stroke="rgba(168, 85, 247, 0.4)" strokeWidth="1.2" />
-              <line x1="30" y1="110" x2="160" y2="125" stroke="rgba(229, 9, 20, 0.5)" strokeWidth="1.2" />
+              {/* Synaptic paths from Input to Hidden (Crimson & Monochrome Lighting) */}
+              <line x1="30" y1="35" x2="160" y2="25" stroke="rgba(255, 255, 255, 0.22)" strokeWidth="1.2" />
+              <line x1="30" y1="35" x2="160" y2="65" stroke="rgba(229, 9, 20, 0.45)" strokeWidth="1.2" />
+              <line x1="30" y1="80" x2="160" y2="65" stroke="rgba(255, 255, 255, 0.18)" strokeWidth="1.2" />
+              <line x1="30" y1="80" x2="160" y2="105" stroke="rgba(229, 9, 20, 0.6)" strokeWidth="1.5" />
+              <line x1="30" y1="125" x2="160" y2="105" stroke="rgba(255, 255, 255, 0.22)" strokeWidth="1.2" />
+              <line x1="30" y1="125" x2="160" y2="145" stroke="rgba(229, 9, 20, 0.45)" strokeWidth="1.2" />
 
               {/* Synaptic paths from Hidden to Output */}
-              <line x1="160" y1="20" x2="300" y2="45" stroke="rgba(168, 85, 247, 0.35)" strokeWidth="1.2" />
-              <line x1="160" y1="55" x2="300" y2="45" stroke="rgba(229, 9, 20, 0.7)" strokeWidth="1.6" />
-              <line x1="160" y1="90" x2="300" y2="45" stroke="url(#synapse-grad-ai)" strokeWidth="2.2" className="synapse-pulse" />
-              <line x1="160" y1="90" x2="300" y2="95" stroke="rgba(168, 85, 247, 0.35)" strokeWidth="1.2" />
-              <line x1="160" y1="125" x2="300" y2="95" stroke="rgba(229, 9, 20, 0.4)" strokeWidth="1.2" />
+              <line x1="160" y1="25" x2="300" y2="55" stroke="rgba(255, 255, 255, 0.2)" strokeWidth="1.2" />
+              <line x1="160" y1="65" x2="300" y2="55" stroke="rgba(229, 9, 20, 0.65)" strokeWidth="1.6" />
+              <line x1="160" y1="105" x2="300" y2="55" stroke="url(#synapse-grad-ai)" strokeWidth="2.2" className="synapse-pulse" />
+              <line x1="160" y1="105" x2="300" y2="115" stroke="rgba(255, 255, 255, 0.2)" strokeWidth="1.2" />
+              <line x1="160" y1="145" x2="300" y2="115" stroke="rgba(229, 9, 20, 0.45)" strokeWidth="1.2" />
             </svg>
 
             {/* Interactive Nodes Layer */}
@@ -175,7 +175,7 @@ export function AIDataIntelligenceCardContent() {
             <div className="regression-chart-card">
               <div className="chart-meta">
                 <span className="math-formula">ŷ = 0.84x + 1.25</span>
-                <span className="chart-r2">R² = 0.942 • MSE = 0.041</span>
+                <span className="chart-r2">ILLUSTRATIVE FIT // R² = 0.94</span>
               </div>
               <svg className="regression-svg" viewBox="0 0 280 110" aria-hidden="true">
                 {/* Axes */}
@@ -184,15 +184,15 @@ export function AIDataIntelligenceCardContent() {
                 {/* Gridlines */}
                 <line x1="25" y1="50" x2="265" y2="50" stroke="#222222" strokeDasharray="3,3" />
                 <line x1="145" y1="10" x2="145" y2="95" stroke="#222222" strokeDasharray="3,3" />
-                {/* Regression Line with purple/red tone */}
+                {/* Regression Line with red accent */}
                 <line x1="30" y1="88" x2="255" y2="20" stroke="#E50914" strokeWidth="2.5" />
                 {/* Scatter Data Points */}
                 <circle cx="45" cy="82" r="3.2" fill="#FFFFFF" />
-                <circle cx="70" cy="74" r="3.2" fill="#A855F7" />
+                <circle cx="70" cy="74" r="3.2" fill="#B3B3B3" />
                 <circle cx="95" cy="79" r="3.2" fill="#FFFFFF" />
                 <circle cx="120" cy="62" r="3.2" fill="#FFFFFF" />
                 <circle cx="150" cy="50" r="4" fill="#E50914" />
-                <circle cx="180" cy="46" r="3.2" fill="#A855F7" />
+                <circle cx="180" cy="46" r="3.2" fill="#B3B3B3" />
                 <circle cx="210" cy="34" r="3.2" fill="#FFFFFF" />
                 <circle cx="240" cy="22" r="3.2" fill="#FFFFFF" />
               </svg>
@@ -215,21 +215,21 @@ export function AIDataIntelligenceCardContent() {
             </div>
 
             <div className="sql-snippet-block">
-              <span className="sql-tag">SQL QUERY OPTIMIZATION</span>
-              <code>SELECT model_id, latency_ms FROM adr_records WHERE confidence &gt; 0.95;</code>
+              <span className="sql-tag">SQL QUERY STRUCTURE</span>
+              <code>SELECT model_id, confidence FROM adr_records WHERE confidence &gt; 0.90;</code>
             </div>
           </div>
         )}
       </div>
 
-      {/* 3. Real-Time Telemetry Bar for Active Node / Model */}
+      {/* 3. Telemetry Bar for Active Node / Model */}
       <div className="ai-card-content__telemetry">
         <div className="telemetry-item">
           <span className="telemetry-label">INSPECT:</span>
           <span className="telemetry-val">{selectedNode.label} ({selectedNode.value})</span>
         </div>
         <div className="telemetry-item telemetry-item--right">
-          <span className="local-ai-pill">OLLAMA // LOCAL: 110ms</span>
+          <span className="local-ai-pill">OLLAMA // LOCAL INFERENCE (DEMO)</span>
         </div>
       </div>
     </div>

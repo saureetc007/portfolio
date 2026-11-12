@@ -26,7 +26,7 @@ export function MobileDevelopmentCardContent() {
           {isDynamicIslandExpanded ? (
             <div className="island-expanded-content">
               <span className="island-dot-live" />
-              <span className="island-text">Flutter 3.x AOT (60 FPS)</span>
+              <span className="island-text">Flutter 3.x Native Shell</span>
               <span className="island-badge">OK</span>
             </div>
           ) : (
@@ -104,8 +104,8 @@ export function MobileDevelopmentCardContent() {
                 <div className="phone-terminal-box">
                   <span className="term-line-1">$ flutter run -d mobile</span>
                   <span className="term-line-2">Syncing files to device...</span>
-                  <span className="term-line-3">✓ Hot reload in 184ms!</span>
-                  <span className="term-line-4">FPS: 60.0 (AOT Native)</span>
+                  <span className="term-line-3">✓ Hot reload applied (Simulated)</span>
+                  <span className="term-line-4">Target: AOT Native Compilation</span>
                 </div>
               </div>
             )}
@@ -177,7 +177,7 @@ export function MobileDevelopmentCardContent() {
         </div>
         <div className="brand-chip">
           <SkillIcon name="dart" size={13} />
-          <span>Dart AOT (60 FPS)</span>
+          <span>Dart AOT Compilation</span>
         </div>
       </div>
     </div>

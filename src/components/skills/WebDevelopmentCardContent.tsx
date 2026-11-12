@@ -175,12 +175,12 @@ export function WebDevelopmentCardContent() {
             </div>
             <div className="tailwind-metrics">
               <div className="tw-metric">
-                <span className="k">BUNDLE SIZE</span>
-                <span className="v">3.8 KB (JIT Purged)</span>
+                <span className="k">UTILITY SCOPE</span>
+                <span className="v">Tailwind JIT Purged</span>
               </div>
               <div className="tw-metric">
-                <span className="k">CONTRAST</span>
-                <span className="v">WCAG AAA (14.2:1)</span>
+                <span className="k">ACCESSIBILITY</span>
+                <span className="v">WCAG AAA Standards</span>
               </div>
             </div>
           </div>

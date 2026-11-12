@@ -496,11 +496,19 @@ Build Verification:
 - All 6 hero slide assets confirmed on disk
 - All 10 project thumbnails confirmed on disk
 - TypeScript zero-error type check: npx tsc --noEmit (0 errors)
-- Production Vite build: npm run build (successful compile in ~1.3s)
+- Production Vite build: npm run build (successful compile in ~0.9s)
+
+Phase 1.1 Visual Refinement Audit & Verification:
+- Hero: Clear owner kicker ("Saureet Chakrabarti · Project Showcase" / "FEATURED ARCHITECTURE // BY SAUREET CHAKRABARTI") added across slides. Reduced card stack ambient glow (0.16 -> 0.08) and front card red box-shadow bleed.
+- Skills Bento: Removed all residual purple gradients/synapses in AI & Data Intelligence card. Toned down mobile card glow and general bento hover glow. Balanced AI card canvas min-height to 175px.
+- Metric Integrity Audit: Replaced illustrative hardcoded timings (12.4ms, 184ms, 110ms) and unverified "60 FPS" claims with explicit, truthful simulation labels ([SIMULATION], OLLAMA // LOCAL INFERENCE (DEMO), Native Shell, WCAG AAA Standards).
+- Projects Coverflow: Normalized project glows to subtle uniform red (0.12 - 0.15). Toned down 3D coverflow ambient background glow. Refined active card reflection with subtle gradient falloff. Raised side-card minimum brightness floor to 0.65 and increased tagline contrast to #CCCCCC while preserving 3D cylinder depth. Removed all purple in Cognitive Support card.
+- Strict Constraints Preserved: Mobile/responsive layouts untouched (pending separate review), zero Rishihood references, zero new libraries.
 
 ================================================================================
 9. COMPLETE RECENT COMMIT LOG & MILESTONES
 ================================================================================
+- feat(ui-ux): Phase 1.1 visual refinement — hero owner introduction across all slides, subtle glows, neural purple removal, truthful simulated metrics, and coverflow reflection/contrast polish
 - feat(ui-ux): Phase 1 complete UI/UX improvement — unified streaming palette (#141414, #181818, #232323, #FFFFFF, #B3B3B3, #808080, #E50914, #B20710), active nav universe mapping, high-contrast tech pills, refined project modal typography, accessible 48px form inputs, and zero Rishihood references
 - 585398b: feat(motion): improvise scroll-in animations — persistent cinematic scene transitions, laser horizon beam, real-time glowing scroll progress indicator, and zero-blur staggered typography
 - b074280: docs: add comprehensive project manifest and architecture audit log.txt

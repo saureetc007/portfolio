@@ -91,29 +91,29 @@ export function ProjectCinematicVisual({ project, isActive }: ProjectCinematicVi
           <svg viewBox="0 0 400 240" className="visual-svg">
             <defs>
               <radialGradient id="cog-glow" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stopColor="#C084FC" stopOpacity="0.8" />
-                <stop offset="60%" stopColor="#A855F7" stopOpacity="0.3" />
-                <stop offset="100%" stopColor="#A855F7" stopOpacity="0" />
+                <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.8" />
+                <stop offset="60%" stopColor="#E50914" stopOpacity="0.3" />
+                <stop offset="100%" stopColor="#E50914" stopOpacity="0" />
               </radialGradient>
               <filter id="cog-shadow" x="-30%" y="-30%" width="160%" height="160%">
-                <feDropShadow dx="0" dy="0" stdDeviation="6" floodColor="#A855F7" floodOpacity="0.9" />
+                <feDropShadow dx="0" dy="0" stdDeviation="6" floodColor="#E50914" floodOpacity="0.6" />
               </filter>
             </defs>
 
             {/* Corner Tech Crosshairs */}
-            <path d="M12 20 H24 M18 14 V26" stroke="rgba(168,85,247,0.3)" strokeWidth="1.2" />
-            <path d="M376 20 H388 M382 14 V26" stroke="rgba(168,85,247,0.3)" strokeWidth="1.2" />
-            <path d="M12 220 H24 M18 214 V226" stroke="rgba(168,85,247,0.3)" strokeWidth="1.2" />
-            <path d="M376 220 H388 M382 214 V226" stroke="rgba(168,85,247,0.3)" strokeWidth="1.2" />
+            <path d="M12 20 H24 M18 14 V26" stroke="rgba(255,255,255,0.2)" strokeWidth="1.2" />
+            <path d="M376 20 H388 M382 14 V26" stroke="rgba(255,255,255,0.2)" strokeWidth="1.2" />
+            <path d="M12 220 H24 M18 214 V226" stroke="rgba(255,255,255,0.2)" strokeWidth="1.2" />
+            <path d="M376 220 H388 M382 214 V226" stroke="rgba(255,255,255,0.2)" strokeWidth="1.2" />
 
             {/* Pulsing Concentric Radar Rings */}
-            <circle cx="200" cy="120" r="82" fill="none" stroke="rgba(168,85,247,0.18)" strokeWidth="1.5" className="pulse-ring-1" />
-            <circle cx="200" cy="120" r="54" fill="none" stroke="rgba(168,85,247,0.35)" strokeWidth="1.8" className="pulse-ring-2" />
-            <circle cx="200" cy="120" r="28" fill="url(#cog-glow)" stroke="#C084FC" strokeWidth="2.5" filter="url(#cog-shadow)" />
+            <circle cx="200" cy="120" r="82" fill="none" stroke="rgba(229,9,20,0.15)" strokeWidth="1.5" className="pulse-ring-1" />
+            <circle cx="200" cy="120" r="54" fill="none" stroke="rgba(229,9,20,0.3)" strokeWidth="1.8" className="pulse-ring-2" />
+            <circle cx="200" cy="120" r="28" fill="url(#cog-glow)" stroke="#E50914" strokeWidth="2.5" filter="url(#cog-shadow)" />
             <circle cx="200" cy="120" r="9" fill="#FFFFFF" />
 
             {/* Neural Synapse Links with traveling light pulses */}
-            <g stroke="#A855F7" strokeWidth="1.8" opacity="0.75">
+            <g stroke="rgba(255,255,255,0.3)" strokeWidth="1.8" opacity="0.75">
               <line x1="200" y1="120" x2="110" y2="70" strokeDasharray="4 3" className="synapse-line" />
               <line x1="200" y1="120" x2="290" y2="70" strokeDasharray="4 3" className="synapse-line" />
               <line x1="200" y1="120" x2="130" y2="180" strokeDasharray="4 3" className="synapse-line" />
@@ -121,17 +121,17 @@ export function ProjectCinematicVisual({ project, isActive }: ProjectCinematicVi
             </g>
 
             {/* Surrounding Supportive Nodes with glowing badges */}
-            <circle cx="110" cy="70" r="11" fill="#181818" stroke="#C084FC" strokeWidth="2.2" filter="url(#cog-shadow)" />
-            <text x="110" y="94" textAnchor="middle" fill="#F3E8FF" fontSize="8.5" fontWeight="bold" fontFamily="monospace">WCAG AAA</text>
+            <circle cx="110" cy="70" r="11" fill="#181818" stroke="#E50914" strokeWidth="2.2" filter="url(#cog-shadow)" />
+            <text x="110" y="94" textAnchor="middle" fill="#FFFFFF" fontSize="8.5" fontWeight="bold" fontFamily="monospace">WCAG AAA</text>
 
-            <circle cx="290" cy="70" r="11" fill="#181818" stroke="#38BDF8" strokeWidth="2.2" />
-            <text x="290" y="94" textAnchor="middle" fill="#E0F2FE" fontSize="8.5" fontWeight="bold" fontFamily="monospace">HIGH CONTRAST</text>
+            <circle cx="290" cy="70" r="11" fill="#181818" stroke="rgba(255,255,255,0.4)" strokeWidth="2.2" />
+            <text x="290" y="94" textAnchor="middle" fill="#E5E5E5" fontSize="8.5" fontWeight="bold" fontFamily="monospace">HIGH CONTRAST</text>
 
             <circle cx="130" cy="180" r="9" fill="#181818" stroke="#E50914" strokeWidth="2" />
             <circle cx="280" cy="175" r="9" fill="#181818" stroke="#27C93F" strokeWidth="2" />
           </svg>
-          <div className="visual-telemetry" style={{ borderColor: 'rgba(168,85,247,0.4)', color: '#E9D5FF' }}>
-            <span className="telemetry-dot" style={{ background: '#A855F7' }} />
+          <div className="visual-telemetry" style={{ borderColor: 'rgba(229,9,20,0.35)', color: '#FFFFFF' }}>
+            <span className="telemetry-dot" style={{ background: '#E50914' }} />
             <span>ACCESSIBLE COGNITIVE INTERFACE // GENTLE PROMPTS</span>
           </div>
         </div>

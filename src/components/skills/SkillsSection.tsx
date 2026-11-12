@@ -185,7 +185,7 @@ export function SkillsSection() {
                 <span className="philosophy-headline-accent">Evidence Before Assumption.</span>
               </h3>
               <p className="philosophy-narrative">
-                Great software is deterministic, legible, and built to endure. My technical focus prioritizes low-level algorithmic foundations, rigorous typed contracts, localized privacy-preserving intelligence, and fluid 60 FPS interfaces — choosing depth, resilience, and user respect over transient framework churn.
+                Great software is deterministic, legible, and built to endure. My technical focus prioritizes low-level algorithmic foundations, rigorous typed contracts, localized privacy-preserving intelligence, and fluid interactive interfaces — choosing depth, resilience, and user respect over transient framework churn.
               </p>
             </div>
 
@@ -222,7 +222,7 @@ export function SkillsSection() {
               </div>
               <div className="philosophy-meta-badges">
                 <span className="meta-badge">CITATION TRACEABILITY</span>
-                <span className="meta-badge">60 FPS RUNTIME</span>
+                <span className="meta-badge">REACTIVE RUNTIME</span>
               </div>
             </div>
           </div>
