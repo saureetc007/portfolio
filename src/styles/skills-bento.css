@@ -325,14 +325,23 @@
 .bento-tech-pill {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 0.2rem 0.5rem;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 4px;
+  gap: 5px;
+  padding: 0.25rem 0.6rem;
+  background: #232323;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-xs);
   font-family: var(--font-mono);
-  font-size: 0.68rem;
-  color: #D4D4D4;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #E5E5E5;
+  transition: background-color var(--dur-fast), border-color var(--dur-fast), color var(--dur-fast);
+}
+
+.bento-card:hover .bento-tech-pill,
+.bento-card.is-card-hovered .bento-tech-pill {
+  background: #2a2a2a;
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
 }
 
 .bento-card__click-hint {
@@ -733,15 +742,9 @@
 
 .mini-site__hero-card {
   padding: 0.55rem 0.75rem;
-  background: rgba(229, 9, 20, 0.06);
-  border: 1px solid rgba(229, 9, 20, 0.25);
+  background: #232323;
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 6px;
-  animation: heroPulseGlow 4s ease-in-out infinite;
-}
-
-@keyframes heroPulseGlow {
-  0%, 100% { border-color: rgba(229, 9, 20, 0.2); }
-  50% { border-color: rgba(229, 9, 20, 0.5); }
 }
 
 .mini-site__badge {
@@ -1452,10 +1455,10 @@
   border-radius: 2px;
 }
 
-.clip-block--video { background: #00005B; border-left: 2px solid #9999FF; }
-.clip-block--video-cut { background: #150033; border-left: 2px solid #D291FF; }
-.clip-block--motion { background: #330033; border-left: 2px solid #E50914; position: relative; }
-.clip-block--audio { background: #003311; border-left: 2px solid #27C93F; }
+.clip-block--video { background: #1c2536; border-left: 2px solid #4a6fa5; }
+.clip-block--video-cut { background: #22252a; border-left: 2px solid #808080; }
+.clip-block--motion { background: #2c1a1d; border-left: 2px solid #E50914; position: relative; }
+.clip-block--audio { background: #18261e; border-left: 2px solid #2e7d32; }
 
 .keyframes-row {
   position: absolute;

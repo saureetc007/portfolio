@@ -68,7 +68,7 @@ All cyan glows, electric-blue lighting, floating cubes, and generic AI startup d
    - Netflix-inspired "Continue Watching" row showing current learning pursuits with red progress playback bars.
 
 6. **Editorial About Section**
-   - Personal narrative of studying CS & AI at Rishihood University (Newton School of Technology).
+   - Personal narrative of studying CS & AI at Newton School of Technology.
    - Milestone trajectory and academic facts card.
 
 7. **Three.js Interactive Skills Universe**

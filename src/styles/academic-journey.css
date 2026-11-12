@@ -153,7 +153,7 @@
    -------------------------------------------------------------------------- */
 .academic-chapter-card {
   position: relative;
-  background: #1B1B1B;
+  background: #181818;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 8px;
   padding: clamp(1.4rem, 3vw, 2.2rem);
@@ -388,7 +388,7 @@
 .academic-chapter-card--engineering {
   background:
     radial-gradient(ellipse 110% 80% at 50% 0%, rgba(229, 9, 20, 0.08) 0%, transparent 60%),
-    #1B1B1B;
+    #181818;
   border-color: rgba(255, 255, 255, 0.12);
 }
 
@@ -503,7 +503,7 @@
    6. CHAPTER 03: COLLEGE COMMUNITIES ("BEYOND THE CLASSROOM")
    -------------------------------------------------------------------------- */
 .academic-chapter-card--communities {
-  background: #1B1B1B;
+  background: #181818;
 }
 
 .academic-communities-grid {

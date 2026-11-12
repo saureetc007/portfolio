@@ -92,7 +92,7 @@ export const bentoSkillCategories: BentoSkillCategory[] = [
     subtitle: 'Machine Learning & Local Neural Inference',
     description:
       'Building predictive models, mathematical matrix pipelines, and localized zero-latency inference workflows preserving full data privacy.',
-    accentColor: '#A855F7',
+    accentColor: '#E50914',
     badge: 'PRIORITY 02 // LOCAL ML',
     gridClass: 'bento-grid__item--ai',
     technologies: [
@@ -169,7 +169,7 @@ export const bentoSkillCategories: BentoSkillCategory[] = [
     subtitle: 'Modern Browser Architecture & Layout',
     description:
       'Crafting responsive, accessible, high-performance web systems using semantic markup, modern CSS tokens, fluid typography, and utility-first styling.',
-    accentColor: '#38BDF8',
+    accentColor: '#E50914',
     badge: 'PRIORITY 03 // FRONTEND SYSTEMS',
     gridClass: 'bento-grid__item--web',
     technologies: [
@@ -216,7 +216,7 @@ export const bentoSkillCategories: BentoSkillCategory[] = [
     subtitle: 'UI/UX, Motion Design & Cloud Delivery',
     description:
       'Translating complex workflows into intuitive interface architectures, cinematic video sequences, and rapid production cloud deployments.',
-    accentColor: '#9999FF',
+    accentColor: '#E50914',
     badge: 'PRIORITY 04 // CREATIVE PIPELINE',
     gridClass: 'bento-grid__item--design',
     technologies: [
@@ -293,7 +293,7 @@ export const bentoSkillCategories: BentoSkillCategory[] = [
     subtitle: 'Cross-Platform Native Experiences',
     description:
       'Crafting smooth, single-codebase cross-platform mobile applications with custom animation loops and fluid reactive state management.',
-    accentColor: '#54C5F8',
+    accentColor: '#E50914',
     badge: 'PRIORITY 05 // MOBILE RUNTIMES',
     gridClass: 'bento-grid__item--mobile',
     technologies: [

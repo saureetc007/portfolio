@@ -587,9 +587,9 @@
 }
 
 .project-modal__text {
-  font-size: var(--text-sm);
+  font-size: 0.95rem;
   line-height: 1.65;
-  color: var(--color-text-2);
+  color: #D8D8D8;
 }
 
 .project-modal__sidebar {
@@ -601,7 +601,7 @@
 .project-modal__sidebar-box {
   padding: var(--space-5);
   border-radius: var(--radius-sm);
-  background: #202020;
+  background: #232323;
   border: 1px solid var(--color-border);
   display: flex;
   flex-direction: column;

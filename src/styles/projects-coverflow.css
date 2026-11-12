@@ -511,13 +511,20 @@
 
 .coverflow-tech-pill {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.72rem;
   font-weight: 500;
-  color: #D4D4D4;
-  padding: 0.15rem 0.45rem;
-  border-radius: 3px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #E5E5E5;
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-xs);
+  background: #232323;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: background-color var(--dur-fast), border-color var(--dur-fast), color var(--dur-fast);
+}
+
+.coverflow-card.is-active .coverflow-tech-pill {
+  background: #282828;
+  border-color: rgba(255, 255, 255, 0.18);
+  color: #FFFFFF;
 }
 
 /* Interactive Card Buttons */

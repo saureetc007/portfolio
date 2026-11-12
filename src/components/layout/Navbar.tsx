@@ -9,7 +9,8 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [logoClicks, setLogoClicks] = useState(0);
-  const active = useActiveSection(sectionIds);
+  const rawActive = useActiveSection(sectionIds);
+  const active = rawActive === 'universe' ? 'skills' : rawActive;
 
   const handleBrandClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     setOpen(false);

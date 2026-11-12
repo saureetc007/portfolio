@@ -184,15 +184,17 @@
     transition: color var(--dur-fast) var(--ease-out), padding-left var(--dur-fast) var(--ease-out);
   }
 
-  .navbar__link:hover,
-  .navbar__link.is-active {
+  .navbar__link:hover {
     color: #FFFFFF;
-    padding-left: var(--space-2);
+    padding-left: var(--space-3);
   }
 
   .navbar__link.is-active {
-    color: var(--color-red);
+    color: #FFFFFF;
     font-weight: 600;
+    padding-left: var(--space-4);
+    border-left: 3px solid var(--color-red);
+    background: rgba(229, 9, 20, 0.08);
   }
 }
 
