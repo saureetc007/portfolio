@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { motion, type Variants } from 'motion/react';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
-import { ease, dur } from '@/lib/motion-presets';
+import { ease } from '@/lib/motion-presets';
 
 interface WordRevealProps {
   text: string;
@@ -25,15 +25,13 @@ const containerVariants: Variants = {
 const wordVariants: Variants = {
   hidden: {
     opacity: 0,
-    y: 16,
-    filter: 'blur(8px)',
+    y: 14,
   },
   visible: {
     opacity: 1,
     y: 0,
-    filter: 'blur(0px)',
     transition: {
-      duration: dur.slow,
+      duration: 0.45,
       ease: ease.cinematic,
     },
   },

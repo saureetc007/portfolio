@@ -23,6 +23,19 @@
   background: rgba(20, 20, 20, 0.98);
 }
 
+/* Real-Time Glowing Scroll Progress Track */
+.navbar__scroll-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #E50914 0%, #FF2E3F 65%, #FFA000 100%);
+  box-shadow: 0 0 10px rgba(229, 9, 20, 0.85);
+  transition: width 40ms linear;
+  pointer-events: none;
+  z-index: 100;
+}
+
 .navbar__inner {
   display: flex;
   align-items: center;

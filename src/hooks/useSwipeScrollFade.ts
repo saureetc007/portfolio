@@ -7,17 +7,25 @@ export interface SwipeScrollFadeOptions {
   threshold?: number;
   rootMargin?: string;
   initialVisible?: boolean;
+  once?: boolean;
 }
 
 /**
  * useSwipeScrollFade
  * Tracks scroll and swipe gestures (both touch and wheel) to trigger
  * fluid, directional fade animations as sections enter the viewport.
+ * Uses a generous viewport threshold and persistent reveal state to prevent
+ * jarring disappearing/re-fading during normal reading.
  */
 export function useSwipeScrollFade<T extends HTMLElement = HTMLElement>(
   options: SwipeScrollFadeOptions = {}
 ) {
-  const { threshold = 0.08, rootMargin = '0px 0px -4% 0px', initialVisible = false } = options;
+  const {
+    threshold = 0.05,
+    rootMargin = '0px 0px -4% 0px',
+    initialVisible = false,
+    once = true,
+  } = options;
   const ref = useRef<T>(null);
   const prefersReducedMotion = useReducedMotion();
   const [isVisible, setIsVisible] = useState<boolean>(prefersReducedMotion || initialVisible);
@@ -83,10 +91,13 @@ export function useSwipeScrollFade<T extends HTMLElement = HTMLElement>(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-        } else {
-          // If section is well outside the viewport, allow it to smoothly re-fade on reverse swipe
+          if (once) {
+            observer.disconnect();
+          }
+        } else if (!once) {
+          // Generous hysteresis buffer (1.5 screens away) so reading never flickers
           const rect = entry.boundingClientRect;
-          if (rect.bottom < -140 || rect.top > window.innerHeight + 140) {
+          if (rect.bottom < -window.innerHeight * 1.5 || rect.top > window.innerHeight * 2) {
             setIsVisible(false);
           }
         }
@@ -96,7 +107,7 @@ export function useSwipeScrollFade<T extends HTMLElement = HTMLElement>(
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, [prefersReducedMotion, threshold, rootMargin]);
+  }, [prefersReducedMotion, threshold, rootMargin, once]);
 
   return { ref, isVisible, direction };
 }

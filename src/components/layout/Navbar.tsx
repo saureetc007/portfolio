@@ -7,6 +7,7 @@ import { cx } from '@/lib/cx';
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const [logoClicks, setLogoClicks] = useState(0);
   const active = useActiveSection(sectionIds);
 
@@ -29,7 +30,13 @@ export function Navbar() {
   };
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => {
+      const scrollY = window.scrollY;
+      setScrolled(scrollY > 20);
+      const totalDocHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = totalDocHeight > 0 ? (scrollY / totalDocHeight) * 100 : 0;
+      setScrollProgress(progress);
+    };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
@@ -96,6 +103,13 @@ export function Navbar() {
           </ul>
         </nav>
       </div>
+
+      {/* Real-Time Glowing Scroll Progress Indicator */}
+      <div
+        className="navbar__scroll-progress"
+        style={{ width: `${scrollProgress}%` }}
+        aria-hidden="true"
+      />
     </header>
   );
 }

@@ -13,7 +13,7 @@ interface SectionProps {
 }
 
 export function Section({ id, labelledBy, tone = 'base', children }: SectionProps) {
-  const { ref, isVisible, direction } = useSwipeScrollFade<HTMLElement>();
+  const { ref, isVisible, direction } = useSwipeScrollFade<HTMLElement>({ once: true });
 
   return (
     <section
@@ -28,6 +28,8 @@ export function Section({ id, labelledBy, tone = 'base', children }: SectionProp
         tone === 'alt' && 'section--alt'
       )}
     >
+      {/* Laser Horizon Scene Transition Divider */}
+      <div className="section__laser-horizon" aria-hidden="true" />
       <Container>{children}</Container>
     </section>
   );
